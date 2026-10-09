@@ -1,0 +1,24 @@
+id: template_problem
+name: Template Problem
+description: Scaffold showing how to package a new optimization problem for the generic framework.
+adapter: problems.template_problem.adapter:TemplateProblemAdapter
+default_config: configs/default.yaml
+patchedit_artifacts:
+  - name: model_entrypoint
+    source_type: python_builder
+    path: env.py
+    description: Replace with the real model builder or LP artifact entrypoint.
+codeedit_artifacts:
+  - name: codeedit_entrypoint
+    source_type: python_builder
+    path: env.py
+    description: Replace with the real direct solver implementation for code editing.
+data_artifacts:
+  - name: default_config
+    kind: yaml
+    path: configs/default.yaml
+    description: Replace with the packaged default config.
+contexts:
+  problem_context: context/problem_context.md
+capabilities:
+  solver_backend: unset

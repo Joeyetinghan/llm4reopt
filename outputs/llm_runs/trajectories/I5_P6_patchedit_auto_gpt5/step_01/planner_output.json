@@ -1,0 +1,42 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [],
+    "edit_summary": "Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "note": "Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order.",
+      "requires_content": [
+        "P4",
+        "P2",
+        "P1"
+      ]
+    },
+    "relevant_components": []
+  },
+  "candidate_action_sets": [],
+  "candidate_actions": [],
+  "edit_summary": "Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.",
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "note": "Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order.",
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "requires_content": [
+      "P4",
+      "P2",
+      "P1"
+    ]
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.\",\n  \"affected_sets\": {},\n  \"relevant_components\": [],\n  \"candidate_action_sets\": [],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\",\n    \"requires_content\": [\n      \"P4\",\n      \"P2\",\n      \"P1\"\n    ],\n    \"note\": \"Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order.\"\n  }\n}",
+  "relevant_components": []
+}

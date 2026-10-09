@@ -1,0 +1,20 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "Aligns triple-in-24hr penalty with 20\u00d7 the regular back-to-back (gamma2) weight; current gamma2=1.0.",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

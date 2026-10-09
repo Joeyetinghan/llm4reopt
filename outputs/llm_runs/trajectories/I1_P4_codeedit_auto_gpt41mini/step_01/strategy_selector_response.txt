@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local update to an objective weight, which is well supported by a heuristic warm start. Since tuned solving is available and supported, combining heuristic warm start with tuned solving is the fastest safe strategy to leverage reuse and achieve an optimized result.",
+  "confidence": 0.95
+}

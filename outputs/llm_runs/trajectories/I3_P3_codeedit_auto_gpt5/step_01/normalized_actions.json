@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -121,7 +121,16 @@\n             if isinstance(block, (int, float)) and int(block) in blocks\n         }\n     )\n-    early_slot_values = [int(slot) for slot in (early_slots or [])]\n+    # Enforce the requested cutoff by filtering early slots to be at or before slot 17.\n+    # Use weights[\"frontload_slot_cutoff\"] if provided, but cap at 17 to satisfy the policy.\n+    try:\n+        configured_cutoff = int(weights.get(\"frontload_slot_cutoff\", 17))\n+    except Exception:\n+        configured_cutoff = 17\n+    slot_cutoff = min(configured_cutoff, 17)\n+    early_slot_values = sorted(\n+        {int(slot) for slot in (early_slots or []) if int(slot) <= slot_cutoff and int(slot) in slots}\n+    )\n     if frontload_blocks:\n         m.addConstrs(\n             (\n@@ -194,18 +203,45 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Derive policy large-blocks from block_enrollment using the 300-student cutoff,\n+    # and ensure these are scheduled no later than slot 17 to satisfy the grading-time policy.\n+    blocks_list = [int(block) for block in data[\"blocks\"]]\n+    weights = dict(data[\"weights\"])\n+    size_cutoff = int(weights.get(\"frontload_block_size_cutoff\", 300))\n+    block_enrollment: Dict[str, int] = dict(data.get(\"block_enrollment\") or {})\n+    policy_large_blocks = sorted(\n+        {\n+            int(b)\n+            for b, enroll in block_enrollment.items()\n+            if int(b) in blocks_list and int(enroll) > size_cutoff\n+        }\n+    )\n+\n+    # Compute policy early slots: clamp the existing early_slots list to <= 17,\n+    # and fall back to the global slot list if early_slots is missing.\n+    requested_slot_cutoff = 17\n+    original_early = [int(slot) for slot in data.get(\"early_slots\", [])]\n+    if original_early:\n+        policy_early_slots = sorted({s for s in original_early if s <= requested_slot_cutoff and s in blocks_list})\n+    else:\n+        policy_early_slots = sorted({s for s in blocks_list if s <= requested_slot_cutoff})\n+\n+    # Record the slot cutoff in weights so the builder enforces the same clamp.\n+    weights[\"frontload_slot_cutoff\"] = requested_slot_cutoff\n+\n     grb = build_exam_gurobi_model(\n-        blocks=[int(block) for block in data[\"blocks\"]],\n+        blocks=blocks_list,\n         slots_per_day=int(data[\"slots_per_day\"]),\n         triple_24_start=[int(slot) for slot in data[\"triple_24_start\"]],\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n-        weights=dict(data[\"weights\"]),\n+        weights=weights,\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n-        large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        large_blocks=policy_large_blocks,\n+        early_slots=policy_early_slots,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I3_P3_codeedit_auto_gpt5/step_01/attempt_02/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

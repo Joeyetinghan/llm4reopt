@@ -1,0 +1,21 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "beta"
+        },
+        "update": {
+          "name": "beta",
+          "value": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

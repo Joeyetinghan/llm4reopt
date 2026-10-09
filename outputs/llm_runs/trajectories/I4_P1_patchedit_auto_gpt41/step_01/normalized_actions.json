@@ -1,0 +1,103 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "reserved_slots"
+        },
+        "update": {
+          "name": "reserved_slots",
+          "value": [
+            23
+          ]
+        }
+      },
+      {
+        "notes": "",
+        "op": "ADD_CONSTRAINT_FAMILY",
+        "scope": {},
+        "target": {
+          "constraint": "reserved_virtual_slot"
+        },
+        "update": {
+          "constraint": {
+            "aliases": [],
+            "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+            "index_set": [
+              23
+            ],
+            "lhs_spec": {
+              "kind": "exam_x_aggregate",
+              "rows": {
+                "23": {
+                  "fixed_block": 20,
+                  "slots": [
+                    23
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "rule_kind": "reserved_virtual_slot_family"
+            },
+            "name": "reserved_virtual_slot",
+            "rhs_spec": {
+              "23": 1.0
+            },
+            "sense": "=",
+            "tags": [
+              "availability",
+              "block_seq"
+            ]
+          }
+        }
+      },
+      {
+        "notes": "",
+        "op": "ADD_CONSTRAINT_FAMILY",
+        "scope": {},
+        "target": {
+          "constraint": "reserved_virtual_slot"
+        },
+        "update": {
+          "constraint": {
+            "aliases": [],
+            "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+            "index_set": [
+              23
+            ],
+            "lhs_spec": {
+              "kind": "exam_x_aggregate",
+              "rows": {
+                "23": {
+                  "fixed_block": 20,
+                  "slots": [
+                    23
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "rule_kind": "reserved_virtual_slot_family"
+            },
+            "name": "reserved_virtual_slot",
+            "rhs_spec": {
+              "23": 1.0
+            },
+            "sense": "=",
+            "tags": [
+              "availability",
+              "block_seq"
+            ]
+          }
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

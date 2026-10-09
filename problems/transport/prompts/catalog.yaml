@@ -1,0 +1,13 @@
+prompts:
+  P1:
+    text: >
+      Plant 1 is going into urgent maintenance for the next two days, so it
+      cannot ship anything.
+  P2:
+    text: >
+      There is an unexpected shortage of trucks for deliveries from Plant 2 to
+      Customer 2 this week. The maximum we can ship on this route is 5 units.
+  P3:
+    text: >
+      Customer 3 has placed an urgent order of 10 additional units on top of
+      their normal demand.

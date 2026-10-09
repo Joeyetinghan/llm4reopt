@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit imposes a constraint on Day 2 student load, which fits a slot-load cap constraint and remains a local edit without significant structural change. Heuristic warm start is available and reuse-friendly, while tuned solving is supported and preferable over scratch or direct alone for improved performance and safety. The combination ensures fast and robust reoptimization.",
+  "confidence": 0.98
+}

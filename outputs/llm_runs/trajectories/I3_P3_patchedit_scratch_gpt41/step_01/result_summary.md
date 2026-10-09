@@ -1,0 +1,30 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Ensure all large exams with over 300 students are completed before the 17th time slot to allow teaching assistants sufficient grading time.
+- Action kind: patch
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: ['frontload', 'large_blocks', 'early_slots', 'block_enrollment']
+- Edit summary: Tighten front-loading so that exams with over 300 students (large_blocks) are only assigned to slots before the 17th slot (slots 1–16), ensuring TAs have time for grading.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 0
+- Model retries: 0
+- Strategy: scratch
+- Execution label: scratch
+- Strategy policy: manual
+- Toolbox plan: []
+- Strategy fallback used: False
+- Objective: 4218.000000 -> 10524.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `patch`
+  - `UPDATE_PARAMETER` {'op': 'UPDATE_PARAMETER', 'target': {'name': 'early_slots'}, 'scope': {}, 'update': {'name': 'early_slots', 'value': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 'notes': ''}
+  - `UPDATE_CONSTRAINT_LHS` {'op': 'UPDATE_CONSTRAINT_LHS', 'target': {'constraint': 'frontload'}, 'scope': {}, 'update': {'lhs_spec': {'kind': 'exam_x_aggregate', 'rows': {1: {'fixed_block': 1, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 10: {'fixed_block': 10, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 11: {'fixed_block': 11, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 12: {'fixed_block': 12, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 13: {'fixed_block': 13, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 14: {'fixed_block': 14, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 15: {'fixed_block': 15, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 16: {'fixed_block': 16, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 17: {'fixed_block': 17, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 2: {'fixed_block': 2, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 3: {'fixed_block': 3, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 4: {'fixed_block': 4, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 5: {'fixed_block': 5, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 6: {'fixed_block': 6, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 8: {'fixed_block': 8, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 9: {'fixed_block': 9, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}}}}, 'notes': ''}
+
+## Chosen actions
+
+- `UPDATE_PARAMETER` {'op': 'UPDATE_PARAMETER', 'target': {'name': 'early_slots'}, 'scope': {}, 'update': {'name': 'early_slots', 'value': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 'notes': ''}
+- `UPDATE_CONSTRAINT_LHS` {'op': 'UPDATE_CONSTRAINT_LHS', 'target': {'constraint': 'frontload'}, 'scope': {}, 'update': {'lhs_spec': {'kind': 'exam_x_aggregate', 'rows': {1: {'fixed_block': 1, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 10: {'fixed_block': 10, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 11: {'fixed_block': 11, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 12: {'fixed_block': 12, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 13: {'fixed_block': 13, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 14: {'fixed_block': 14, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 15: {'fixed_block': 15, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 16: {'fixed_block': 16, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 17: {'fixed_block': 17, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 2: {'fixed_block': 2, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 3: {'fixed_block': 3, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 4: {'fixed_block': 4, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 5: {'fixed_block': 5, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 6: {'fixed_block': 6, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 8: {'fixed_block': 8, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}, 9: {'fixed_block': 9, 'slots': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}}}}, 'notes': ''}

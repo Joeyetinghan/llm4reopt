@@ -1,0 +1,39 @@
+{
+  "execution_label": "scratch",
+  "fallback_reason": "",
+  "fallback_used": false,
+  "metadata": {
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 6,
+    "planner_edit_summary": "Requested to apply updates P4, then P2, then P1, but their concrete contents were not provided; cannot construct executable patches.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "model_attempt_count": 0,
+      "model_retry_count": 0,
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "reason": "Composed prompt details for P4, P2, and P1 are missing; need explicit delta content to generate concrete patches.",
+      "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt5/run.json",
+      "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt5/step_01"
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [],
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "manual",
+  "prompt": [],
+  "rationale": "User-requested exam execution-label override.",
+  "raw_response": "",
+  "strategy": "scratch",
+  "toolbox_plan": []
+}

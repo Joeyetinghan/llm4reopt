@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a new aggregate constraint (student cap across slots on Day 2), which is a structural change affecting the solution space and may disrupt patterns from previously solved instances. Although heuristic warm start is available, warm reuse is not expected to be robust given low expected reuse and structural edit. Tuned configuration leverages solver tuning for faster and safer convergence to optimal or near-optimal results in this changed scenario. This makes 'tuned' the fastest safe strategy for this problem.",
+  "confidence": 0.95
+}

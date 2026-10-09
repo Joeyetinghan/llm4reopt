@@ -1,0 +1,29 @@
+{
+  "edit_summary": "Increase the penalty weight for three exams in four slots to be 20 times that of a regular back-to-back penalty.",
+  "affected_sets": {},
+  "relevant_components": [
+    "objective_component delta",
+    "parameter delta"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "delta"
+          },
+          "update": {
+            "value": 20.0,
+            "name": "delta"
+          },
+          "notes": "Increase weight for three-exams-in-four-slots penalty to 20 times a regular back-to-back penalty (assuming regular back-to-back penalty weight ~1)."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

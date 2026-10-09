@@ -1,0 +1,44 @@
+{
+  "execution_label": "scratch",
+  "fallback_reason": "",
+  "fallback_used": false,
+  "metadata": {
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 1,
+    "planner_edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 due to proctor shortage.",
+    "planner_hints": {
+      "constraint_family": "slot_load_cap",
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "model_attempt_count": 0,
+      "model_retry_count": 0,
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P5_patchedit_auto_gpt41/run.json",
+      "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P5_patchedit_auto_gpt41/step_01"
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "slot_load_cap",
+      "block_enrollment",
+      "x",
+      "slots_per_day"
+    ],
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "manual",
+  "prompt": [],
+  "rationale": "User-requested exam execution-label override.",
+  "raw_response": "",
+  "strategy": "scratch",
+  "toolbox_plan": []
+}

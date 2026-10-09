@@ -1,0 +1,50 @@
+--- solver.py
++++ solver.py
+@@ -26,10 +26,10 @@
+     t: Dict[tuple[int, int, int], float] | None = None,
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
++    block_enrollment: Dict[int, int] | None = None,
+     time_limit: float | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+-    del slots_per_day
+     slots = list(blocks)
+     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+@@ -135,6 +135,27 @@
+                 for i in frontload_blocks
+             ),
+             name="frontload",
++        )
++
++    # Day-level load cap: limit total enrollment on Day 2 to at most 4000
++    # Determine Day 2 slots by position using the ordered slot list and slots_per_day
++    if slots_per_day and slots_per_day > 0:
++        day2_start_idx = slots_per_day  # zero-based index: slots of Day 1 are [0..slots_per_day-1], Day 2 starts at slots_per_day
++        day2_end_idx = min(2 * slots_per_day, len(slots))
++        day2_slots = [slots[idx] for idx in range(day2_start_idx, day2_end_idx)]
++        if block_enrollment:
++            enrollment = {int(b): float(block_enrollment.get(int(b), 0)) for b in blocks}
++        else:
++            enrollment = {int(b): 0.0 for b in blocks}
++        m.addConstr(
++            gp.quicksum(
++                enrollment[i]
++                * gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks)
++                for s in day2_slots
++                for i in blocks
++            )
++            <= 4000.0,
++            name="cap_day_2_enrollment",
+         )
+ 
+     objective = (
+@@ -206,6 +227,7 @@
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        block_enrollment={int(k): int(v) for k, v in (data.get("block_enrollment") or {}).items()},
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

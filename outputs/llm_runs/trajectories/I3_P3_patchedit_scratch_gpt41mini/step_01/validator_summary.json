@@ -1,0 +1,882 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "frontload_slot_cutoff"
+      },
+      "update": {
+        "name": "frontload_slot_cutoff",
+        "value": 16
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "early_slots"
+      },
+      "update": {
+        "name": "early_slots",
+        "value": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_CONSTRAINT_LHS",
+      "scope": {},
+      "target": {
+        "constraint": "frontload"
+      },
+      "update": {
+        "lhs_spec": {
+          "kind": "exam_x_aggregate",
+          "rows": {
+            "1": {
+              "fixed_block": 1,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "10": {
+              "fixed_block": 10,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "11": {
+              "fixed_block": 11,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "12": {
+              "fixed_block": 12,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "13": {
+              "fixed_block": 13,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "14": {
+              "fixed_block": 14,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "15": {
+              "fixed_block": 15,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "16": {
+              "fixed_block": 16,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "17": {
+              "fixed_block": 17,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "2": {
+              "fixed_block": 2,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "3": {
+              "fixed_block": 3,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "4": {
+              "fixed_block": 4,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "5": {
+              "fixed_block": 5,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "6": {
+              "fixed_block": 6,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "8": {
+              "fixed_block": 8,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "9": {
+              "fixed_block": 9,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "frontload_block_size_cutoff"
+      },
+      "update": {
+        "name": "frontload_block_size_cutoff",
+        "value": 300.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "early_slots"
+      },
+      "update": {
+        "name": "early_slots",
+        "value": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_CONSTRAINT_LHS",
+      "scope": {},
+      "target": {
+        "constraint": "frontload"
+      },
+      "update": {
+        "lhs_spec": {
+          "kind": "exam_x_aggregate",
+          "rows": {
+            "1": {
+              "fixed_block": 1,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "10": {
+              "fixed_block": 10,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "11": {
+              "fixed_block": 11,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "12": {
+              "fixed_block": 12,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "13": {
+              "fixed_block": 13,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "14": {
+              "fixed_block": 14,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "15": {
+              "fixed_block": 15,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "16": {
+              "fixed_block": 16,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "17": {
+              "fixed_block": 17,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "2": {
+              "fixed_block": 2,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "3": {
+              "fixed_block": 3,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "4": {
+              "fixed_block": 4,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "5": {
+              "fixed_block": 5,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "6": {
+              "fixed_block": 6,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "8": {
+              "fixed_block": 8,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "9": {
+              "fixed_block": 9,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 10524.0,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 9,
+    "10": 14,
+    "11": 2,
+    "12": 13,
+    "13": 15,
+    "14": 1,
+    "15": 4,
+    "16": 5,
+    "17": 16,
+    "18": 20,
+    "19": 21,
+    "2": 6,
+    "20": 17,
+    "21": 23,
+    "22": 25,
+    "23": 24,
+    "24": 22,
+    "25": 18,
+    "3": 7,
+    "4": 11,
+    "5": 12,
+    "6": 10,
+    "7": 19,
+    "8": 8,
+    "9": 3
+  },
+  "solve_meta": {
+    "mip_gap": 0.39329152413530977,
+    "obj_bound": 6385.0,
+    "objective": 10524.0,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.149812936783,
+    "sol_count": 1,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 6,
+      "planner_edit_summary": "Restrict all large exams with over 300 students to be scheduled before slot 17 to ensure grading time.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P3_patchedit_auto_gpt41mini/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P3_patchedit_auto_gpt41mini/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "frontload",
+        "large_blocks",
+        "early_slots",
+        "frontload_block_size_cutoff",
+        "frontload_slot_cutoff"
+      ],
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

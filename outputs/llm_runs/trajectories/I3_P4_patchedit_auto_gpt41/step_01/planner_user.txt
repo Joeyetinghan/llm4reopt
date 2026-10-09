@@ -1,0 +1,518 @@
+Delta request:
+
+The Student Assembly raised concerns about extreme stress; increase the penalty for having "three exams in 24 hours" to be 20 times that of a regular back-to-back.
+
+Delta metadata:
+
+{
+  "campaign_id": "paper_full_gpt_3600s",
+  "campaign_stage": "full",
+  "instance_id": "I3",
+  "job_name": "I3_patchedit_auto_gpt41_prompts_P4",
+  "prompt_batch_count": 6,
+  "prompt_batch_index": 4,
+  "prompt_id": "P4",
+  "prompt_source": "catalog",
+  "run_mode": "patchedit-auto"
+}
+
+Model representation:
+
+Representation kind: python_builder
+
+Model counts: variables=12, constraints=8, objectives=5, parameters=32
+
+Solver capabilities: {"solver_backend": "gurobi", "supports_warm_start": true}
+
+Component summaries:
+- [variable_family] x: Assignment variable x[i,j,k,s] placing a block triplet into slot s. (type=binary; tags=assignment,block_seq)
+- [variable_family] y: Triplet linkage variable y[i,j,k]. (type=binary; tags=block_seq,triplet)
+- [variable_family] z: Four-slot sequence linkage variable z[i,j,k,l]. (type=binary; tags=block_seq,quad)
+- [variable_family] schedule: Slot assignment summary variable slot_assignment[s]. (type=integer; tags=block_seq,output)
+- [variable_family] block_assigned: Assigned slot index for each block. (type=integer; tags=block_seq,output)
+- [variable_family] block_diff: Pairwise slot distance between blocks. (type=integer; tags=block_seq,spacing)
+- [variable_family] block_diff_large: Binary indicator for large block gaps. (type=binary; tags=block_seq,spacing)
+- [variable_family] triple_in_day: Total triples within a day. (type=integer; tags=block_seq,penalty; examples=all)
+- [variable_family] triple_in_24hr: Total triples within 24 hours. (type=integer; tags=block_seq,penalty; examples=all)
+- [variable_family] b2b_eveMorn: Back-to-back evening-to-morning penalty variable. (type=integer; tags=block_seq,penalty; examples=all)
+- [variable_family] b2b_other: Other back-to-back penalty variable. (type=integer; tags=block_seq,penalty; examples=all)
+- [variable_family] three_exams_four_slots: Three exams in four slots penalty variable. (type=integer; tags=block_seq,penalty; examples=all)
+- [constraint_family] each_i: Each block appears once in position i. (sense==; tags=block_seq)
+- [constraint_family] each_j: Each block appears once in position j. (sense==; tags=block_seq)
+- [constraint_family] each_k: Each block appears once in position k. (sense==; tags=block_seq)
+- [constraint_family] each_slot: Each slot gets exactly one block triple. (sense==; tags=block_seq)
+- [constraint_family] continuity: Triple continuity across adjacent slots. (sense==; tags=block_seq)
+- [constraint_family] frontload: Large blocks must be assigned to the designated early slots. (sense==; tags=block_seq,frontload)
+- [constraint_family] reserved_virtual_slot: Reserve selected slots by fixing specific virtual blocks to those slots. (sense==; tags=availability,block_seq)
+- [constraint_family] slot_load_cap: Weighted enrollment cap across a selected slot set. (sense=<=; tags=block_seq,load_cap)
+- [objective_component] alpha: Weight for triple-in-day penalty. (weight=10.0; tags=block_seq,objective)
+- [objective_component] beta: Weight for triple-in-24hr penalty. (weight=10.0; tags=block_seq,objective)
+- [objective_component] gamma1: Weight for evening-to-morning back-to-back penalty. (weight=1.0; tags=block_seq,objective)
+- [objective_component] gamma2: Weight for other back-to-back penalty. (weight=1.0; tags=block_seq,objective)
+- [objective_component] delta: Weight for three exams in four slots penalty. (weight=5.0; tags=block_seq,objective)
+- [parameter] instance_id: Stable instance identifier for this exam scheduling LP. (value=I3; tags=block_seq,instance)
+- [parameter] blocks: Block identifiers to be assigned into exam slots. (count=25; range=1..25; tags=block_seq,blocks)
+- [parameter] real_blocks: Number of real exam blocks before any dummy blocks. (value=17; tags=block_seq,blocks)
+- [parameter] virtual_blocks: Virtual blocks representing empty slots in the sequencing instance. (count=8; range=18..25; tags=block_seq,blocks)
+- [parameter] large_blocks: Blocks marked as large exams for front-loading constraints. (count=16; range=1..17; tags=block_seq,blocks,frontload)
+- [parameter] early_slots: Slots considered early enough for front-loading large exams. (count=21; range=1..21; tags=block_seq,calendar,frontload)
+- [parameter] slots_per_day: Number of exam slots available per day. (value=3; tags=block_seq,calendar)
+- [parameter] slot_times: Human-readable slot labels in day order. (preview=9am, 2pm, 7pm; tags=block_seq,calendar)
+- [parameter] triple_24_start: Slots that start a 24-hour triple window. (count=15; range=2..23; tags=block_seq,calendar)
+- [parameter] triple_day_start: Slots that start a same-day triple window. (count=8; range=1..22; tags=block_seq,calendar)
+- [parameter] eve_morn_start: Slots that start evening-to-morning back-to-back windows. (count=8; range=3..24; tags=block_seq,calendar)
+- [parameter] other_b2b_start: Slots that start other back-to-back windows. (count=16; range=1..23; tags=block_seq,calendar)
+- [parameter] alpha: Weight for triple-in-day penalties. (value=10.0; tags=block_seq,weight)
+- [parameter] beta: Weight for triple-in-24hr penalties. (value=10.0; tags=block_seq,weight)
+- [parameter] gamma1: Weight for evening-to-morning back-to-back penalties. (value=1.0; tags=block_seq,weight)
+- [parameter] gamma2: Weight for other back-to-back penalties. (value=1.0; tags=block_seq,weight)
+- [parameter] delta: Weight for three-exams-in-four-slots penalties. (value=5.0; tags=block_seq,weight)
+- [parameter] vega: Additional tuning weight preserved from the original exam formulation. (value=1.0; tags=block_seq,weight)
+- [parameter] theta: Additional tuning weight preserved from the original exam formulation. (value=2.0; tags=block_seq,weight)
+- [parameter] lambda_large1: Large-gap penalty weight variant 1. (value=1.0; tags=block_seq,weight)
+- [parameter] lambda_large2: Large-gap penalty weight variant 2. (value=1.0; tags=block_seq,weight)
+- [parameter] lambda_big: Large constant used in block sequencing penalties. (value=1000.0; tags=block_seq,weight)
+- [parameter] frontload_block_size_cutoff: Enrollment cutoff used to mark large blocks for front-loading. (value=300; tags=block_seq,frontload)
+- [parameter] frontload_slot_cutoff: Last slot index considered early for front-loading large blocks. (value=21; tags=block_seq,frontload)
+- [parameter] reserved_slots: Slots reserved for deterministic virtual-block assignment. (tags=availability,block_seq)
+- [parameter] block_enrollment: Enrollment by block from the sequencing instance summary. (count=25; tags=block_seq,blocks)
+- [parameter] block_num_exams: Number of exams assigned to each block. (count=25; tags=block_seq,blocks)
+- [parameter] pair_counts: Base pairwise co-enrollment counts keyed by block pairs. (count=288; tags=block_seq,data)
+- [parameter] triplet_counts: Base triplet co-enrollment counts keyed by block triples. (count=4850; tags=block_seq,data)
+- [parameter] p: Optional pairwise penalty overrides keyed by block pairs. (tags=block_seq,override)
+- [parameter] t: Optional triplet penalty overrides keyed by block triplets. (tags=block_seq,override)
+
+Source artifacts:
+exam_structured (python_builder)
+```python
+def build_exam_structured_model(
+    *,
+    lp_path: str,
+    blocks: list[int],
+    slots_per_day: int,
+    triple_24_start: list[int],
+    triple_day_start: list[int],
+    eve_morn_start: list[int],
+    other_b2b_start: list[int],
+    weights: Dict[str, float],
+    slot_times: list[str] | None = None,
+    reserved_slots: list[int] | None = None,
+    real_blocks: int | None = None,
+    virtual_blocks: list[int] | None = None,
+    large_blocks: list[int] | None = None,
+    early_slots: list[int] | None = None,
+    block_enrollment: Dict[int, float] | None = None,
+    block_num_exams: Dict[int, int] | None = None,
+    pair_counts: Dict[tuple[int, int], float] | None = None,
+    triplet_counts: Dict[tuple[int, int, int], float] | None = None,
+    frontload_block_size_cutoff: float | None = None,
+    frontload_slot_cutoff: int | None = None,
+    instance_id: str | None = None,
+) -> StructuredModel:
+    variables = {
+        "x": VariableFamily(
+            name="x",
+            index_set=[],
+            var_type=VariableType.BINARY,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Assignment variable x[i,j,k,s] placing a block triplet into slot s.",
+            tags={"block_seq", "assignment"},
+        ),
+        "y": VariableFamily(
+            name="y",
+            index_set=[],
+            var_type=VariableType.BINARY,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Triplet linkage variable y[i,j,k].",
+            tags={"block_seq", "triplet"},
+        ),
+        "z": VariableFamily(
+            name="z",
+            index_set=[],
+            var_type=VariableType.BINARY,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Four-slot sequence linkage variable z[i,j,k,l].",
+            tags={"block_seq", "quad"},
+        ),
+        "schedule": VariableFamily(
+            name="schedule",
+            index_set=blocks,
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Slot assignment summary variable slot_assignment[s].",
+            tags={"block_seq", "output"},
+        ),
+        "block_assigned": VariableFamily(
+            name="block_assigned",
+            index_set=blocks,
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Assigned slot index for each block.",
+            tags={"block_seq", "output"},
+        ),
+        "block_diff": VariableFamily(
+            name="block_diff",
+            index_set=[],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Pairwise slot distance between blocks.",
+            tags={"block_seq", "spacing"},
+        ),
+        "block_diff_large": VariableFamily(
+            name="block_diff_large",
+            index_set=[],
+            var_type=VariableType.BINARY,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Binary indicator for large block gaps.",
+            tags={"block_seq", "spacing"},
+        ),
+        "triple_in_day": VariableFamily(
+            name="triple_in_day",
+            index_set=["all"],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Total triples within a day.",
+            tags={"block_seq", "penalty"},
+        ),
+        "triple_in_24hr": VariableFamily(
+            name="triple_in_24hr",
+            index_set=["all"],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Total triples within 24 hours.",
+            tags={"block_seq", "penalty"},
+        ),
+        "b2b_eveMorn": VariableFamily(
+            name="b2b_eveMorn",
+            index_set=["all"],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Back-to-back evening-to-morning penalty variable.",
+            tags={"block_seq", "penalty"},
+        ),
+        "b2b_other": VariableFamily(
+            name="b2b_other",
+            index_set=["all"],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Other back-to-back penalty variable.",
+            tags={"block_seq", "penalty"},
+        ),
+        "three_exams_four_slots": VariableFamily(
+            name="three_exams_four_slots",
+            index_set=["all"],
+            var_type=VariableType.INTEGER,
+            lower_bounds={},
+            upper_bounds={},
+            desc="Three exams in four slots penalty variable.",
+            tags={"block_seq", "penalty"},
+        ),
+    }
+
+    constraints = {
+        "each_i": ConstraintFamily(
+            name="each_i",
+            index_set=blocks,
+            lhs_spec="sum_{j,k,s} x[i,j,k,s]",
+            rhs_spec=1,
+            sense="=",
+            desc="Each block appears once in position i.",
+            tags={"block_seq"},
+        ),
+        "each_j": ConstraintFamily(
+            name="each_j",
+            index_set=blocks,
+            lhs_spec="sum_{i,k,s} x[i,j,k,s]",
+            rhs_spec=1,
+            sense="=",
+            desc="Each block appears once in position j.",
+            tags={"block_seq"},
+        ),
+        "each_k": ConstraintFamily(
+            name="each_k",
+            index_set=blocks,
+            lhs_spec="sum_{i,j,s} x[i,j,k,s]",
+            rhs_spec=1,
+            sense="=",
+            desc="Each block appears once in position k.",
+            tags={"block_seq"},
+        ),
+        "each_slot": ConstraintFamily(
+            name="each_slot",
+            index_set=blocks,
+            lhs_spec="sum_{i,j,k} x[i,j,k,s]",
+            rhs_spec={s: 1 for s in blocks},
+            sense="=",
+            desc="Each slot gets exactly one block triple.",
+            tags={"block_seq"},
+        ),
+        "continuity": ConstraintFamily(
+            name="continuity",
+            index_set=[],
+            lhs_spec="Link consecutive triples across adjacent slots.",
+            rhs_spec="-",
+            sense="=",
+            desc="Triple continuity across adjacent slots.",
+            tags={"block_seq"},
+        ),
+        "frontload": build_frontload_constraint_family(
+            large_blocks=list(large_blocks or []),
+            early_slots=list(early_slots or []),
+        ),
+        "reserved_virtual_slot": (
+            build_reserved_virtual_slot_constraint_family(
+                virtual_blocks=list(virtual_blocks or []),
+                reserved_slots=list(reserved_slots or []),
+            )
+            if reserved_slots and virtual_blocks
+            else empty_reserved_virtual_slot_family()
+        ),
+        "slot_load_cap": empty_slot_load_cap_family(),
+    }
+
+    objectives = {
+        "alpha": ObjectiveComponent(
+            name="alpha",
+            weight=float(weights.get("alpha", 10)),
+            spec={"metric": "triple_in_day"},
+            desc="Weight for triple-in-day penalty.",
+            tags={"block_seq", "objective"},
+        ),
+        "beta": ObjectiveComponent(
+            name="beta",
+            weight=float(weights.get("beta", 10)),
+            spec={"metric": "triple_in_24hr"},
+            desc="Weight for triple-in-24hr penalty.",
+            tags={"block_seq", "objective"},
+        ),
+        "gamma1": ObjectiveComponent(
+            name="gamma1",
+            weight=float(weights.get("gamma1", 1)),
+            spec={"metric": "b2b_eveMorn"},
+            desc="Weight for evening-to-morning back-to-back penalty.",
+            tags={"block_seq", "objective"},
+        ),
+        "gamma2": ObjectiveComponent(
+            name="gamma2",
+            weight=float(weights.get("gamma2", 1)),
+            spec={"metric": "b2b_other"},
+            desc="Weight for other back-to-back penalty.",
+            tags={"block_seq", "objective"},
+        ),
+        "delta": ObjectiveComponent(
+            name="delta",
+            weight=float(weights.get("delta", 5)),
+            spec={"metric": "three_exams_four_slots"},
+            desc="Weight for three exams in four slots penalty.",
+            tags={"block_seq", "objective"},
+        ),
+    }
+
+    model = StructuredModel()
+    for family in variables.values():
+        register_var_family(model, family)
+    for family in constraints.values():
+        register_constraint_family(model, family)
+    for objective in objectives.values():
+        register_objective_component(model, objective)
+
+    register_parameter(
+        model,
+        "instance_id",
+        instance_id or os.path.splitext(os.path.basename(lp_path))[0],
+        desc="Stable instance identifier for this exam scheduling LP.",
+        tags={"block_seq", "instance"},
+    )
+    register_parameter(
+        model,
+        "lp_path",
+        lp_path,
+        desc="Filesystem path to the compiled LP used for solving.",
+        tags={"block_seq", "artifact"},
+    )
+    register_parameter(
+        model,
+        "blocks",
+        list(blocks),
+        desc="Block identifiers to be assigned into exam slots.",
+        tags={"block_seq", "blocks"},
+    )
+    register_parameter(
+        model,
+        "real_blocks",
+        int(real_blocks) if real_blocks is not None else len(blocks),
+        desc="Number of real exam blocks before any dummy blocks.",
+        tags={"block_seq", "blocks"},
+    )
+    register_parameter(
+        model,
+        "virtual_blocks",
+        list(virtual_blocks or []),
+        desc="Virtual blocks representing empty slots in the sequencing instance.",
+        tags={"block_seq", "blocks"},
+    )
+    register_parameter(
+        model,
+        "large_blocks",
+        list(large_blocks or []),
+        desc="Blocks marked as large exams for front-loading constraints.",
+        tags={"block_seq", "blocks", "frontload"},
+    )
+    register_parameter(
+        model,
+        "early_slots",
+        list(early_slots or []),
+        desc="Slots considered early enough for front-loading large exams.",
+        tags={"block_seq", "calendar", "frontload"},
+    )
+    register_parameter(
+        model,
+        "slots_per_day",
+        slots_per_day,
+        desc="Number of exam slots available per day.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(
+        model,
+        "slot_times",
+        list(slot_times or []),
+        desc="Human-readable slot labels in day order.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(
+        model,
+        "triple_24_start",
+        list(triple_24_start),
+        desc="Slots that start a 24-hour triple window.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(
+        model,
+        "triple_day_start",
+        list(triple_day_start),
+        desc="Slots that start a same-day triple window.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(
+        model,
+        "eve_morn_start",
+        list(eve_morn_start),
+        desc="Slots that start evening-to-morning back-to-back windows.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(
+        model,
+        "other_b2b_start",
+        list(other_b2b_start),
+        desc="Slots that start other back-to-back windows.",
+        tags={"block_seq", "calendar"},
+    )
+    register_parameter(model, "alpha", float(weights.get("alpha", 10)), desc="Weight for triple-in-day penalties.", tags={"block_seq", "weight"})
+    register_parameter(model, "beta", float(weights.get("beta", 10)), desc="Weight for triple-in-24hr penalties.", tags={"block_seq", "weight"})
+    register_parameter(model, "gamma1", float(weights.get("gamma1", 1)), desc="Weight for evening-to-morning back-to-back penalties.", tags={"block_seq", "weight"}, aliases={"b2b_eve_morn_penalty"})
+    register_parameter(model, "gamma2", float(weights.get("gamma2", 1)), desc="Weight for other back-to-back penalties.", tags={"block_seq", "weight"})
+    register_parameter(model, "delta", float(weights.get("delta", 5)), desc="Weight for three-exams-in-four-slots penalties.", tags={"block_seq", "weight"})
+    register_parameter(model, "vega", float(weights.get("vega", 1)), desc="Additional tuning weight preserved from the original exam formulation.", tags={"block_seq", "weight"})
+    register_parameter(model, "theta", float(weights.get("theta", 2)), desc="Additional tuning weight preserved from the original exam formulation.", tags={"block_seq", "weight"})
+    register_parameter(model, "lambda_large1", float(weights.get("lambda_large1", 1)), desc="Large-gap penalty weight variant 1.", tags={"block_seq", "weight"})
+    register_parameter(model, "lambda_large2", float(weights.get("lambda_large2", 1)), desc="Large-gap penalty weight variant 2.", tags={"block_seq", "weight"})
+    register_parameter(model, "lambda_big", float(weights.get("lambda_big", 1000)), desc="Large constant used in block sequencing penalties.", tags={"block_seq", "weight"})
+    register_parameter(model, "frontload_block_size_cutoff", frontload_block_size_cutoff, desc="Enrollment cutoff used to mark large blocks for front-loading.", tags={"block_seq", "frontload"})
+    register_parameter(model, "frontload_slot_cutoff", frontload_slot_cutoff, desc="Last slot index considered early for front-loading large blocks.", tags={"block_seq", "frontload"})
+    register_parameter(model, "reserved_slots", list(reserved_slots or []), desc="Slots reserved for deterministic virtual-block assignment.", tags={"block_seq", "availability"}, aliases={"forbidden_slots"})
+    register_parameter(model, "block_enrollment", dict(block_enrollment or {}), desc="Enrollment by block from the sequencing instance summary.", tags={"block_seq", "blocks"})
+    register_parameter(model, "block_num_exams", dict(block_num_exams or {}), desc="Number of exams assigned to each block.", tags={"block_seq", "blocks"})
+    register_parameter(model, "pair_counts", dict(pair_counts or {}), desc="Base pairwise co-enrollment counts keyed by block pairs.", tags={"block_seq", "data"})
+    register_parameter(model, "triplet_counts", dict(triplet_counts or {}), desc="Base triplet co-enrollment counts keyed by block triples.", tags={"block_seq", "data"})
+    register_parameter(model, "p", {}, desc="Optional pairwise penalty overrides keyed by block pairs.", tags={"block_seq", "override"})
+    register_parameter(model, "t", {}, desc="Optional triplet penalty overrides keyed by block triplets.", tags={"block_seq", "override"})
+
+    model.artifacts.update({"lp_path": lp_path})
+    model.supports.update(
+        {
+            "solver_backend": "gurobi",
+            "supports_warm_start": True,
+            "supports_tuned_solver": False,
+        }
+    )
+    model.extras["base_parameters"] = {
+        "alpha": float(weights.get("alpha", 10)),
+        "beta": float(weights.get("beta", 10)),
+        "gamma1": float(weights.get("gamma1", 1)),
+        "gamma2": float(weights.get("gamma2", 1)),
+        "delta": float(weights.get("delta", 5)),
+    }
+    return model
+```
+
+Context payload:
+problem_context
+
+# Exam Block Sequencing Context
+
+You are helping the University Registrar evaluate changes to the final-exam schedule.
+
+- This is the block-sequencing stage of a Group-then-Sequence workflow: exams have already been grouped into blocks, and this model places those blocks into exam slots.
+- The model is about exam timing only; room assignment is handled separately.
+- Delta requests usually describe policy, comfort, or operational changes to the exam calendar.
+
+## Calendar And Basic Assumptions
+
+- The exam period is a fixed ordered sequence of slots.
+- The standard interpretation is three slots per day: morning, afternoon, and evening. In the packaged instances these are usually `9am`, `2pm`, and `7pm`.
+- Requests such as “Day 2”, “morning”, “afternoon”, “evening”, or “the evening slot immediately before the final evening slot” should be grounded through `slots_per_day`, `slot_times`, and slot ids, not through guessed LP names.
+- Some slots may be intentionally excluded from use. In practice, the Registrar may want to keep certain late slots empty for setup, cleanup, or special events.
+- In final patch proposals, relative calendar phrases should be resolved to explicit slot ids when the instance data makes that possible.
+
+## Objective
+
+The sequencing objective penalizes stressful student exam patterns:
+
+- `alpha`: triples within one day
+- `beta`: triples within 24 hours
+- `gamma1`: evening-to-morning back-to-backs
+- `gamma2`: other back-to-backs
+- `delta`: three exams in four consecutive slots
+
+Here, a triple within one day (`alpha`) means three exams assigned to three consecutive slots that all fall on the same day. A triple within 24 hours (`beta`) means three exams assigned to three consecutive slots within a 24-hour window, which may cross an overnight boundary. A back-to-back means two exams assigned to consecutive slots; in this model, back-to-backs are split into evening-to-morning (`gamma1`) and other adjacent-slot pairs (`gamma2`). These events are not double-counted: exam pairs that are already part of a triple should not also be counted again as back-to-backs.
+
+## Core Model View
+
+The sequencing formulation is cyclic over the slot set.
+
+- `x[i,j,k,s] = 1` means block `i` is placed at slot `s`, block `j` at slot `s+1`, and block `k` at slot `s+2`.
+- The block occupying slot `s` is identified by the first index of `x[i,j,k,s]`, so assignment-like policy rules should be expressed by summing `x[i,*,*,s]` terms over the relevant slots.
+- `y[...]` and `z[...]` are linkage variables used to score triple and four-slot patterns.
+
+Assignment and continuity constraints enforce a valid cyclic schedule in which each block is placed once and each slot receives one block.
+
+## Grounding Data
+
+The rendered model representation already exposes the concrete instance data needed to ground requests, including `virtual_blocks`, `large_blocks`, `early_slots`, `reserved_slots`, `block_enrollment`, `pair_counts`, `triplet_counts`, `slots_per_day`, and `slot_times`.
+
+Use those rendered values directly instead of inventing symbolic placeholders, and use the exact numeric slot cutoff stated in the prompt when front-loading requests are instance-specific.
+
+## Canonical Interpretations
+
+- Slot reservation requests should use `reserved_virtual_slot`; `reserved_slots` is the canonical slot list feeding that mechanism.
+- Front-loading requests should be interpreted through `large_blocks` and `early_slots`.
+- Day-load requests should use `block_enrollment` and the first-index occupancy view of `x[i,j,k,s]`.
+- Co-enrollment changes usually affect `pair_counts` / `p` or `triplet_counts` / `t`; pairwise block relationships are unordered in the policy language, so update both ordered pair keys unless the request explicitly distinguishes direction.
+- Weight or comfort tradeoff requests usually affect `alpha`, `beta`, `gamma1`, `gamma2`, or `delta`.
+- If the instance data resolves a slot or day directly, emit explicit slot ids rather than symbolic formulas.
+
+## Combined Requests
+
+- Preserve the requested order when one request bundles several changes.
+- Combined Registrar edits may mix weight changes, co-enrollment edits, front-loading, slot reservations, and day-load restrictions.

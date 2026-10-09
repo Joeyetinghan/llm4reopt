@@ -1,0 +1,224 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "gamma1"
+      },
+      "update": {
+        "weight": 1.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "reserved_slots"
+      },
+      "update": {
+        "name": "reserved_slots",
+        "value": [
+          21
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 21,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 9325.0,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 12,
+    "10": 1,
+    "11": 10,
+    "12": 18,
+    "13": 3,
+    "14": 15,
+    "15": 9,
+    "16": 11,
+    "17": 8,
+    "18": 17,
+    "19": 19,
+    "2": 4,
+    "20": 2,
+    "21": 21,
+    "22": 22,
+    "23": 24,
+    "24": 20,
+    "3": 6,
+    "4": 13,
+    "5": 16,
+    "6": 5,
+    "7": 14,
+    "8": 23,
+    "9": 7
+  },
+  "solve_meta": {
+    "mip_gap": 0.46541554959785525,
+    "obj_bound": 4985.0,
+    "objective": 9325.0,
+    "objective_nonzero_coeffs": 439537,
+    "runtime": 3600.501827955246,
+    "sol_count": 3,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 10,
+      "planner_edit_summary": "Apply updates P4, P2, and P1 in sequence as requested.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "parameter",
+        "p",
+        "t",
+        "alpha",
+        "beta",
+        "gamma1",
+        "gamma2",
+        "delta",
+        "frontload",
+        "reserved_virtual_slot",
+        "slot_load_cap"
+      ],
+      "selector_error": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+      "selector_model": "gpt-4.1-mini",
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

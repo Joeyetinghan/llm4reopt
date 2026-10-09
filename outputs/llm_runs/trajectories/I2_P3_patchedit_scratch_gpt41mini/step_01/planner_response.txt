@@ -1,0 +1,35 @@
+{
+  "edit_summary": "Update frontload_slot_cutoff parameter to enforce that large exams (over 300 students) complete before 19th slot for timely TA grading.",
+  "affected_sets": {
+    "large_blocks": "large_blocks",
+    "early_slots": "early_slots"
+  },
+  "relevant_components": [
+    "frontload",
+    "frontload_block_size_cutoff",
+    "frontload_slot_cutoff",
+    "large_blocks",
+    "early_slots"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 18
+          },
+          "notes": "Set frontload_slot_cutoff to 18 to ensure large exams assigned to slots before 19th slot (exclusive upper bound)."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

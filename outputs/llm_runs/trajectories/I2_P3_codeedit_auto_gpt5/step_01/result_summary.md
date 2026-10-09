@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 1
+- Model retries: 0
+- Edited files: solver.py
+- Code-edit attempts: 1
+- Code-edit repairs: 0
+- Strategy: tuned
+- Execution label: tuned
+- Strategy policy: llm
+- Toolbox plan: ['tuned_config']
+- Strategy fallback used: False
+- Objective: 7330.000000 -> 9737.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -192,10 +192,55 @@\n     solver_params: dict[str, Any] | None = None,\n     time_limit: int | float | None = None,\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n-    \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n+    \"\"\"Solve the direct solver model used by the codeedit pipeline.\n+\n+    Change: Enforce that all large exams (enrollment > 300) are scheduled before slot 19\n+    by reusing the existing large_blocks and early_slots frontload mechanism.\n+    \"\"\"\n     data = dict(runtime_data)\n+\n+    # Base slot/block lists\n+    block_ids: list[int] = [int(block) for block in data[\"blocks\"]]\n+\n+    # Determine which blocks are considered \"large\" using the >300 threshold.\n+    # Prefer explicit block_enrollment if available; otherwise fall back to any provided large_blocks.\n+    enrollment_map_raw = data.get(\"block_enrollment\") or {}\n+    large_cutoff = 300  # strict 'over 300' per request\n+    try:\n+        # If a cutoff exists in weights and aligns with the request, use it (still strict > cutoff).\n+        weights_map = data.get(\"weights\") or {}\n+        if \"frontload_block_size_cutoff\" in weights_map:\n+            # Only use if it equals 300 to remain faithful to the request wording; otherwise keep 300.\n+            if int(weights_map[\"frontload_block_size_cutoff\"]) == 300:\n+                large_cutoff = int(weights_map[\"frontload_block_size_cutoff\"])\n+    except Exception:\n+        pass\n+\n+    # Compute large blocks from enrollments\n+    computed_large_blocks: set[int] = set()\n+    try:\n+        for k, v in enrollment_map_raw.items():\n+            try:\n+                b = int(k)\n+                enroll = int(v)\n+            except Exception:\n+                continue\n+            if enroll > large_cutoff and b in block_ids:\n+                computed_large_blocks.add(b)\n+    except Exception:\n+        computed_large_blocks = set()\n+\n+    # Union with any provided large_blocks to preserve upstream designations.\n+    provided_large_blocks = {int(b) for b in (data.get(\"large_blocks\") or []) if isinstance(b, (int, float))}\n+    frontload_blocks: list[int] = sorted((computed_large_blocks | provided_large_blocks) & set(block_ids))\n+\n+    # Build the early slot set as all slots strictly before 19.\n+    # This encodes \"completed before the 19th time slot\".\n+    early_slot_cutoff = 19  # strict 'before 19th' -> slots 1..18\n+    early_slots: list[int] = sorted([s for s in block_ids if int(s) < early_slot_cutoff])\n+\n     grb = build_exam_gurobi_model(\n-        blocks=[int(block) for block in data[\"blocks\"]],\n+        blocks=block_ids,\n         slots_per_day=int(data[\"slots_per_day\"]),\n         triple_24_start=[int(slot) for slot in data[\"triple_24_start\"]],\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n@@ -204,8 +249,8 @@\n         weights=dict(data[\"weights\"]),\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n-        large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        large_blocks=frontload_blocks,\n+        early_slots=early_slots,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)", "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P3_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

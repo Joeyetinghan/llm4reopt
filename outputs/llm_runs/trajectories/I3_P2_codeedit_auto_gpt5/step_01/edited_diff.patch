@@ -1,0 +1,57 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,45 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Prepare pair counts and apply the requested symmetric increase for blocks 4 and 9.
++    raw_pair_counts = data.get("pair_counts") or {}
++    pair_counts: Dict[tuple[int, int], float] = {}
++
++    # Normalize various possible representations of pair_counts into tuple-keyed dict.
++    if isinstance(raw_pair_counts, dict):
++        source = raw_pair_counts
++        # If a preview sub-dict is present, prefer it as the concrete key-value source.
++        if "preview" in raw_pair_counts and isinstance(raw_pair_counts["preview"], dict):
++            source = raw_pair_counts["preview"]
++        for k, v in source.items():
++            i_j: tuple[int, int] | None = None
++            if isinstance(k, tuple) and len(k) == 2:
++                try:
++                    i_j = (int(k[0]), int(k[1]))
++                except Exception:
++                    i_j = None
++            elif isinstance(k, str):
++                ks = k.strip()
++                if ks.startswith("(") and ks.endswith(")"):
++                    ks = ks[1:-1]
++                parts = [p.strip() for p in ks.split(",")]
++                if len(parts) == 2:
++                    try:
++                        i_j = (int(parts[0]), int(parts[1]))
++                    except Exception:
++                        i_j = None
++            if i_j is not None:
++                try:
++                    pair_counts[i_j] = float(v)
++                except Exception:
++                    # Skip non-numeric values
++                    pass
++
++    # Apply symmetric increase by 120 for (4, 9) and (9, 4).
++    for i_j in [(4, 9), (9, 4)]:
++        pair_counts[i_j] = float(pair_counts.get(i_j, 0.0)) + 120.0
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,7 +241,7 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
++        p=pair_counts,
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],

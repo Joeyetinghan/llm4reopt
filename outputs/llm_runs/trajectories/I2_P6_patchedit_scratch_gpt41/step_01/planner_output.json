@@ -1,0 +1,238 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "P4: Increase weight for evening-to-morning back-to-back penalties by 1.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "gamma1"
+            },
+            "update": {
+              "delta": 1.0
+            }
+          },
+          {
+            "notes": "P2: Increase weight for other back-to-back penalties by 3.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "gamma2"
+            },
+            "update": {
+              "delta": 3.0
+            }
+          },
+          {
+            "notes": "P1: Restrict frontloading for large blocks to slots 1-18 (first six days).",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "early_slots"
+            },
+            "update": {
+              "name": "early_slots",
+              "value": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Apply in order: P4, P2, P1 as interpreted.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "low"
+    },
+    "relevant_components": [
+      "alpha",
+      "beta",
+      "gamma1",
+      "gamma2",
+      "delta",
+      "early_slots",
+      "frontload"
+    ],
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I2_P6_patchedit_auto_gpt41/run.json",
+    "replayed_from_run_id": "I2_P6_patchedit_auto_gpt41"
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "gamma1"
+          },
+          "update": {
+            "weight": 1.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 20.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              4,
+              9
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              4,
+              9
+            ],
+            "name": "p",
+            "value": 357.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              9,
+              4
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              9,
+              4
+            ],
+            "name": "p",
+            "value": 357.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {},
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "name": "reserved_slots",
+            "value": [
+              21
+            ]
+          }
+        },
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {
+            "constraint": "reserved_virtual_slot"
+          },
+          "update": {
+            "constraint": {
+              "aliases": [],
+              "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+              "index_set": [
+                21
+              ],
+              "lhs_spec": {
+                "kind": "exam_x_aggregate",
+                "rows": {
+                  "21": {
+                    "fixed_block": 19,
+                    "slots": [
+                      21
+                    ]
+                  }
+                }
+              },
+              "metadata": {
+                "rule_kind": "reserved_virtual_slot_family"
+              },
+              "name": "reserved_virtual_slot",
+              "rhs_spec": {
+                "21": 1.0
+              },
+              "sense": "=",
+              "tags": [
+                "availability",
+                "block_seq"
+              ]
+            }
+          }
+        }
+      ],
+      "label": "P6",
+      "metadata": {
+        "composed_prompt_ids": [
+          "P4",
+          "P2",
+          "P1"
+        ],
+        "deterministic_composition": true
+      }
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Apply in order: P4, P2, P1 as interpreted.",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "low",
+    "model_attempt_count": 0,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I2_P6_patchedit_auto_gpt41/run.json",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I2_P6_patchedit_auto_gpt41/step_01"
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Apply in order: P4, P2, P1 as interpreted.\",\n  \"affected_sets\": {},\n  \"relevant_components\": [\n    \"alpha\",\n    \"beta\",\n    \"gamma1\",\n    \"gamma2\",\n    \"delta\",\n    \"early_slots\",\n    \"frontload\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"gamma1\"\n          },\n          \"update\": {\n            \"delta\": 1.0\n          },\n          \"notes\": \"P4: Increase weight for evening-to-morning back-to-back penalties by 1.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"gamma2\"\n          },\n          \"update\": {\n            \"delta\": 3.0\n          },\n          \"notes\": \"P2: Increase weight for other back-to-back penalties by 3.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"early_slots\"\n          },\n          \"update\": {\n            \"name\": \"early_slots\",\n            \"value\": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]\n          },\n          \"notes\": \"P1: Restrict frontloading for large blocks to slots 1-18 (first six days).\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"low\"\n  }\n}",
+  "relevant_components": [
+    "alpha",
+    "beta",
+    "gamma1",
+    "gamma2",
+    "delta",
+    "early_slots",
+    "frontload"
+  ]
+}

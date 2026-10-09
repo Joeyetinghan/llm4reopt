@@ -1,0 +1,121 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {
+    "day": [
+      2
+    ],
+    "slots": [
+      4,
+      5,
+      6
+    ]
+  },
+  "annotations": {
+    "affected_sets": {
+      "day": [
+        2
+      ],
+      "slots": [
+        4,
+        5,
+        6
+      ]
+    },
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": "global",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [
+                  "day_2"
+                ],
+                "lhs_spec": {
+                  "kind": "slot_load_cap",
+                  "slots": [
+                    4,
+                    5,
+                    6
+                  ]
+                },
+                "name": "slot_load_cap",
+                "rhs_spec": {
+                  "day_2": 4000.0
+                },
+                "sense": "<="
+              },
+              "notes": "Limit total student enrollment in all exams taking place on Day 2 (slots 4,5,6) to 4,000."
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Add a cap of 4,00 students across all slots on Day 2 because of proctor shortage.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "low"
+    },
+    "relevant_components": [
+      "slot_load_cap",
+      "x",
+      "block_enrollment"
+    ]
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {},
+          "update": {
+            "constraint": {
+              "index_set": [
+                "day_2"
+              ],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "name": "slot_load_cap",
+              "rhs_spec": {
+                "day_2": 4000.0
+              },
+              "sense": "<="
+            }
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Add a cap of 4,00 students across all slots on Day 2 because of proctor shortage.",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "low",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Add a cap of 4,000 students across all slots on Day 2 because of proctor shortage.\",\n  \"affected_sets\": {\n    \"day\": [2],\n    \"slots\": [4, 5, 6]\n  },\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"x\",\n    \"block_enrollment\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"global\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\"day_2\"],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slots\": [4, 5, 6]\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000.0\n              },\n              \"sense\": \"<=\"\n            },\n            \"notes\": \"Limit total student enrollment in all exams taking place on Day 2 (slots 4,5,6) to 4,000.\"\n          }\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"low\"\n  }\n}",
+  "relevant_components": [
+    "slot_load_cap",
+    "x",
+    "block_enrollment"
+  ]
+}

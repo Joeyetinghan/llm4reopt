@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "Expected reuse is high and the edit is not flagged as structurally risky; a heuristic warm start is available but there is no base prior result. Using a heuristic warm start followed by a tuned solve provides the fastest safe reoptimization given tuned solving is supported, aligning with the preference for warm+tuned when reuse is favorable.",
+  "confidence": 0.74
+}

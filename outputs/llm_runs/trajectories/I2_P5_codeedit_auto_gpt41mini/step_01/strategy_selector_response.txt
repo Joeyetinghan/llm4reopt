@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "direct+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is related to an objective-weight change which couldn't be fully grounded for heuristic warm start, so warm start alone isn't sufficient. However, warm start is available and the solver supports tuning, so combining 'direct_warm_start' with 'tuned_config' leverages the warm reuse and tuning capabilities to achieve the fastest safe reoptimization solution.",
+  "confidence": 0.95
+}

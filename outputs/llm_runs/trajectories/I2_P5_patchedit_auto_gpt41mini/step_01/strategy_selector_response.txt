@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": ["heuristic_warm_start", "tuned_config"],
+  "rationale": "The edit introduces a structural capacity constraint but reuse is expected to be high. Warm start with heuristic solving followed by tuned solving offers a fast, safe reoptimization path, leveraging available heuristic warm start and tuned solver capabilities without a prior solution base.",
+  "confidence": 0.9
+}

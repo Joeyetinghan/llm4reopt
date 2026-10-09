@@ -1,0 +1,998 @@
+TO LLM 2026-04-26T21:42:47
+-------
+SYSTEM Act as an expert software developer.
+SYSTEM Take requests for changes to the supplied code.
+SYSTEM If the request is ambiguous, ask questions.
+SYSTEM Reply in English.
+SYSTEM 
+SYSTEM Once you understand the request you MUST:
+SYSTEM 1. Determine if any code changes are needed.
+SYSTEM 2. Explain any needed changes.
+SYSTEM 3. If changes are needed, output a copy of each file that needs changes.
+SYSTEM 
+SYSTEM To suggest changes to a file you MUST return the entire content of the updated file.
+SYSTEM You MUST use this *file listing* format:
+SYSTEM 
+SYSTEM path/to/filename.js
+SYSTEM ```
+SYSTEM // entire file content ...
+SYSTEM // ... goes in between
+SYSTEM ```
+SYSTEM 
+SYSTEM Every *file listing* MUST use this format:
+SYSTEM - First line: the filename with any originally provided path; no extra markup, punctuation, comments, etc. **JUST** the filename with path.
+SYSTEM - Second line: opening ```
+SYSTEM - ... entire content of the file ...
+SYSTEM - Final line: closing ```
+SYSTEM 
+SYSTEM To suggest changes to a file you MUST return a *file listing* that contains the entire content of the file.
+SYSTEM *NEVER* skip, omit or elide content from a *file listing* using "..." or by adding comments like "... rest of code..."!
+SYSTEM Create a new file you MUST return a *file listing* which includes an appropriate filename, including any appropriate path.
+SYSTEM 
+SYSTEM Reply in English.
+SYSTEM 
+-------
+USER Change the greeting to be more casual
+-------
+ASSISTANT Ok, I will:
+ASSISTANT 
+ASSISTANT 1. Switch the greeting text from "Hello" to "Hey".
+ASSISTANT 
+ASSISTANT show_greeting.py
+ASSISTANT ```
+ASSISTANT import sys
+ASSISTANT 
+ASSISTANT def greeting(name):
+ASSISTANT     print(f"Hey {name}")
+ASSISTANT 
+ASSISTANT if __name__ == '__main__':
+ASSISTANT     greeting(sys.argv[1])
+ASSISTANT ```
+-------
+USER I switched to a new code base. Please don't consider the above files or try to edit them any longer.
+-------
+ASSISTANT Ok.
+-------
+USER Here are some READ ONLY files, provided for your reference.
+USER Do not edit these files!
+USER 
+USER runtime_snapshot.json
+USER ```
+USER {
+USER   "lp_stem": "blockseq_n544_blocks20_slots24_seed42",
+USER   "artifact_stem": "blockseq_n544_blocks20_slots24_seed42",
+USER   "instance_id": "I1",
+USER   "reference_semester": "Spring 2024",
+USER   "size": 544,
+USER   "seed": 42,
+USER   "slots": 24,
+USER   "slots_per_day": 3,
+USER   "slot_times": [
+USER     "9am",
+USER     "2pm",
+USER     "7pm"
+USER   ],
+USER   "blocks": [
+USER     1,
+USER     2,
+USER     3,
+USER     4,
+USER     5,
+USER     6,
+USER     7,
+USER     8,
+USER     9,
+USER     10,
+USER     11,
+USER     12,
+USER     13,
+USER     14,
+USER     15,
+USER     16,
+USER     17,
+USER     18,
+USER     19,
+USER     20,
+USER     21,
+USER     22,
+USER     23,
+USER     24
+USER   ],
+USER   "real_blocks": 20,
+USER   "dummy_blocks": [
+USER     21,
+USER     22,
+USER     23,
+USER     24
+USER   ],
+USER   "virtual_blocks": [
+USER     21,
+USER     22,
+USER     23,
+USER     24
+USER   ],
+USER   "large_blocks": [
+USER     1,
+USER     2,
+USER     3,
+USER     4,
+USER     5,
+USER     6,
+USER     7,
+USER     9,
+USER     10,
+USER     11,
+USER     12,
+USER     13,
+USER     14,
+USER     15,
+USER     16,
+USER     17,
+USER     18,
+USER     19,
+USER     20
+USER   ],
+USER   "early_slots": [
+USER     1,
+USER     2,
+USER     3,
+USER     4,
+USER     5,
+USER     6,
+USER     7,
+USER     8,
+USER     9,
+USER     10,
+USER     11,
+USER     12,
+USER     13,
+USER     14,
+USER     15,
+USER     16,
+USER     17,
+USER     18,
+USER     19,
+USER     20,
+USER     21
+USER   ],
+USER   "triple_24_start": [
+USER     2,
+USER     3,
+USER     5,
+USER     6,
+USER     8,
+USER     9,
+USER     11,
+USER     12,
+USER     14,
+USER     15,
+USER     17,
+USER     18,
+USER     20,
+USER     21
+USER   ],
+USER   "triple_day_start": [
+USER     1,
+USER     4,
+USER     7,
+USER     10,
+USER     13,
+USER     16,
+USER     19,
+USER     22
+USER   ],
+USER   "eve_morn_start": [
+USER     3,
+USER     6,
+USER     9,
+USER     12,
+USER     15,
+USER     18,
+USER     21
+USER   ],
+USER   "other_b2b_start": [
+USER     1,
+USER     2,
+USER     4,
+USER     5,
+USER     7,
+USER     8,
+USER     10,
+USER     11,
+USER     13,
+USER     14,
+USER     16,
+USER     17,
+USER     19,
+USER     20,
+USER     22,
+USER     23
+USER   ],
+USER   "weights": {
+USER     "alpha": 10,
+USER     "beta": 10,
+USER     "gamma1": 1,
+USER     "gamma2": 1,
+USER     "delta": 5,
+USER     "vega": 1.0,
+USER     "theta": 2.0,
+USER     "lambda_large1": 1.0,
+USER     "lambda_large2": 1.0,
+USER     "lambda_big": 1000.0,
+USER     "frontload_block_size_cutoff": 300,
+USER     "frontload_slot_cutoff": 21
+USER   },
+USER   "reserved_slots": [],
+USER   "block_enrollment": {
+USER     "1": 2081,
+USER     "2": 2027,
+USER     "3": 1803,
+USER     "4": 1777,
+USER     "5": 1989,
+USER     "6": 2043,
+USER     "7": 1955,
+USER     "8": 1962,
+USER     "9": 1770,
+USER     "10": 2312,
+USER     "11": 2023,
+USER     "12": 2012,
+USER     "13": 1837,
+USER     "14": 2232,
+USER     "15": 2105,
+USER     "16": 1841,
+USER     "17": 2123,
+USER     "18": 2468,
+USER     "19": 2674,
+USER     "20": 2553,
+USER     "21": 0,
+USER     "22": 0,
+USER     "23": 0,
+USER     "24": 0
+USER   },
+USER   "block_num_exams": {
+USER     "1": 84,
+USER     "2": 52,
+USER     "3": 40,
+USER     "4": 37,
+USER     "5": 29,
+USER     "6": 12,
+USER     "7": 15,
+USER     "8": 13,
+USER     "9": 14,
+USER     "10": 25,
+USER     "11": 16,
+USER     "12": 19,
+USER     "13": 13,
+USER     "14": 20,
+USER     "15": 16,
+USER     "16": 23,
+USER     "17": 27,
+USER     "18": 25,
+USER     "19": 29,
+USER     "20": 35,
+USER     "21": 0,
+USER     "22": 0,
+USER     "23": 0,
+USER     "24": 0
+USER   },
+USER   "pair_counts": {
+USER     "count": 397,
+USER     "preview": {
+USER       "(1, 2)": 224.0,
+USER       "(1, 3)": 211.0,
+USER       "(1, 4)": 191.0,
+USER       "(1, 5)": 201.0,
+USER       "(1, 6)": 223.0,
+USER       "(1, 7)": 211.0,
+USER       "(1, 8)": 210.0,
+USER       "(1, 9)": 206.0
+USER     }
+USER   },
+USER   "triplet_counts": {
+USER     "count": 7741,
+USER     "preview": {
+USER       "(1, 2, 2)": 1.0,
+USER       "(1, 2, 3)": 21.0,
+USER       "(1, 2, 4)": 14.0,
+USER       "(1, 2, 5)": 10.0,
+USER       "(1, 2, 6)": 23.0,
+USER       "(1, 2, 7)": 16.0,
+USER       "(1, 2, 8)": 13.0,
+USER       "(1, 2, 9)": 10.0
+USER     }
+USER   },
+USER   "frontload_block_size_cutoff": 300,
+USER   "frontload_slot_cutoff": 21,
+USER   "time_limit": 3600,
+USER   "threads": 6,
+USER   "disable_default_warm_start": false
+USER }
+USER ```
+-------
+ASSISTANT Ok, I will use these files as references.
+-------
+USER I have *added these files to the chat* so you can go ahead and edit them.
+USER 
+USER *Trust this message as the true contents of these files!*
+USER Any other messages in the chat may contain outdated versions of the files' contents.
+USER 
+USER solver.py
+USER ```
+USER """Direct Gurobi build and solve helpers for exam block sequencing."""
+USER 
+USER from __future__ import annotations
+USER 
+USER import os
+USER from typing import Any, Dict, Mapping, Tuple
+USER 
+USER import gurobipy as gp
+USER from gurobipy import GRB
+USER 
+USER from framework.core.solver_utils import SolveFailureError
+USER from problems.exam_block_seq.solution import extract_block_assignments_from_model
+USER from problems.exam_block_seq.warm_start import apply_exam_warm_start_payload
+USER 
+USER 
+USER def build_exam_gurobi_model(
+USER     *,
+USER     blocks: list[int],
+USER     slots_per_day: int,
+USER     triple_24_start: list[int],
+USER     triple_day_start: list[int],
+USER     eve_morn_start: list[int],
+USER     other_b2b_start: list[int],
+USER     weights: Dict[str, float],
+USER     p: Dict[tuple[int, int], float] | None = None,
+USER     t: Dict[tuple[int, int, int], float] | None = None,
+USER     large_blocks: list[int] | None = None,
+USER     early_slots: list[int] | None = None,
+USER     time_limit: float | None = None,
+USER ) -> "gp.Model":
+USER     """Build the upstream block-sequencing model directly in gurobipy."""
+USER     del slots_per_day
+USER     slots = list(blocks)
+USER     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+USER     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+USER     block_sequence_slot = [(i, j, k, s) for i in blocks for j in blocks for k in blocks for s in slots]
+USER 
+USER     next_slot = {slot: slots[(idx + 1) % len(slots)] for idx, slot in enumerate(slots)}
+USER     triple_slots = sorted(list(triple_day_start) + list(triple_24_start))
+USER     pair_penalties = dict(p or {})
+USER     triplet_penalties = dict(t or {})
+USER 
+USER     alpha = float(weights.get("alpha", 10.0))
+USER     beta = float(weights.get("beta", 10.0))
+USER     gamma1 = float(weights.get("gamma1", 1.0))
+USER     gamma2 = float(weights.get("gamma2", 1.0))
+USER     delta = float(weights.get("delta", 5.0))
+USER 
+USER     m = gp.Model("BlockSequencing")
+USER     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)
+USER     if time_limit:
+USER         m.setParam("TimeLimit", float(time_limit))
+USER 
+USER     x = m.addVars(block_sequence_slot, vtype=GRB.BINARY, name="x")
+USER     y = m.addVars(block_sequence_trip, vtype=GRB.BINARY, name="y")
+USER     z = m.addVars(block_sequence_quad, vtype=GRB.BINARY, name="z")
+USER 
+USER     m.addConstrs(
+USER         (
+USER             gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks for s in slots) == 1
+USER             for i in blocks
+USER         ),
+USER         name="each_i",
+USER     )
+USER     m.addConstrs(
+USER         (
+USER             gp.quicksum(x[i, j, k, s] for i in blocks for k in blocks for s in slots) == 1
+USER             for j in blocks
+USER         ),
+USER         name="each_j",
+USER     )
+USER     m.addConstrs(
+USER         (
+USER             gp.quicksum(x[i, j, k, s] for i in blocks for j in blocks for s in slots) == 1
+USER             for k in blocks
+USER         ),
+USER         name="each_k",
+USER     )
+USER     m.addConstrs(
+USER         (
+USER             gp.quicksum(x[i, j, k, s] for i in blocks for j in blocks for k in blocks) == 1
+USER             for s in slots
+USER         ),
+USER         name="each_slot",
+USER     )
+USER 
+USER     m.addConstrs((x[i, i, k, s] == 0 for i in blocks for k in blocks for s in slots), name="no_ii")
+USER     m.addConstrs((x[i, j, i, s] == 0 for i in blocks for j in blocks for s in slots), name="no_ik")
+USER     m.addConstrs((x[i, j, j, s] == 0 for i in blocks for j in blocks for s in slots), name="no_jj")
+USER 
+USER     m.addConstrs(
+USER         (
+USER             gp.quicksum(x[i, j, k, s] for i in blocks)
+USER             == gp.quicksum(x[j, k, l, next_slot[s]] for l in blocks)
+USER             for j in blocks
+USER             for k in blocks
+USER             for s in slots
+USER         ),
+USER         name="continuity",
+USER     )
+USER 
+USER     m.addConstrs(
+USER         (
+USER             y[i, j, k] == gp.quicksum(x[i, j, k, s] for s in triple_slots)
+USER             for i, j, k in block_sequence_trip
+USER         ),
+USER         name="define_y",
+USER     )
+USER     m.addConstrs(
+USER         (
+USER             z[i, j, k, l] >= y[i, j, k] + y[j, k, l] - 1
+USER             for i, j, k, l in block_sequence_quad
+USER         ),
+USER         name="define_z",
+USER     )
+USER 
+USER     frontload_blocks = sorted(
+USER         {
+USER             int(block)
+USER             for block in (large_blocks or [])
+USER             if isinstance(block, (int, float)) and int(block) in blocks
+USER         }
+USER     )
+USER     early_slot_values = [int(slot) for slot in (early_slots or [])]
+USER     if frontload_blocks:
+USER         m.addConstrs(
+USER             (
+USER                 gp.quicksum(
+USER                     x[i, j, k, s]
+USER                     for j in blocks
+USER                     for k in blocks
+USER                     for s in early_slot_values
+USER                 )
+USER                 == 1
+USER                 for i in frontload_blocks
+USER             ),
+USER             name="frontload",
+USER         )
+USER 
+USER     objective = (
+USER         gp.quicksum(
+USER             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+USER             for i in blocks
+USER             for j in blocks
+USER             for k in blocks
+USER             for s in eve_morn_start
+USER         )
+USER         + gp.quicksum(
+USER             gamma2 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+USER             for i in blocks
+USER             for j in blocks
+USER             for k in blocks
+USER             for s in other_b2b_start
+USER         )
+USER         + gp.quicksum(
+USER             alpha * float(triplet_penalties.get((i, j, k), 0.0)) * x[i, j, k, s]
+USER             for i in blocks
+USER             for j in blocks
+USER             for k in blocks
+USER             for s in triple_day_start
+USER         )
+USER         + gp.quicksum(
+USER             beta * float(triplet_penalties.get((i, j, k), 0.0)) * x[i, j, k, s]
+USER             for i in blocks
+USER             for j in blocks
+USER             for k in blocks
+USER             for s in triple_24_start
+USER         )
+USER         + gp.quicksum(
+USER             delta
+USER             * (
+USER                 float(triplet_penalties.get((i, j, k), 0.0))
+USER                 + float(triplet_penalties.get((i, k, l), 0.0))
+USER             )
+USER             * z[i, j, k, l]
+USER             for i in blocks
+USER             for j in blocks
+USER             for k in blocks
+USER             for l in blocks
+USER         )
+USER     )
+USER     m.setObjective(objective, GRB.MINIMIZE)
+USER 
+USER     m.update()
+USER     return m
+USER 
+USER 
+USER def solve_exam_direct(
+USER     runtime_data: Mapping[str, Any],
+USER     *,
+USER     warm_start: Any | None = None,
+USER     solver_params: dict[str, Any] | None = None,
+USER     time_limit: int | float | None = None,
+USER ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+USER     """Solve the direct solver model used by the codeedit pipeline."""
+USER     data = dict(runtime_data)
+USER     grb = build_exam_gurobi_model(
+USER         blocks=[int(block) for block in data["blocks"]],
+USER         slots_per_day=int(data["slots_per_day"]),
+USER         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+USER         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+USER         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+USER         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+USER         weights=dict(data["weights"]),
+USER         p=dict(data.get("pair_counts") or {}),
+USER         t=dict(data.get("triplet_counts") or {}),
+USER         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+USER         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+USER         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+USER     )
+USER     apply_solver_params(grb, solver_params)
+USER     apply_exam_warm_start_payload(grb, warm_start)
+USER     grb.update()
+USER     grb.optimize()
+USER 
+USER     solve_meta = extract_solve_meta(grb)
+USER     solve_meta["warm_start_applied"] = warm_start is not None
+USER     solve_meta["warm_start_source"] = "provided" if warm_start is not None else "none"
+USER     solve_meta["warm_start_mode"] = solve_meta["warm_start_source"]
+USER     if grb.Status not in (GRB.OPTIMAL, GRB.TIME_LIMIT):
+USER         raise SolveFailureError(
+USER             f"Block sequencing solve failed with status {grb.Status}",
+USER             solve_meta=solve_meta,
+USER         )
+USER     if grb.SolCount == 0:
+USER         raise SolveFailureError(
+USER             f"No incumbent solution available at status {grb.Status}",
+USER             solve_meta=solve_meta,
+USER         )
+USER 
+USER     solution = extract_block_assignments_from_model(grb, [int(block) for block in data["blocks"]])
+USER     return float(grb.ObjVal), solution, solve_meta
+USER 
+USER 
+USER def _show_solver_log() -> bool:
+USER     return os.getenv("REOPT_DEBUG_PROMPTS", "").strip().lower() in {"1", "true", "yes", "on"}
+USER 
+USER 
+USER def apply_solver_params(model: gp.Model, solver_params: Any) -> None:
+USER     if not isinstance(solver_params, dict):
+USER         return
+USER     for name, value in solver_params.items():
+USER         if value is None:
+USER             continue
+USER         try:
+USER             model.setParam(str(name), value)
+USER         except Exception as exc:
+USER             raise RuntimeError(f"Failed to set Gurobi parameter {name}={value!r}") from exc
+USER 
+USER 
+USER def extract_solve_meta(model: gp.Model) -> Dict[str, float | int]:
+USER     meta: Dict[str, float | int] = {
+USER         "status": int(model.Status),
+USER         "runtime": float(model.Runtime),
+USER         "sol_count": int(model.SolCount),
+USER     }
+USER     try:
+USER         meta["mip_gap"] = float(model.MIPGap)
+USER     except Exception:
+USER         pass
+USER     try:
+USER         meta["obj_bound"] = float(model.ObjBound)
+USER     except Exception:
+USER         pass
+USER     if model.SolCount > 0:
+USER         try:
+USER             meta["objective"] = float(model.ObjVal)
+USER         except Exception:
+USER             pass
+USER     return meta
+USER ```
+-------
+ASSISTANT Ok, any changes I propose will be to those files.
+-------
+USER Requested change:
+USER The Student Assembly raised concerns about extreme stress; increase the penalty for having "three exams in 24 hours" to be 20 times that of a regular back-to-back.
+USER 
+USER Editable files:
+USER - solver.py
+USER 
+USER Read-only context files:
+USER - runtime_snapshot.json
+USER 
+USER Preferred edit targets:
+USER - solver.py :: build_exam_gurobi_model, solve_exam_direct (Direct Gurobi model builder and solve surface for code editing.)
+USER 
+USER Code-edit grounding:
+USER Representation kind: codeedit_solver
+USER Model counts: variables=0, constraints=0, objectives=0, parameters=30
+USER Solver capabilities: {"codeedit_source_type": "python_builder", "edited_package_root": "problems/exam_block_seq", "solver_backend": "gurobi", "source_kind": "package", "supports_tuned_solver": true, "supports_warm_start": true}
+USER Key parameters:
+USER - [parameter] lp_stem: Scalar parameter lp_stem. (value=blockseq_n544_blocks20_slots24_seed42)
+USER - [parameter] instance_id: Scalar parameter instance_id. (value=I1)
+USER - [parameter] reference_semester: Scalar parameter reference_semester. (value=Spring 2024)
+USER - [parameter] size: Scalar parameter size. (value=544)
+USER - [parameter] seed: Scalar parameter seed. (value=42)
+USER - [parameter] slots: Scalar parameter slots. (value=24)
+USER 
+USER Problem-specific guidance:
+USER - Use the existing exam solver mechanisms rather than inventing new interfaces or rewriting the model structure. For slot exclusion requests, resolve the concrete slot from slot_times and slots_per_day, update reserved_slots, and preserve the virtual-block reservation mechanism that materializes the slot exclusion. For pairwise co-enrollment changes between two blocks, keep pair-count updates symmetric across both ordered keys unless the request explicitly distinguishes direction. For large-exam frontloading requests, reuse early_slots and the existing large_blocks logic instead of adding a new frontload formulation. For day-level load caps, ground the limit with block_enrollment over the affected day slots and preserve the existing slot-load-cap semantics. For stress-penalty changes, update the existing objective weight parameters rather than rewriting the objective structure.
+USER 
+USER Problem-specific edit notes:
+USER - The main solver code surfaces are build_exam_gurobi_model(...) for the base Gurobi formulation and solve_exam_direct(...) for runtime data preparation, warm start application, and solve orchestration.
+USER - In solve_exam_direct(...), data["blocks"] is the ordered slot-id list and data["slots_per_day"] is the day width; if data["slots"] is present it is a scalar count, not an iterable slot list.
+USER - Do not invent new runtime_data or solver_params keys; only pass real Gurobi parameters through _apply_solver_params(...).
+USER - Prefer editing weights, pair_counts, reserved_slots/large_blocks/early_slots derivation, or the direct model constraints in build_exam_gurobi_model(...).
+USER - Preserve additive semantics from the request: wording like 'increase by' should usually modify existing values rather than replace them.
+USER - When the request refers to a relationship between two blocks, keep the update symmetric unless the request explicitly distinguishes direction.
+USER - Slot reservation requests should ground through slot_times and slots_per_day, then reserve the resolved slot via the virtual-block mechanism.
+USER - Day-level load changes should use data["block_enrollment"] with first-index occupancy over the relevant slots.
+USER - If a combined request specifies an order, preserve that order in the implementation.
+USER 
+USER Problem context:
+USER problem_context
+USER 
+USER # Exam Block Sequencing Context
+USER 
+USER You are helping the University Registrar evaluate changes to the final-exam schedule.
+USER 
+USER - This is the block-sequencing stage of a Group-then-Sequence workflow: exams have already been grouped into blocks, and this model places those blocks into exam slots.
+USER - The model is about exam timing only; room assignment is handled separately.
+USER - Delta requests usually describe policy, comfort, or operational changes to the exam calendar.
+USER 
+USER ## Calendar And Basic Assumptions
+USER 
+USER - The exam period is a fixed ordered sequence of slots.
+USER - The standard interpretation is three slots per day: morning, afternoon, and evening. In the packaged instances these are usually `9am`, `2pm`, and `7pm`.
+USER - Requests such as “Day 2”, “morning”, “afternoon”, “evening”, or “the evening slot immediately before the final evening slot” should be grounded through `slots_per_day`, `slot_times`, and slot ids, not through guessed LP names.
+USER - Some slots may be intentionally excluded from use. In practice, the Registrar may want to keep certain late slots empty for setup, cleanup, or special events.
+USER - In final patch proposals, relative calendar phrases should be resolved to explicit slot ids when the instance data makes that possible.
+USER 
+USER ## Objective
+USER 
+USER The sequencing objective penalizes stressful student exam patterns:
+USER 
+USER - `alpha`: triples within one day
+USER - `beta`: triples within 24 hours
+USER - `gamma1`: evening-to-morning back-to-backs
+USER - `gamma2`: other back-to-backs
+USER - `delta`: three exams in four consecutive slots
+USER 
+USER Here, a triple within one day (`alpha`) means three exams assigned to three consecutive slots that all fall on the same day. A triple within 24 hours (`beta`) means three exams assigned to three consecutive slots within a 24-hour window, which may cross an overnight boundary. A back-to-back means two exams assigned to consecutive slots; in this model, back-to-backs are split into evening-to-morning (`gamma1`) and other adjacent-slot pairs (`gamma2`). These events are not double-counted: exam pairs that are already part of a triple should not also be counted again as back-to-backs.
+USER 
+USER ## Core Model View
+USER 
+USER The sequencing formulation is cyclic over the slot set.
+USER 
+USER - `x[i,j,k,s] = 1` means block `i` is placed at slot `s`, block `j` at slot `s+1`, and block `k` at slot `s+2`.
+USER - The block occupying slot `s` is identified by the first index of `x[i,j,k,s]`, so assignment-like policy rules should be expressed by summing `x[i,*,*,s]` terms over the relevant slots.
+USER - `y[...]` and `z[...]` are linkage variables used to score triple and four-slot patterns.
+USER 
+USER Assignment and continuity constraints enforce a valid cyclic schedule in which each block is placed once and each slot receives one block.
+USER 
+USER ## Grounding Data
+USER 
+USER The rendered model representation already exposes the concrete instance data needed to ground requests, including `virtual_blocks`, `large_blocks`, `early_slots`, `reserved_slots`, `block_enrollment`, `pair_counts`, `triplet_counts`, `slots_per_day`, and `slot_times`.
+USER 
+USER Use those rendered values directly instead of inventing symbolic placeholders, and use the exact numeric slot cutoff stated in the prompt when front-loading requests are instance-specific.
+USER 
+USER ## Canonical Interpretations
+USER 
+USER - Slot reservation requests should use `reserved_virtual_slot`; `reserved_slots` is the canonical slot list feeding that mechanism.
+USER - Front-loading requests should be interpreted through `large_blocks` and `early_slots`.
+USER - Day-load requests should use `block_enrollment` and the first-index occupancy view of `x[i,j,k,s]`.
+USER - Co-enrollment changes usually affect `pair_counts` / `p` or `triplet_counts` / `t`; pairwise block relationships are unordered in the policy language, so update both ordered pair keys unless the request explicitly distinguishes direction.
+USER - Weight or comfort tradeoff requests usually affect `alpha`, `beta`, `gamma1`, `gamma2`, or `delta`.
+USER - If the instance data resolves a slot or day directly, emit explicit slot ids rather than symbolic formulas.
+USER 
+USER ## Combined Requests
+USER 
+USER - Preserve the requested order when one request bundles several changes.
+USER - Combined Registrar edits may mix weight changes, co-enrollment edits, front-loading, slot reservations, and day-load restrictions.
+USER 
+USER 
+USER To suggest changes to a file you MUST return the entire content of the updated file.
+USER You MUST use this *file listing* format:
+USER 
+USER path/to/filename.js
+USER ```
+USER // entire file content ...
+USER // ... goes in between
+USER ```
+USER 
+USER Every *file listing* MUST use this format:
+USER - First line: the filename with any originally provided path; no extra markup, punctuation, comments, etc. **JUST** the filename with path.
+USER - Second line: opening ```
+USER - ... entire content of the file ...
+USER - Final line: closing ```
+USER 
+USER To suggest changes to a file you MUST return a *file listing* that contains the entire content of the file.
+USER *NEVER* skip, omit or elide content from a *file listing* using "..." or by adding comments like "... rest of code..."!
+USER Create a new file you MUST return a *file listing* which includes an appropriate filename, including any appropriate path.
+USER 
+USER Reply in English.
+USER 
+LLM RESPONSE 2026-04-26T21:43:21
+ASSISTANT I understand the request: raise the penalty for “three exams in 24 hours” to be 20 times that of a regular back-to-back. In this model, “three exams in 24 hours” corresponds to weight beta, and a “regular back-to-back” corresponds to gamma2 (non-overnight adjacent slots). To implement this, we set beta = 20 * gamma2 inside the model builder so the objective reflects the new policy without changing the structure.
+ASSISTANT 
+ASSISTANT Changes needed:
+ASSISTANT - In build_exam_gurobi_model, after reading the weights, set beta = 20.0 * gamma2. This ensures the 24-hour triple penalty is exactly 20 times the regular back-to-back penalty. No other structural or parameter changes are required.
+ASSISTANT 
+ASSISTANT solver.py
+ASSISTANT ```
+ASSISTANT """Direct Gurobi build and solve helpers for exam block sequencing."""
+ASSISTANT 
+ASSISTANT from __future__ import annotations
+ASSISTANT 
+ASSISTANT import os
+ASSISTANT from typing import Any, Dict, Mapping, Tuple
+ASSISTANT 
+ASSISTANT import gurobipy as gp
+ASSISTANT from gurobipy import GRB
+ASSISTANT 
+ASSISTANT from framework.core.solver_utils import SolveFailureError
+ASSISTANT from problems.exam_block_seq.solution import extract_block_assignments_from_model
+ASSISTANT from problems.exam_block_seq.warm_start import apply_exam_warm_start_payload
+ASSISTANT 
+ASSISTANT 
+ASSISTANT def build_exam_gurobi_model(
+ASSISTANT     *,
+ASSISTANT     blocks: list[int],
+ASSISTANT     slots_per_day: int,
+ASSISTANT     triple_24_start: list[int],
+ASSISTANT     triple_day_start: list[int],
+ASSISTANT     eve_morn_start: list[int],
+ASSISTANT     other_b2b_start: list[int],
+ASSISTANT     weights: Dict[str, float],
+ASSISTANT     p: Dict[tuple[int, int], float] | None = None,
+ASSISTANT     t: Dict[tuple[int, int, int], float] | None = None,
+ASSISTANT     large_blocks: list[int] | None = None,
+ASSISTANT     early_slots: list[int] | None = None,
+ASSISTANT     time_limit: float | None = None,
+ASSISTANT ) -> "gp.Model":
+ASSISTANT     """Build the upstream block-sequencing model directly in gurobipy."""
+ASSISTANT     del slots_per_day
+ASSISTANT     slots = list(blocks)
+ASSISTANT     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+ASSISTANT     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+ASSISTANT     block_sequence_slot = [(i, j, k, s) for i in blocks for j in blocks for k in blocks for s in slots]
+ASSISTANT 
+ASSISTANT     next_slot = {slot: slots[(idx + 1) % len(slots)] for idx, slot in enumerate(slots)}
+ASSISTANT     triple_slots = sorted(list(triple_day_start) + list(triple_24_start))
+ASSISTANT     pair_penalties = dict(p or {})
+ASSISTANT     triplet_penalties = dict(t or {})
+ASSISTANT 
+ASSISTANT     alpha = float(weights.get("alpha", 10.0))
+ASSISTANT     beta = float(weights.get("beta", 10.0))
+ASSISTANT     gamma1 = float(weights.get("gamma1", 1.0))
+ASSISTANT     gamma2 = float(weights.get("gamma2", 1.0))
+ASSISTANT     delta = float(weights.get("delta", 5.0))
+ASSISTANT 
+ASSISTANT     # Policy update: make "three exams in 24 hours" 20x a regular back-to-back.
+ASSISTANT     # Interpret "regular back-to-back" as non-overnight adjacent slots (gamma2).
+ASSISTANT     beta = 20.0 * gamma2
+ASSISTANT 
+ASSISTANT     m = gp.Model("BlockSequencing")
+ASSISTANT     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)
+ASSISTANT     if time_limit:
+ASSISTANT         m.setParam("TimeLimit", float(time_limit))
+ASSISTANT 
+ASSISTANT     x = m.addVars(block_sequence_slot, vtype=GRB.BINARY, name="x")
+ASSISTANT     y = m.addVars(block_sequence_trip, vtype=GRB.BINARY, name="y")
+ASSISTANT     z = m.addVars(block_sequence_quad, vtype=GRB.BINARY, name="z")
+ASSISTANT 
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks for s in slots) == 1
+ASSISTANT             for i in blocks
+ASSISTANT         ),
+ASSISTANT         name="each_i",
+ASSISTANT     )
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             gp.quicksum(x[i, j, k, s] for i in blocks for k in blocks for s in slots) == 1
+ASSISTANT             for j in blocks
+ASSISTANT         ),
+ASSISTANT         name="each_j",
+ASSISTANT     )
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             gp.quicksum(x[i, j, k, s] for i in blocks for j in blocks for s in slots) == 1
+ASSISTANT             for k in blocks
+ASSISTANT         ),
+ASSISTANT         name="each_k",
+ASSISTANT     )
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             gp.quicksum(x[i, j, k, s] for i in blocks for j in blocks for k in blocks) == 1
+ASSISTANT             for s in slots
+ASSISTANT         ),
+ASSISTANT         name="each_slot",
+ASSISTANT     )
+ASSISTANT 
+ASSISTANT     m.addConstrs((x[i, i, k, s] == 0 for i in blocks for k in blocks for s in slots), name="no_ii")
+ASSISTANT     m.addConstrs((x[i, j, i, s] == 0 for i in blocks for j in blocks for s in slots), name="no_ik")
+ASSISTANT     m.addConstrs((x[i, j, j, s] == 0 for i in blocks for j in blocks for s in slots), name="no_jj")
+ASSISTANT 
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             gp.quicksum(x[i, j, k, s] for i in blocks)
+ASSISTANT             == gp.quicksum(x[j, k, l, next_slot[s]] for l in blocks)
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for s in slots
+ASSISTANT         ),
+ASSISTANT         name="continuity",
+ASSISTANT     )
+ASSISTANT 
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             y[i, j, k] == gp.quicksum(x[i, j, k, s] for s in triple_slots)
+ASSISTANT             for i, j, k in block_sequence_trip
+ASSISTANT         ),
+ASSISTANT         name="define_y",
+ASSISTANT     )
+ASSISTANT     m.addConstrs(
+ASSISTANT         (
+ASSISTANT             z[i, j, k, l] >= y[i, j, k] + y[j, k, l] - 1
+ASSISTANT             for i, j, k, l in block_sequence_quad
+ASSISTANT         ),
+ASSISTANT         name="define_z",
+ASSISTANT     )
+ASSISTANT 
+ASSISTANT     frontload_blocks = sorted(
+ASSISTANT         {
+ASSISTANT             int(block)
+ASSISTANT             for block in (large_blocks or [])
+ASSISTANT             if isinstance(block, (int, float)) and int(block) in blocks
+ASSISTANT         }
+ASSISTANT     )
+ASSISTANT     early_slot_values = [int(slot) for slot in (early_slots or [])]
+ASSISTANT     if frontload_blocks:
+ASSISTANT         m.addConstrs(
+ASSISTANT             (
+ASSISTANT                 gp.quicksum(
+ASSISTANT                     x[i, j, k, s]
+ASSISTANT                     for j in blocks
+ASSISTANT                     for k in blocks
+ASSISTANT                     for s in early_slot_values
+ASSISTANT                 )
+ASSISTANT                 == 1
+ASSISTANT                 for i in frontload_blocks
+ASSISTANT             ),
+ASSISTANT             name="frontload",
+ASSISTANT         )
+ASSISTANT 
+ASSISTANT     objective = (
+ASSISTANT         gp.quicksum(
+ASSISTANT             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+ASSISTANT             for i in blocks
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for s in eve_morn_start
+ASSISTANT         )
+ASSISTANT         + gp.quicksum(
+ASSISTANT             gamma2 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+ASSISTANT             for i in blocks
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for s in other_b2b_start
+ASSISTANT         )
+ASSISTANT         + gp.quicksum(
+ASSISTANT             alpha * float(triplet_penalties.get((i, j, k), 0.0)) * x[i, j, k, s]
+ASSISTANT             for i in blocks
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for s in triple_day_start
+ASSISTANT         )
+ASSISTANT         + gp.quicksum(
+ASSISTANT             beta * float(triplet_penalties.get((i, j, k), 0.0)) * x[i, j, k, s]
+ASSISTANT             for i in blocks
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for s in triple_24_start
+ASSISTANT         )
+ASSISTANT         + gp.quicksum(
+ASSISTANT             delta
+ASSISTANT             * (
+ASSISTANT                 float(triplet_penalties.get((i, j, k), 0.0))
+ASSISTANT                 + float(triplet_penalties.get((i, k, l), 0.0))
+ASSISTANT             )
+ASSISTANT             * z[i, j, k, l]
+ASSISTANT             for i in blocks
+ASSISTANT             for j in blocks
+ASSISTANT             for k in blocks
+ASSISTANT             for l in blocks
+ASSISTANT         )
+ASSISTANT     )
+ASSISTANT     m.setObjective(objective, GRB.MINIMIZE)
+ASSISTANT 
+ASSISTANT     m.update()
+ASSISTANT     return m
+ASSISTANT 
+ASSISTANT 
+ASSISTANT def solve_exam_direct(
+ASSISTANT     runtime_data: Mapping[str, Any],
+ASSISTANT     *,
+ASSISTANT     warm_start: Any | None = None,
+ASSISTANT     solver_params: dict[str, Any] | None = None,
+ASSISTANT     time_limit: int | float | None = None,
+ASSISTANT ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+ASSISTANT     """Solve the direct solver model used by the codeedit pipeline."""
+ASSISTANT     data = dict(runtime_data)
+ASSISTANT     grb = build_exam_gurobi_model(
+ASSISTANT         blocks=[int(block) for block in data["blocks"]],
+ASSISTANT         slots_per_day=int(data["slots_per_day"]),
+ASSISTANT         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+ASSISTANT         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+ASSISTANT         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+ASSISTANT         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+ASSISTANT         weights=dict(data["weights"]),
+ASSISTANT         p=dict(data.get("pair_counts") or {}),
+ASSISTANT         t=dict(data.get("triplet_counts") or {}),
+ASSISTANT         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+ASSISTANT         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+ASSISTANT         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+ASSISTANT     )
+ASSISTANT     apply_solver_params(grb, solver_params)
+ASSISTANT     apply_exam_warm_start_payload(grb, warm_start)
+ASSISTANT     grb.update()
+ASSISTANT     grb.optimize()
+ASSISTANT 
+ASSISTANT     solve_meta = extract_solve_meta(grb)
+ASSISTANT     solve_meta["warm_start_applied"] = warm_start is not None
+ASSISTANT     solve_meta["warm_start_source"] = "provided" if warm_start is not None else "none"
+ASSISTANT     solve_meta["warm_start_mode"] = solve_meta["warm_start_source"]
+ASSISTANT     if grb.Status not in (GRB.OPTIMAL, GRB.TIME_LIMIT):
+ASSISTANT         raise SolveFailureError(
+ASSISTANT             f"Block sequencing solve failed with status {grb.Status}",
+ASSISTANT             solve_meta=solve_meta,
+ASSISTANT         )
+ASSISTANT     if grb.SolCount == 0:
+ASSISTANT         raise SolveFailureError(
+ASSISTANT             f"No incumbent solution available at status {grb.Status}",
+ASSISTANT             solve_meta=solve_meta,
+ASSISTANT         )
+ASSISTANT 
+ASSISTANT     solution = extract_block_assignments_from_model(grb, [int(block) for block in data["blocks"]])
+ASSISTANT     return float(grb.ObjVal), solution, solve_meta
+ASSISTANT 
+ASSISTANT 
+ASSISTANT def _show_solver_log() -> bool:
+ASSISTANT     return os.getenv("REOPT_DEBUG_PROMPTS", "").strip().lower() in {"1", "true", "yes", "on"}
+ASSISTANT 
+ASSISTANT 
+ASSISTANT def apply_solver_params(model: gp.Model, solver_params: Any) -> None:
+ASSISTANT     if not isinstance(solver_params, dict):
+ASSISTANT         return
+ASSISTANT     for name, value in solver_params.items():
+ASSISTANT         if value is None:
+ASSISTANT             continue
+ASSISTANT         try:
+ASSISTANT             model.setParam(str(name), value)
+ASSISTANT         except Exception as exc:
+ASSISTANT             raise RuntimeError(f"Failed to set Gurobi parameter {name}={value!r}") from exc
+ASSISTANT 
+ASSISTANT 
+ASSISTANT def extract_solve_meta(model: gp.Model) -> Dict[str, float | int]:
+ASSISTANT     meta: Dict[str, float | int] = {
+ASSISTANT         "status": int(model.Status),
+ASSISTANT         "runtime": float(model.Runtime),
+ASSISTANT         "sol_count": int(model.SolCount),
+ASSISTANT     }
+ASSISTANT     try:
+ASSISTANT         meta["mip_gap"] = float(model.MIPGap)
+ASSISTANT     except Exception:
+ASSISTANT         pass
+ASSISTANT     try:
+ASSISTANT         meta["obj_bound"] = float(model.ObjBound)
+ASSISTANT     except Exception:
+ASSISTANT         pass
+ASSISTANT     if model.SolCount > 0:
+ASSISTANT         try:
+ASSISTANT             meta["objective"] = float(model.ObjVal)
+ASSISTANT         except Exception:
+ASSISTANT             pass
+ASSISTANT     return meta
+ASSISTANT ```

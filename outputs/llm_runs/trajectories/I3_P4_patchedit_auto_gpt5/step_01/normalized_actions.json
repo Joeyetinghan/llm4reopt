@@ -1,0 +1,20 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "Set beta to 20x the regular back-to-back (gamma2) weight; gamma2 is currently 1.0.",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

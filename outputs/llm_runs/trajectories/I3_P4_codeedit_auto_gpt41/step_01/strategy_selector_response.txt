@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local objective weight update (penalty adjustment), meaning the underlying problem structure remains unchanged. A heuristic warm start is available and is reuse-friendly, making it advantageous to reuse existing search knowledge. Combining this with a tuned solver configuration leverages both reuse and optimized solving. This is expected to be both safe and fast given the structure of the change and the available toolbox items.",
+  "confidence": 0.97
+}

@@ -1,0 +1,109 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Add a day-level load cap constraint on slots 4,5,6 representing Day 2 with maximum enrollment 4000.",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": "model",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [
+                  "day_2"
+                ],
+                "lhs_spec": {
+                  "enrollment": {
+                    "keyed_by_block": true
+                  },
+                  "kind": "slot_load_cap",
+                  "slot_ids": [
+                    4,
+                    5,
+                    6
+                  ]
+                },
+                "name": "slot_load_cap",
+                "rhs_spec": {
+                  "day_2": 4000
+                },
+                "sense": "<="
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Limit total students taking exams on Day 2 to 4,00 by adding a slot_load_cap constraint on Day 2 slots.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "slot_load_cap",
+      "block_enrollment",
+      "x"
+    ]
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "Add a day-level load cap constraint on slots 4,5,6 representing Day 2 with maximum enrollment 4000.",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {},
+          "update": {
+            "constraint": {
+              "index_set": [
+                "day_2"
+              ],
+              "lhs_spec": {
+                "enrollment": {
+                  "keyed_by_block": true
+                },
+                "kind": "slot_load_cap",
+                "slot_ids": [
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "name": "slot_load_cap",
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Limit total students taking exams on Day 2 to 4,00 by adding a slot_load_cap constraint on Day 2 slots.",
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Limit total students taking exams on Day 2 to 4,000 by adding a slot_load_cap constraint on Day 2 slots.\",\n  \"affected_sets\": {},\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"block_enrollment\",\n    \"x\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"model\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\n                \"day_2\"\n              ],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slot_ids\": [\n                  4,\n                  5,\n                  6\n                ],\n                \"enrollment\": {\n                  \"keyed_by_block\": true\n                }\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000\n              },\n              \"sense\": \"<=\"\n            }\n          },\n          \"notes\": \"Add a day-level load cap constraint on slots 4,5,6 representing Day 2 with maximum enrollment 4000.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x"
+  ]
+}

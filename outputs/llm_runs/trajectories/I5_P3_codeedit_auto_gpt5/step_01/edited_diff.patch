@@ -1,0 +1,29 @@
+--- solver.py
++++ solver.py
+@@ -194,8 +194,16 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Enforce front-loading of large exams before the 15th slot (i.e., slots 1–14)
++    # by overriding early_slots to the first 14 slots. This reuses the existing
++    # large_blocks + early_slots frontload mechanism.
++    cutoff_slot = 15
++    blocks_list = [int(block) for block in data["blocks"]]
++    early_slots_override = [s for s in blocks_list if int(s) < cutoff_slot]
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
++        blocks=blocks_list,
+         slots_per_day=int(data["slots_per_day"]),
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+@@ -205,7 +213,7 @@
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        early_slots=early_slots_override,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

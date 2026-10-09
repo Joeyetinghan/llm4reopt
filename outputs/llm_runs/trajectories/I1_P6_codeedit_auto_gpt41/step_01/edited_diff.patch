@@ -1,0 +1,32 @@
+--- solver.py
++++ solver.py
+@@ -40,7 +40,15 @@
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
+ 
+-    alpha = float(weights.get("alpha", 10.0))
++    # P2: Increase co-enrollment penalty for blocks 14 and 15 by 50 (both directions)
++    for key in [(14, 15), (15, 14)]:
++        if key in pair_penalties:
++            pair_penalties[key] += 50.0
++        else:
++            pair_penalties[key] = 50.0
++
++    # P4: Increase alpha by 2.0 (triple-within-day penalty)
++    alpha = float(weights.get("alpha", 10.0)) + 2.0
+     beta = float(weights.get("beta", 10.0))
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+@@ -122,6 +130,12 @@
+         }
+     )
+     early_slot_values = [int(slot) for slot in (early_slots or [])]
++
++    # P1: Add block 10 to frontload_blocks if not already present
++    if 10 not in frontload_blocks:
++        frontload_blocks.append(10)
++        frontload_blocks = sorted(frontload_blocks)
++
+     if frontload_blocks:
+         m.addConstrs(
+             (

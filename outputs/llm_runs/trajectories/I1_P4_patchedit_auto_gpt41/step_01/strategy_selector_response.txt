@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local parameter change (increase in the triple-in-24-hours penalty) with high expected reuse, but there is no prior result or base warm start. Heuristic warm start is available and suitable for local edits when warm reuse is expected; paired with tuned solving, this provides a fast, reliable solution. This matches the preferred approach for local, reuse-friendly edits when both heuristic and tuned strategies are supported and available.",
+  "confidence": 1
+}

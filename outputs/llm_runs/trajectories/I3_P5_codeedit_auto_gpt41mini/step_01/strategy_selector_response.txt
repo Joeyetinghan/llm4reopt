@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local constraint addition (slot_load_cap) projecting well to heuristic semantics and is supported by a heuristic warm start. Since tuned solving is available and beneficial for performance, the combination heuristic+tuned is chosen for fastest safe reoptimization solve."
+}

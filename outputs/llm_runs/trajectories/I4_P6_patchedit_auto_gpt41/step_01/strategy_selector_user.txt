@@ -1,0 +1,44 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "heuristic",
+    "tuned",
+    "direct+heuristic",
+    "direct+tuned",
+    "heuristic+tuned",
+    "direct+heuristic+tuned",
+    "scratch"
+  ],
+  "delta_text": "Apply the following updates in this exact order: P4, then P2, then P1.",
+  "planner_summary": {
+    "edit_summary": "Apply (1) a patch to reserved slots or virtual block reservation, (2) a patch to frontloading/early slots, then (3) a patch to block or slot assignments, following canonical sequence P4->P2->P1 as requested. However, without delta details for P4, P2, and P1, unable to emit executable patches.",
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "relevant_components": []
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+heuristic+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": true,
+    "patch_count": 0,
+    "planner_mode": "patchedit",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

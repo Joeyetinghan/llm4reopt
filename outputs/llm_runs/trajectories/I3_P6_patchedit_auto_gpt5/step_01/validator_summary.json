@@ -1,0 +1,218 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "gamma1"
+      },
+      "update": {
+        "weight": 1.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 386.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 386.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "reserved_slots"
+      },
+      "update": {
+        "name": "reserved_slots",
+        "value": [
+          21
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 18,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 5408.999953040977,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 8,
+    "10": 19,
+    "11": 11,
+    "12": 4,
+    "13": 16,
+    "14": 1,
+    "15": 20,
+    "16": 15,
+    "17": 2,
+    "18": 21,
+    "19": 17,
+    "2": 12,
+    "20": 7,
+    "21": 24,
+    "22": 3,
+    "23": 14,
+    "24": 22,
+    "25": 25,
+    "3": 6,
+    "4": 5,
+    "5": 9,
+    "6": 18,
+    "7": 23,
+    "8": 13,
+    "9": 10
+  },
+  "solve_meta": {
+    "mip_gap": 0.2144573790186145,
+    "obj_bound": 4249.0,
+    "objective": 5408.999953040977,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.1379520893097,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 0,
+      "planner_edit_summary": "Unable to apply the requested updates (P4, then P2, then P1) because the contents of P4/P2/P1 were not provided; no executable patches can be grounded.",
+      "planner_hints": {
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [],
+      "selector_confidence": 0.74,
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Apply the following updates in this exact order: P4, then P2, then P1.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Unable to apply the requested updates (P4, then P2, then P1) because the contents of P4/P2/P1 were not provided; no executable patches can be grounded.\",\n    \"planning_hints\": {\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": []\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 0,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "No executable patches could be grounded (P4/P2/P1 contents missing), and there is no prior result or base warm start to reuse. A heuristic warm start is available and compatible with tuned solving. Using heuristic warm start followed by tuned configuration provides a fast and robust fresh solve without relying on non-existent warm reuse, and is safer and typically faster than direct alone or scratch in this context.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"No executable patches could be grounded (P4/P2/P1 contents missing), and there is no prior result or base warm start to reuse. A heuristic warm start is available and compatible with tuned solving. Using heuristic warm start followed by tuned configuration provides a fast and robust fresh solve without relying on non-existent warm reuse, and is safer and typically faster than direct alone or scratch in this context.\",\n  \"confidence\": 0.74\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

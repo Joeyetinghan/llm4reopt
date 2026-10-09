@@ -1,0 +1,59 @@
+--- solver.py
++++ solver.py
+@@ -137,6 +137,26 @@
+             name="frontload",
+         )
+ 
++    # New constraint: large exams with enrollment > 300 must be scheduled before slot 19
++    large_blocks_set = set(frontload_blocks)
++    large_block_enrollments = {int(b): 0 for b in large_blocks_set}
++    # We will fill large_block_enrollments in solve_exam_direct and pass as parameter if needed
++    # But since we cannot add new parameters, we will extract enrollment from weights or p or t is not suitable
++    # Instead, we will add this constraint in solve_exam_direct by filtering large_blocks by enrollment > 300 and early_slots < 19
++
++    # So here we add a constraint for large blocks that are in early_slot_values and have enrollment > 300
++    # But we don't have enrollment here, so we will add the constraint in solve_exam_direct by filtering early_slots accordingly
++
++    # Instead, we add a constraint that large blocks must be assigned only to slots < 19
++    # We do this by forbidding assignment to slots >= 19 for large blocks
++
++    for i in frontload_blocks:
++        for j in blocks:
++            for k in blocks:
++                for s in slots:
++                    if s >= 19:
++                        m.addConstr(x[i, j, k, s] == 0, name=f"large_block_before_slot19_{i}_{s}")
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,6 +214,18 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Filter large_blocks to only those with enrollment > 300
++    large_blocks_filtered = []
++    block_enrollment = data.get("block_enrollment", {})
++    for block in data.get("large_blocks", []):
++        enrollment = block_enrollment.get(str(block), 0)
++        if enrollment > 300:
++            large_blocks_filtered.append(int(block))
++
++    # Filter early_slots to only those less than 19 (to ensure large exams finish before slot 19)
++    early_slots_filtered = [int(slot) for slot in data.get("early_slots", []) if int(slot) < 19]
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -204,8 +236,8 @@
+         weights=dict(data["weights"]),
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=large_blocks_filtered,
++        early_slots=early_slots_filtered,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

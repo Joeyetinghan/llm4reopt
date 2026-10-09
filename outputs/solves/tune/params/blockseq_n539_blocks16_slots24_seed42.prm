@@ -1,0 +1,5 @@
+MIPGap  0.01
+Threads  8
+NoRelHeurTime  900
+RINS  2500
+PrePasses  2

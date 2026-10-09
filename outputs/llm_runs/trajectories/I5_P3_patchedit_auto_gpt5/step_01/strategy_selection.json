@@ -1,0 +1,46 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'patches': [{'component': 'frontload', 'params': {'large_blocks_threshold': 300, 'comparison': '>'}}, {'component': 'early_slots', 'params': {'allowed_range': [1, 14]}}, {'component': 'frontload_slot_cutoff', 'params': {'cutoff_slot': 15, 'enforce_before_cutoff': True}}], 'seed_policy': 'reuse_compatible_only', 'honor_existing_assignments': True, 'balance_soft_constraints': True}}\"",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 2,
+    "planner_edit_summary": "Front-load all large exams (>300 students) by restricting eligible early slots to 1..14 so they finish before the 15th slot.",
+    "planner_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "frontload",
+      "early_slots",
+      "frontload_slot_cutoff",
+      "large_blocks"
+    ],
+    "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'patches': [{'component': 'frontload', 'params': {'large_blocks_threshold': 300, 'comparison': '>'}}, {'component': 'early_slots', 'params': {'allowed_range': [1, 14]}}, {'component': 'frontload_slot_cutoff', 'params': {'cutoff_slot': 15, 'enforce_before_cutoff': True}}], 'seed_policy': 'reuse_compatible_only', 'honor_existing_assignments': True, 'balance_soft_constraints': True}}\"",
+    "selector_model": "gpt-5",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

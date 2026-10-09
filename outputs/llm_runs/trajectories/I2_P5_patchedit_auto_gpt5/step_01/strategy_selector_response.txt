@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit adds a day-level load cap (structural) but is reuse-friendly with high expected reuse. There is no prior solution for direct warm start, but a heuristic warm start is available and suitable to seed a tuned solve. Combining heuristic warm start with tuned configuration offers the fastest safe reoptimization under these conditions.",
+  "confidence": 0.78
+}

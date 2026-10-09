@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structural and planner notes high expected reuse, but tuned solving is required for robustness on structural changes. Both heuristic warm start and tuned config are available, allowing us to reuse a heuristic solution and then perform a tuned solve for quality and speed. This combination is faster and safer than starting from scratch, and preferred over tuned alone since the reuse is expected to be high. Direct options are less preferable due to lack of recommended direct tuning for structural changes.",
+  "confidence": 0.92
+}

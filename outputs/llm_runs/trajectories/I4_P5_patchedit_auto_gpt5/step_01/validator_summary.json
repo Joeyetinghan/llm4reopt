@@ -1,0 +1,168 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "slot_load_cap"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Cap weighted enrollment across a selected slot set.",
+          "index_set": [
+            "day_2"
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "day_2": {
+                "block_weights": {
+                  "1": 2187.0,
+                  "10": 2483.0,
+                  "11": 2131.0,
+                  "12": 2310.0,
+                  "13": 2315.0,
+                  "14": 2457.0,
+                  "15": 2185.0,
+                  "16": 2149.0,
+                  "17": 3288.0,
+                  "18": 2530.0,
+                  "19": 2717.0,
+                  "2": 2465.0,
+                  "3": 2610.0,
+                  "4": 2161.0,
+                  "5": 2362.0,
+                  "6": 2289.0,
+                  "7": 2210.0,
+                  "8": 2473.0,
+                  "9": 2107.0
+                },
+                "slots": [
+                  4,
+                  5,
+                  6
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "slot_load_cap_family"
+          },
+          "name": "slot_load_cap",
+          "rhs_spec": {
+            "day_2": 4000.0
+          },
+          "sense": "<=",
+          "tags": [
+            "block_seq",
+            "load_cap"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 5849.0,
+  "objective_before": 6009.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 9,
+    "10": 17,
+    "11": 16,
+    "12": 15,
+    "13": 12,
+    "14": 2,
+    "15": 20,
+    "16": 8,
+    "17": 5,
+    "18": 24,
+    "19": 21,
+    "2": 3,
+    "20": 23,
+    "21": 11,
+    "22": 4,
+    "23": 22,
+    "24": 6,
+    "3": 7,
+    "4": 18,
+    "5": 13,
+    "6": 19,
+    "7": 1,
+    "8": 10,
+    "9": 14
+  },
+  "solve_meta": {
+    "mip_gap": 0.28398016755000854,
+    "obj_bound": 4188.0,
+    "objective": 5849.0,
+    "objective_nonzero_coeffs": 395750,
+    "runtime": 3600.13796210289,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Add a day-level load cap limiting total enrolled students on Day 2 (slots 4,5,6) to 4,000.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "slot_load_cap",
+        "x",
+        "block_enrollment",
+        "slots_per_day"
+      ],
+      "selector_confidence": 0.74,
+      "selector_model": "gpt-5",
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Add a day-level load cap limiting total enrolled students on Day 2 (slots 4,5,6) to 4,000.\",\n    \"planning_hints\": {\n      \"edit_scope\": \"structural\",\n      \"expected_reuse\": \"high\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"slot_load_cap\",\n      \"x\",\n      \"block_enrollment\",\n      \"slots_per_day\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 1,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": true,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The change adds a structural day-level cap but is reuse-friendly. There is no prior base warm start, but a heuristic warm start is available and the tuned solver is supported. Using a heuristic warm start to seed a tuned solve typically gives the fastest safe reoptimization under structural edits with high expected reuse, avoiding extra direct passes.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The change adds a structural day-level cap but is reuse-friendly. There is no prior base warm start, but a heuristic warm start is available and the tuned solver is supported. Using a heuristic warm start to seed a tuned solve typically gives the fastest safe reoptimization under structural edits with high expected reuse, avoiding extra direct passes.\",\n  \"confidence\": 0.74\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "Set triple-in-24hr penalty weight to 20x the regular back-to-back baseline (gamma2 currently 1.0).",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "beta"
+      },
+      "update": {
+        "name": "beta",
+        "value": 20.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 2534.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 9,
+    "10": 22,
+    "11": 4,
+    "12": 16,
+    "13": 1,
+    "14": 24,
+    "15": 19,
+    "16": 14,
+    "17": 10,
+    "18": 15,
+    "19": 20,
+    "2": 12,
+    "20": 3,
+    "21": 23,
+    "22": 13,
+    "23": 6,
+    "24": 17,
+    "3": 21,
+    "4": 18,
+    "5": 7,
+    "6": 2,
+    "7": 5,
+    "8": 11,
+    "9": 8
+  },
+  "solve_meta": {
+    "mip_gap": 0.19534333070244672,
+    "obj_bound": 2039.0,
+    "objective": 2534.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3600.144737958908,
+    "sol_count": 5,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {}}\"",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 2,
+      "planner_edit_summary": "Increase the triple-in-24hr penalty so its weight is 20x a regular back-to-back; set beta weight to 20.0.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "beta",
+        "gamma2",
+        "triple_in_24hr"
+      ],
+      "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {}}\"",
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

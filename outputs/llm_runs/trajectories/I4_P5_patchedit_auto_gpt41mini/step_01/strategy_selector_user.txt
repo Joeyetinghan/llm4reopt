@@ -1,0 +1,50 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "heuristic",
+    "tuned",
+    "direct+heuristic",
+    "direct+tuned",
+    "heuristic+tuned",
+    "direct+heuristic+tuned",
+    "scratch"
+  ],
+  "delta_text": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+  "planner_summary": {
+    "edit_summary": "Add slot_load_cap constraint to limit total enrollment on Day 2 slots to 4000",
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "relevant_components": [
+      "slot_load_cap",
+      "block_enrollment",
+      "x",
+      "blocks",
+      "slots_per_day"
+    ]
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+heuristic+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": true,
+    "patch_count": 1,
+    "planner_mode": "patchedit",
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

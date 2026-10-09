@@ -1,0 +1,44 @@
+{
+  "execution_label": "scratch",
+  "fallback_reason": "",
+  "fallback_used": false,
+  "metadata": {
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 1,
+    "planner_edit_summary": "Reserve the penultimate evening slot (slot 21) by assigning virtual block 17 to it for auditorium setup.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "model_attempt_count": 0,
+      "model_retry_count": 0,
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P1_patchedit_auto_gpt5/run.json",
+      "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P1_patchedit_auto_gpt5/step_01"
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "reserved_virtual_slot",
+      "virtual_blocks",
+      "reserved_slots",
+      "slots_per_day",
+      "slot_times"
+    ],
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "manual",
+  "prompt": [],
+  "rationale": "User-requested exam execution-label override.",
+  "raw_response": "",
+  "strategy": "scratch",
+  "toolbox_plan": []
+}

@@ -1,0 +1,37 @@
+id: exam_block_seq
+name: Exam Block Sequencing
+description: Exam scheduling block sequencing problem packaged behind the generic interface.
+adapter: problems.exam_block_seq.adapter:ExamBlockSeqProblemAdapter
+default_config: configs/default.yaml
+patchedit_artifacts:
+  - name: exam_structured
+    source_type: python_builder
+    path: structured.py
+    prompt_symbol: build_exam_structured_model
+    description: Structured-model registration surface for patch planning.
+codeedit_artifacts:
+  - name: exam_solver
+    source_type: python_builder
+    path: solver.py
+    prompt_symbol: build_exam_gurobi_model, solve_exam_direct
+    description: Direct Gurobi model builder and solve surface for code editing.
+data_artifacts:
+  - name: default_config
+    kind: yaml
+    path: configs/default.yaml
+    description: Default packaged block sequencing config.
+contexts:
+  problem_context: context/problem_context.md
+ground_truth:
+  evaluator: problems.exam_block_seq.ground_truth:ExamBlockSeqGroundTruthEvaluator
+  cases_path: ground_truth/cases.yaml
+  artifacts:
+    - name: reference_solutions
+      type: python_module
+      path: ground_truth/reference.py
+      description: Gold edits of the six change requests (build_reference).
+capabilities:
+  solver_backend: gurobi
+  toolbox_items:
+    - heuristic_warm_start
+    - tuned_config

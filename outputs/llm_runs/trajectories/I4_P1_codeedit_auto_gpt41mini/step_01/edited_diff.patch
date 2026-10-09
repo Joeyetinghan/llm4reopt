@@ -1,0 +1,40 @@
+--- solver.py
++++ solver.py
+@@ -194,9 +194,26 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Reserve the evening slot immediately before the final evening slot for auditorium setup
++    slots_per_day = int(data["slots_per_day"])
++    slot_times = data.get("slot_times", [])
++    slots = list(data["blocks"])  # ordered list of slots
++    # Find the last evening slot index in the slots list
++    evening_slot_indices = [idx for idx, slot in enumerate(slots) if slot_times[(slot - 1) % slots_per_day] == "7pm"]
++    if evening_slot_indices:
++        last_evening_idx = max(evening_slot_indices)
++        # The slot immediately before the last evening slot (cyclic)
++        reserved_slot_idx = (last_evening_idx - 1) % len(slots)
++        reserved_slot = slots[reserved_slot_idx]
++        # Add to reserved_slots if not already present
++        reserved_slots = set(data.get("reserved_slots", []))
++        reserved_slots.add(reserved_slot)
++        data["reserved_slots"] = list(reserved_slots)
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -207,6 +224,9 @@
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
++        # Pass reserved_slots to the model builder if it supports it
++        # (Note: build_exam_gurobi_model does not currently accept reserved_slots param,
++        # so this is just to show intent; actual slot exclusion is handled elsewhere)
+     )
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)

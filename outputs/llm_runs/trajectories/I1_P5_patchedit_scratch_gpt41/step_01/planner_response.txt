@@ -1,0 +1,67 @@
+{
+  "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,000 by adding a slot_load_cap constraint on Day 2.",
+  "affected_sets": {
+    "days": [2]
+  },
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "global",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": ["day_2"],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4, 5, 6],
+                "block_enrollment": {
+                  "1": 320,
+                  "2": 280,
+                  "3": 340,
+                  "4": 310,
+                  "5": 295,
+                  "6": 300,
+                  "7": 315,
+                  "8": 290,
+                  "9": 325,
+                  "10": 275,
+                  "11": 305,
+                  "12": 335,
+                  "13": 285,
+                  "14": 295,
+                  "15": 310,
+                  "16": 320,
+                  "17": 305,
+                  "18": 315,
+                  "19": 325,
+                  "20": 330,
+                  "21": 0,
+                  "22": 0,
+                  "23": 0,
+                  "24": 0
+                }
+              },
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "low"
+  }
+}

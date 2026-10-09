@@ -1,0 +1,47 @@
+{
+  "edit_summary": "Reserve the penultimate evening slot (slot 21) by fixing virtual block 21 there to free it for graduation setup.",
+  "affected_sets": {
+    "slots": [21],
+    "virtual_blocks": [21]
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "slots_per_day",
+    "slot_times",
+    "virtual_blocks",
+    "reserved_slots"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {
+            "constraint": "reserved_virtual_slot"
+          },
+          "scope": "structural",
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [21],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 21,
+                "virtual_block": 21
+              },
+              "rhs_spec": {
+                "21": 1
+              },
+              "sense": "="
+            }
+          },
+          "notes": "Three slots per day over 24 slots implies evening slots are multiples of 3; final evening is slot 24, so the penultimate evening slot is 21. Use smallest available virtual block id 21."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}

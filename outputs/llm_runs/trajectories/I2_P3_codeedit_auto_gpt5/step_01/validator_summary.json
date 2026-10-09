@@ -1,0 +1,111 @@
+{
+  "chosen_patches": [],
+  "codeedit_attempt_count": 1,
+  "codeedit_repair_count": 0,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 9737.0,
+  "objective_before": 7330.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 10,
+    "10": 5,
+    "11": 12,
+    "12": 16,
+    "13": 9,
+    "14": 2,
+    "15": 18,
+    "16": 1,
+    "17": 11,
+    "18": 6,
+    "19": 24,
+    "2": 4,
+    "20": 23,
+    "21": 19,
+    "22": 21,
+    "23": 22,
+    "24": 20,
+    "3": 14,
+    "4": 15,
+    "5": 3,
+    "6": 7,
+    "7": 13,
+    "8": 17,
+    "9": 8
+  },
+  "solve_meta": {
+    "mip_gap": 0.308411214953271,
+    "obj_bound": 6734.0,
+    "objective": 9737.0,
+    "runtime": 3619.4832241535187,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": false,
+      "heuristic_warm_start_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+      "patch_count": 0,
+      "planner_edit_summary": "Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.",
+      "planner_hints": {
+        "changed_file_count": 1,
+        "codeedit_noop": false,
+        "editable_file_count": 1,
+        "heuristic_warm_start_available": false,
+        "heuristic_warm_start_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "model_effective_edit": true,
+        "model_effective_edit_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "planner_failed_semantically": false,
+        "planner_mode": "codeedit",
+        "planner_model": "gpt-5",
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "planner_warning_count": 0,
+        "planner_warnings": [],
+        "projected_patch_ops": [],
+        "projected_semantics": [],
+        "projection_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "projection_state": "nonprojectable"
+      },
+      "planner_mode": "codeedit",
+      "planner_relevant_components": [],
+      "selector_confidence": 0.82,
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"tuned\",\n    \"direct+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.\",\n    \"planning_hints\": {\n      \"changed_file_count\": 1,\n      \"codeedit_noop\": false,\n      \"editable_file_count\": 1,\n      \"heuristic_warm_start_available\": false,\n      \"heuristic_warm_start_reason\": \"Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"model_effective_edit\": true,\n      \"model_effective_edit_reason\": \"Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"planner_failed_semantically\": false,\n      \"planner_mode\": \"codeedit\",\n      \"planner_model\": \"gpt-5\",\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true,\n      \"planner_warning_count\": 0,\n      \"planner_warnings\": [],\n      \"projected_patch_ops\": [],\n      \"projected_semantics\": [],\n      \"projection_reason\": \"Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"projection_state\": \"nonprojectable\"\n    },\n    \"relevant_components\": []\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": false,\n    \"patch_count\": 0,\n    \"planner_mode\": \"codeedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The edit introduces a new global scheduling constraint (large exams >300 students must finish before slot 19), which is model-effective and not locally projectable. There is no prior result or base warm start to reuse (has_prior_result=false, has_base_warm_start=false, heuristic_warm_start_available=false). Since a tuned solver is supported and available, using tuned directly is the safest and fastest approach. Running a direct pass first (direct+tuned) would add unnecessary overhead without warm-start benefits.",
+    "raw_response": "{\n  \"solve_strategy\": \"tuned\",\n  \"toolbox_plan\": [\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The edit introduces a new global scheduling constraint (large exams >300 students must finish before slot 19), which is model-effective and not locally projectable. There is no prior result or base warm start to reuse (has_prior_result=false, has_base_warm_start=false, heuristic_warm_start_available=false). Since a tuned solver is supported and available, using tuned directly is the safest and fastest approach. Running a direct pass first (direct+tuned) would add unnecessary overhead without warm-start benefits.\",\n  \"confidence\": 0.82\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "tuned_config"
+    ]
+  }
+}

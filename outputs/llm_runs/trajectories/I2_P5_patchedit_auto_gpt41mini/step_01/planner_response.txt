@@ -1,0 +1,43 @@
+{
+  "edit_summary": "Add a capacity constraint limiting total enrollment on Day 2 slots to at most 4000 students due to proctor shortage.",
+  "affected_sets": {
+    "slots": [4, 5, 6]
+  },
+  "relevant_components": [
+    "x",
+    "block_enrollment",
+    "slot_load_cap"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "global",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": ["day_2"],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4, 5, 6],
+                "block_enrollments": "block_enrollment",
+                "x_first_index_var": "x"
+              },
+              "rhs_spec": {
+                "day_2": 4000.0
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Add a slot load cap constraint for Day 2 limiting max enrollment to 4000 across slots 4,5,6."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}

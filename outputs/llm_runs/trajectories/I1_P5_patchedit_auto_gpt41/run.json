@@ -1,0 +1,763 @@
+{
+  "base_objective": 5338.0,
+  "chosen_patch_op": "ADD_CONSTRAINT_FAMILY",
+  "cost_delta": 3533.0,
+  "error": "",
+  "execution_label": "direct+heuristic+tuned",
+  "failure_detail": null,
+  "failure_label": null,
+  "failure_stage": null,
+  "feasible": true,
+  "ground_truth": null,
+  "input": {
+    "case_id": "P5",
+    "config": {
+      "instance_dir": "benchmark/raw_instances/blockseq_n544_blocks20_slots24_seed42",
+      "log_dir": "outputs/solves/base",
+      "model_failure_retry_budget": 3,
+      "prompt_id": "P1",
+      "real_blocks": null,
+      "slot_times": [
+        "9am",
+        "2pm",
+        "7pm"
+      ],
+      "slots_per_day": 3,
+      "solution_dir": "outputs/solves/base",
+      "threads": 6,
+      "time_limit": 3600,
+      "tuned_param_dir": "outputs/solves/tune/params",
+      "weights": {}
+    },
+    "config_path": "problems/exam_block_seq/configs/default.yaml",
+    "delta_text": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+    "examples_path": null,
+    "model": "gpt-4.1",
+    "planner_mode": "patchedit",
+    "problem": "exam_block_seq",
+    "problem_root": null,
+    "prompt_id": "P5",
+    "strategy": "auto",
+    "strategy_policy": "llm",
+    "strategy_selector_model": null,
+    "trace_root": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41"
+  },
+  "instance_id": "I1",
+  "llm_trace": [
+    {
+      "agent": "ReoptPatchPlannerAgent",
+      "prompt": [
+        {
+          "content": "You are a reoptimization planner.\n\nUse the deterministic model representation to interpret the requested change and propose candidate model edits.\n\nReturn JSON only.\n\nUse candidate_action_sets as the canonical output format.\n\nEach candidate_action_set is one executable plan. Put all coordinated edits for a single plan in the same action set.\n\nEach candidate_action_sets item must be a JSON object with actions=[...].\n\nThe patch list key inside each candidate_action_sets item must be actions; do not use alternate nested keys for the patch list.\n\nEach patch object must use the canonical keys op, target, scope, update, and optional notes.\n\nReturn multiple candidate_action_sets only when they are genuinely different alternative plans.\n\nDo not duplicate the same edits in both grouped and flat forms.\n\nPatch payloads must be executable as written: use concrete ids and numeric literals for indices, row labels, and values whenever the model representation provides enough information.\n\nDo not emit pseudo-code, formulas, set names, or symbolic placeholders inside patch indices or values.\n\nFor keyed parameter edits, place the concrete sub-index in update.key.\n\nFor numeric requests phrased as 'increase by', 'decrease by', or other additive changes, use update.delta instead of overwriting with update.value.\n\nFor materialized_linear constraint families, use matching concrete row ids in lhs_spec.rows and rhs_spec, and concrete executable variable indices in every term.\n\nIf the representation explicitly exposes a compact problem-specific semantic lhs_spec.kind, you may use that semantic payload instead of materializing every row term.\n\nIf you cannot express a valid executable patch, return empty candidate lists rather than a symbolic or guessed placeholder patch.\n\nRequired JSON keys:\n\n- edit_summary: short free-form summary of the requested edit\n\n- affected_sets: object mapping relevant entity/set labels to identifiers mentioned or strongly implied by the delta; use {} if none\n\n- relevant_components: list[str] using model component names exactly when possible\n\n- candidate_action_sets: list of executable candidate plans, each {'actions': [{patch}, ...]}\n\n- planning_hints: object with optional planner hints such as edit_scope='local|structural' or expected_reuse='high|low'\n\nProblem-specific guidance:\n\nUse the canonical exam patch forms. Do not invent new constraint-family names or semantic lhs kinds when an existing exam family fits. For slot exclusion requests like the penultimate evening slot, emit ADD_CONSTRAINT_FAMILY with constraint.name='reserved_virtual_slot', lhs_spec.kind='reserved_virtual_slot', the explicit grounded slot id, and the smallest available virtual block id. For large-exam frontloading requests, emit UPDATE_PARAMETER(name='early_slots', value=[...]) with explicit slot ids; do not invent a new frontload family name. For pairwise co-enrollment changes between two blocks, emit keyed UPDATE_PARAMETER patches for both ordered pair keys [a,b] and [b,a] on the pair-count override surface unless the request explicitly distinguishes direction. For day-level load caps, emit ADD_CONSTRAINT_FAMILY with constraint.name='slot_load_cap', lhs_spec.kind='slot_load_cap', explicit slot ids, and a stable row id such as 'day_2'.\n\nAllowed patch operators:\n\nUPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY\n\nOperator guidance:\n\n  - UPDATE_PARAMETER: use for scalar or keyed model data that already exists as a parameter; do not use it to add new rules or retune top-level objective weights. For keyed parameters, put the concrete sub-index in update.key and emit one explicit patch per keyed entry. Use update.delta for additive changes like 'increase by' or 'decrease by'; use update.value only for absolute replacement.\n  - UPDATE_BOUND: use to change the lower or upper bound of an existing variable family at a concrete index.\n  - UPDATE_CONSTRAINT_RHS: use only when changing the RHS of an existing named constraint family already present in the representation; do not invent new family names, and use a concrete existing row index. Use update.delta for additive RHS changes and update.value for absolute replacement.\n  - UPDATE_CONSTRAINT_LHS: use only when replacing the left-hand side of an existing named constraint family; prefer ADD_CONSTRAINT_FAMILY for new rules. The replacement lhs_spec may be either a fully materialized row payload or a compact problem-specific semantic lhs_spec.kind when the representation explicitly exposes that semantic family.\n  - UPDATE_OBJECTIVE_COEFF: use to change an indexed objective coefficient for an existing term, pair, triplet, or arc. Use update.delta for additive coefficient changes and update.value for absolute replacement.\n  - UPDATE_OBJECTIVE_WEIGHT: use for top-level objective weights or penalty weights that scale a named objective component. Use update.delta for additive weight changes and update.weight for absolute replacement.\n  - ADD_CONSTRAINT_FAMILY: use to add a new linear policy rule or aggregate constraint family; either provide fully materialized executable rows, or use a compact problem-specific semantic lhs_spec.kind when the representation explicitly exposes one. For compact semantic lhs_spec.kind payloads, follow the problem representation's documented field names and place semantic arguments directly under lhs_spec unless the representation explicitly defines a row-local schema. Every lhs row id must also appear in rhs_spec. For materialized rows, every term index must be a concrete executable variable index rather than a placeholder, feature name, or pseudo-code token.\n\n\nPatch schemas:\n\n  - UPDATE_PARAMETER -> target={'name': <parameter_name>}, update={'name': <parameter_name>, 'value': <any>, 'key': <entity?>} OR {'name': <parameter_name>, 'delta': <float>, 'key': <entity?>}.\n  - UPDATE_BOUND -> target={'variable': <family_name>}, update={'index': <idx>, 'bound': 'upper|lower', 'value': <float>}.\n  - UPDATE_CONSTRAINT_RHS -> target={'constraint': <family_name>}, update={'index': <idx>, 'value': <float>} OR {'index': <idx>, 'delta': <float>}.\n  - UPDATE_CONSTRAINT_LHS -> target={'constraint': <family_name>}, update={'lhs_spec': <replacement spec>} where lhs_spec may be materialized or a supported semantic kind.\n  - UPDATE_OBJECTIVE_COEFF -> target={'objective': <name>}, update={'index': [<src>, <dst>], 'value': <float>} OR {'index': [<src>, <dst>], 'delta': <float>}.\n  - UPDATE_OBJECTIVE_WEIGHT -> target={'objective': <name>}, update={'weight': <float>} OR {'delta': <float>}.\n  - ADD_CONSTRAINT_FAMILY -> update={'constraint': {'name': <family_name>, 'index_set': [...], 'lhs_spec': {'kind': <lhs_kind>, ...}, 'rhs_spec': <float or {row_idx: float}>, 'sense': '<=|=|>='}}.\n",
+          "role": "system"
+        },
+        {
+          "content": "Delta request:\n\nDue to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\n\nDelta metadata:\n\n{\n  \"campaign_id\": \"paper_full_gpt_3600s\",\n  \"campaign_stage\": \"full\",\n  \"instance_id\": \"I1\",\n  \"job_name\": \"I1_patchedit_auto_gpt41_prompts_P5\",\n  \"prompt_batch_count\": 6,\n  \"prompt_batch_index\": 5,\n  \"prompt_id\": \"P5\",\n  \"prompt_source\": \"catalog\",\n  \"run_mode\": \"patchedit-auto\"\n}\n\nModel representation:\n\nRepresentation kind: python_builder\n\nModel counts: variables=12, constraints=8, objectives=5, parameters=32\n\nSolver capabilities: {\"solver_backend\": \"gurobi\", \"supports_warm_start\": true}\n\nComponent summaries:\n- [variable_family] x: Assignment variable x[i,j,k,s] placing a block triplet into slot s. (type=binary; tags=assignment,block_seq)\n- [variable_family] y: Triplet linkage variable y[i,j,k]. (type=binary; tags=block_seq,triplet)\n- [variable_family] z: Four-slot sequence linkage variable z[i,j,k,l]. (type=binary; tags=block_seq,quad)\n- [variable_family] schedule: Slot assignment summary variable slot_assignment[s]. (type=integer; tags=block_seq,output)\n- [variable_family] block_assigned: Assigned slot index for each block. (type=integer; tags=block_seq,output)\n- [variable_family] block_diff: Pairwise slot distance between blocks. (type=integer; tags=block_seq,spacing)\n- [variable_family] block_diff_large: Binary indicator for large block gaps. (type=binary; tags=block_seq,spacing)\n- [variable_family] triple_in_day: Total triples within a day. (type=integer; tags=block_seq,penalty; examples=all)\n- [variable_family] triple_in_24hr: Total triples within 24 hours. (type=integer; tags=block_seq,penalty; examples=all)\n- [variable_family] b2b_eveMorn: Back-to-back evening-to-morning penalty variable. (type=integer; tags=block_seq,penalty; examples=all)\n- [variable_family] b2b_other: Other back-to-back penalty variable. (type=integer; tags=block_seq,penalty; examples=all)\n- [variable_family] three_exams_four_slots: Three exams in four slots penalty variable. (type=integer; tags=block_seq,penalty; examples=all)\n- [constraint_family] each_i: Each block appears once in position i. (sense==; tags=block_seq)\n- [constraint_family] each_j: Each block appears once in position j. (sense==; tags=block_seq)\n- [constraint_family] each_k: Each block appears once in position k. (sense==; tags=block_seq)\n- [constraint_family] each_slot: Each slot gets exactly one block triple. (sense==; tags=block_seq)\n- [constraint_family] continuity: Triple continuity across adjacent slots. (sense==; tags=block_seq)\n- [constraint_family] frontload: Large blocks must be assigned to the designated early slots. (sense==; tags=block_seq,frontload)\n- [constraint_family] reserved_virtual_slot: Reserve selected slots by fixing specific virtual blocks to those slots. (sense==; tags=availability,block_seq)\n- [constraint_family] slot_load_cap: Weighted enrollment cap across a selected slot set. (sense=<=; tags=block_seq,load_cap)\n- [objective_component] alpha: Weight for triple-in-day penalty. (weight=10.0; tags=block_seq,objective)\n- [objective_component] beta: Weight for triple-in-24hr penalty. (weight=10.0; tags=block_seq,objective)\n- [objective_component] gamma1: Weight for evening-to-morning back-to-back penalty. (weight=1.0; tags=block_seq,objective)\n- [objective_component] gamma2: Weight for other back-to-back penalty. (weight=1.0; tags=block_seq,objective)\n- [objective_component] delta: Weight for three exams in four slots penalty. (weight=5.0; tags=block_seq,objective)\n- [parameter] instance_id: Stable instance identifier for this exam scheduling LP. (value=I1; tags=block_seq,instance)\n- [parameter] blocks: Block identifiers to be assigned into exam slots. (count=24; range=1..24; tags=block_seq,blocks)\n- [parameter] real_blocks: Number of real exam blocks before any dummy blocks. (value=20; tags=block_seq,blocks)\n- [parameter] virtual_blocks: Virtual blocks representing empty slots in the sequencing instance. (preview=21, 22, 23, 24; range=21..24; tags=block_seq,blocks)\n- [parameter] large_blocks: Blocks marked as large exams for front-loading constraints. (count=19; range=1..20; tags=block_seq,blocks,frontload)\n- [parameter] early_slots: Slots considered early enough for front-loading large exams. (count=21; range=1..21; tags=block_seq,calendar,frontload)\n- [parameter] slots_per_day: Number of exam slots available per day. (value=3; tags=block_seq,calendar)\n- [parameter] slot_times: Human-readable slot labels in day order. (preview=9am, 2pm, 7pm; tags=block_seq,calendar)\n- [parameter] triple_24_start: Slots that start a 24-hour triple window. (count=14; range=2..21; tags=block_seq,calendar)\n- [parameter] triple_day_start: Slots that start a same-day triple window. (count=8; range=1..22; tags=block_seq,calendar)\n- [parameter] eve_morn_start: Slots that start evening-to-morning back-to-back windows. (count=7; range=3..21; tags=block_seq,calendar)\n- [parameter] other_b2b_start: Slots that start other back-to-back windows. (count=16; range=1..23; tags=block_seq,calendar)\n- [parameter] alpha: Weight for triple-in-day penalties. (value=10.0; tags=block_seq,weight)\n- [parameter] beta: Weight for triple-in-24hr penalties. (value=10.0; tags=block_seq,weight)\n- [parameter] gamma1: Weight for evening-to-morning back-to-back penalties. (value=1.0; tags=block_seq,weight)\n- [parameter] gamma2: Weight for other back-to-back penalties. (value=1.0; tags=block_seq,weight)\n- [parameter] delta: Weight for three-exams-in-four-slots penalties. (value=5.0; tags=block_seq,weight)\n- [parameter] vega: Additional tuning weight preserved from the original exam formulation. (value=1.0; tags=block_seq,weight)\n- [parameter] theta: Additional tuning weight preserved from the original exam formulation. (value=2.0; tags=block_seq,weight)\n- [parameter] lambda_large1: Large-gap penalty weight variant 1. (value=1.0; tags=block_seq,weight)\n- [parameter] lambda_large2: Large-gap penalty weight variant 2. (value=1.0; tags=block_seq,weight)\n- [parameter] lambda_big: Large constant used in block sequencing penalties. (value=1000.0; tags=block_seq,weight)\n- [parameter] frontload_block_size_cutoff: Enrollment cutoff used to mark large blocks for front-loading. (value=300; tags=block_seq,frontload)\n- [parameter] frontload_slot_cutoff: Last slot index considered early for front-loading large blocks. (value=21; tags=block_seq,frontload)\n- [parameter] reserved_slots: Slots reserved for deterministic virtual-block assignment. (tags=availability,block_seq)\n- [parameter] block_enrollment: Enrollment by block from the sequencing instance summary. (count=24; tags=block_seq,blocks)\n- [parameter] block_num_exams: Number of exams assigned to each block. (count=24; tags=block_seq,blocks)\n- [parameter] pair_counts: Base pairwise co-enrollment counts keyed by block pairs. (count=397; tags=block_seq,data)\n- [parameter] triplet_counts: Base triplet co-enrollment counts keyed by block triples. (count=7741; tags=block_seq,data)\n- [parameter] p: Optional pairwise penalty overrides keyed by block pairs. (tags=block_seq,override)\n- [parameter] t: Optional triplet penalty overrides keyed by block triplets. (tags=block_seq,override)\n\nSource artifacts:\nexam_structured (python_builder)\n```python\ndef build_exam_structured_model(\n    *,\n    lp_path: str,\n    blocks: list[int],\n    slots_per_day: int,\n    triple_24_start: list[int],\n    triple_day_start: list[int],\n    eve_morn_start: list[int],\n    other_b2b_start: list[int],\n    weights: Dict[str, float],\n    slot_times: list[str] | None = None,\n    reserved_slots: list[int] | None = None,\n    real_blocks: int | None = None,\n    virtual_blocks: list[int] | None = None,\n    large_blocks: list[int] | None = None,\n    early_slots: list[int] | None = None,\n    block_enrollment: Dict[int, float] | None = None,\n    block_num_exams: Dict[int, int] | None = None,\n    pair_counts: Dict[tuple[int, int], float] | None = None,\n    triplet_counts: Dict[tuple[int, int, int], float] | None = None,\n    frontload_block_size_cutoff: float | None = None,\n    frontload_slot_cutoff: int | None = None,\n    instance_id: str | None = None,\n) -> StructuredModel:\n    variables = {\n        \"x\": VariableFamily(\n            name=\"x\",\n            index_set=[],\n            var_type=VariableType.BINARY,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Assignment variable x[i,j,k,s] placing a block triplet into slot s.\",\n            tags={\"block_seq\", \"assignment\"},\n        ),\n        \"y\": VariableFamily(\n            name=\"y\",\n            index_set=[],\n            var_type=VariableType.BINARY,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Triplet linkage variable y[i,j,k].\",\n            tags={\"block_seq\", \"triplet\"},\n        ),\n        \"z\": VariableFamily(\n            name=\"z\",\n            index_set=[],\n            var_type=VariableType.BINARY,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Four-slot sequence linkage variable z[i,j,k,l].\",\n            tags={\"block_seq\", \"quad\"},\n        ),\n        \"schedule\": VariableFamily(\n            name=\"schedule\",\n            index_set=blocks,\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Slot assignment summary variable slot_assignment[s].\",\n            tags={\"block_seq\", \"output\"},\n        ),\n        \"block_assigned\": VariableFamily(\n            name=\"block_assigned\",\n            index_set=blocks,\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Assigned slot index for each block.\",\n            tags={\"block_seq\", \"output\"},\n        ),\n        \"block_diff\": VariableFamily(\n            name=\"block_diff\",\n            index_set=[],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Pairwise slot distance between blocks.\",\n            tags={\"block_seq\", \"spacing\"},\n        ),\n        \"block_diff_large\": VariableFamily(\n            name=\"block_diff_large\",\n            index_set=[],\n            var_type=VariableType.BINARY,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Binary indicator for large block gaps.\",\n            tags={\"block_seq\", \"spacing\"},\n        ),\n        \"triple_in_day\": VariableFamily(\n            name=\"triple_in_day\",\n            index_set=[\"all\"],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Total triples within a day.\",\n            tags={\"block_seq\", \"penalty\"},\n        ),\n        \"triple_in_24hr\": VariableFamily(\n            name=\"triple_in_24hr\",\n            index_set=[\"all\"],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Total triples within 24 hours.\",\n            tags={\"block_seq\", \"penalty\"},\n        ),\n        \"b2b_eveMorn\": VariableFamily(\n            name=\"b2b_eveMorn\",\n            index_set=[\"all\"],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Back-to-back evening-to-morning penalty variable.\",\n            tags={\"block_seq\", \"penalty\"},\n        ),\n        \"b2b_other\": VariableFamily(\n            name=\"b2b_other\",\n            index_set=[\"all\"],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Other back-to-back penalty variable.\",\n            tags={\"block_seq\", \"penalty\"},\n        ),\n        \"three_exams_four_slots\": VariableFamily(\n            name=\"three_exams_four_slots\",\n            index_set=[\"all\"],\n            var_type=VariableType.INTEGER,\n            lower_bounds={},\n            upper_bounds={},\n            desc=\"Three exams in four slots penalty variable.\",\n            tags={\"block_seq\", \"penalty\"},\n        ),\n    }\n\n    constraints = {\n        \"each_i\": ConstraintFamily(\n            name=\"each_i\",\n            index_set=blocks,\n            lhs_spec=\"sum_{j,k,s} x[i,j,k,s]\",\n            rhs_spec=1,\n            sense=\"=\",\n            desc=\"Each block appears once in position i.\",\n            tags={\"block_seq\"},\n        ),\n        \"each_j\": ConstraintFamily(\n            name=\"each_j\",\n            index_set=blocks,\n            lhs_spec=\"sum_{i,k,s} x[i,j,k,s]\",\n            rhs_spec=1,\n            sense=\"=\",\n            desc=\"Each block appears once in position j.\",\n            tags={\"block_seq\"},\n        ),\n        \"each_k\": ConstraintFamily(\n            name=\"each_k\",\n            index_set=blocks,\n            lhs_spec=\"sum_{i,j,s} x[i,j,k,s]\",\n            rhs_spec=1,\n            sense=\"=\",\n            desc=\"Each block appears once in position k.\",\n            tags={\"block_seq\"},\n        ),\n        \"each_slot\": ConstraintFamily(\n            name=\"each_slot\",\n            index_set=blocks,\n            lhs_spec=\"sum_{i,j,k} x[i,j,k,s]\",\n            rhs_spec={s: 1 for s in blocks},\n            sense=\"=\",\n            desc=\"Each slot gets exactly one block triple.\",\n            tags={\"block_seq\"},\n        ),\n        \"continuity\": ConstraintFamily(\n            name=\"continuity\",\n            index_set=[],\n            lhs_spec=\"Link consecutive triples across adjacent slots.\",\n            rhs_spec=\"-\",\n            sense=\"=\",\n            desc=\"Triple continuity across adjacent slots.\",\n            tags={\"block_seq\"},\n        ),\n        \"frontload\": build_frontload_constraint_family(\n            large_blocks=list(large_blocks or []),\n            early_slots=list(early_slots or []),\n        ),\n        \"reserved_virtual_slot\": (\n            build_reserved_virtual_slot_constraint_family(\n                virtual_blocks=list(virtual_blocks or []),\n                reserved_slots=list(reserved_slots or []),\n            )\n            if reserved_slots and virtual_blocks\n            else empty_reserved_virtual_slot_family()\n        ),\n        \"slot_load_cap\": empty_slot_load_cap_family(),\n    }\n\n    objectives = {\n        \"alpha\": ObjectiveComponent(\n            name=\"alpha\",\n            weight=float(weights.get(\"alpha\", 10)),\n            spec={\"metric\": \"triple_in_day\"},\n            desc=\"Weight for triple-in-day penalty.\",\n            tags={\"block_seq\", \"objective\"},\n        ),\n        \"beta\": ObjectiveComponent(\n            name=\"beta\",\n            weight=float(weights.get(\"beta\", 10)),\n            spec={\"metric\": \"triple_in_24hr\"},\n            desc=\"Weight for triple-in-24hr penalty.\",\n            tags={\"block_seq\", \"objective\"},\n        ),\n        \"gamma1\": ObjectiveComponent(\n            name=\"gamma1\",\n            weight=float(weights.get(\"gamma1\", 1)),\n            spec={\"metric\": \"b2b_eveMorn\"},\n            desc=\"Weight for evening-to-morning back-to-back penalty.\",\n            tags={\"block_seq\", \"objective\"},\n        ),\n        \"gamma2\": ObjectiveComponent(\n            name=\"gamma2\",\n            weight=float(weights.get(\"gamma2\", 1)),\n            spec={\"metric\": \"b2b_other\"},\n            desc=\"Weight for other back-to-back penalty.\",\n            tags={\"block_seq\", \"objective\"},\n        ),\n        \"delta\": ObjectiveComponent(\n            name=\"delta\",\n            weight=float(weights.get(\"delta\", 5)),\n            spec={\"metric\": \"three_exams_four_slots\"},\n            desc=\"Weight for three exams in four slots penalty.\",\n            tags={\"block_seq\", \"objective\"},\n        ),\n    }\n\n    model = StructuredModel()\n    for family in variables.values():\n        register_var_family(model, family)\n    for family in constraints.values():\n        register_constraint_family(model, family)\n    for objective in objectives.values():\n        register_objective_component(model, objective)\n\n    register_parameter(\n        model,\n        \"instance_id\",\n        instance_id or os.path.splitext(os.path.basename(lp_path))[0],\n        desc=\"Stable instance identifier for this exam scheduling LP.\",\n        tags={\"block_seq\", \"instance\"},\n    )\n    register_parameter(\n        model,\n        \"lp_path\",\n        lp_path,\n        desc=\"Filesystem path to the compiled LP used for solving.\",\n        tags={\"block_seq\", \"artifact\"},\n    )\n    register_parameter(\n        model,\n        \"blocks\",\n        list(blocks),\n        desc=\"Block identifiers to be assigned into exam slots.\",\n        tags={\"block_seq\", \"blocks\"},\n    )\n    register_parameter(\n        model,\n        \"real_blocks\",\n        int(real_blocks) if real_blocks is not None else len(blocks),\n        desc=\"Number of real exam blocks before any dummy blocks.\",\n        tags={\"block_seq\", \"blocks\"},\n    )\n    register_parameter(\n        model,\n        \"virtual_blocks\",\n        list(virtual_blocks or []),\n        desc=\"Virtual blocks representing empty slots in the sequencing instance.\",\n        tags={\"block_seq\", \"blocks\"},\n    )\n    register_parameter(\n        model,\n        \"large_blocks\",\n        list(large_blocks or []),\n        desc=\"Blocks marked as large exams for front-loading constraints.\",\n        tags={\"block_seq\", \"blocks\", \"frontload\"},\n    )\n    register_parameter(\n        model,\n        \"early_slots\",\n        list(early_slots or []),\n        desc=\"Slots considered early enough for front-loading large exams.\",\n        tags={\"block_seq\", \"calendar\", \"frontload\"},\n    )\n    register_parameter(\n        model,\n        \"slots_per_day\",\n        slots_per_day,\n        desc=\"Number of exam slots available per day.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(\n        model,\n        \"slot_times\",\n        list(slot_times or []),\n        desc=\"Human-readable slot labels in day order.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(\n        model,\n        \"triple_24_start\",\n        list(triple_24_start),\n        desc=\"Slots that start a 24-hour triple window.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(\n        model,\n        \"triple_day_start\",\n        list(triple_day_start),\n        desc=\"Slots that start a same-day triple window.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(\n        model,\n        \"eve_morn_start\",\n        list(eve_morn_start),\n        desc=\"Slots that start evening-to-morning back-to-back windows.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(\n        model,\n        \"other_b2b_start\",\n        list(other_b2b_start),\n        desc=\"Slots that start other back-to-back windows.\",\n        tags={\"block_seq\", \"calendar\"},\n    )\n    register_parameter(model, \"alpha\", float(weights.get(\"alpha\", 10)), desc=\"Weight for triple-in-day penalties.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"beta\", float(weights.get(\"beta\", 10)), desc=\"Weight for triple-in-24hr penalties.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"gamma1\", float(weights.get(\"gamma1\", 1)), desc=\"Weight for evening-to-morning back-to-back penalties.\", tags={\"block_seq\", \"weight\"}, aliases={\"b2b_eve_morn_penalty\"})\n    register_parameter(model, \"gamma2\", float(weights.get(\"gamma2\", 1)), desc=\"Weight for other back-to-back penalties.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"delta\", float(weights.get(\"delta\", 5)), desc=\"Weight for three-exams-in-four-slots penalties.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"vega\", float(weights.get(\"vega\", 1)), desc=\"Additional tuning weight preserved from the original exam formulation.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"theta\", float(weights.get(\"theta\", 2)), desc=\"Additional tuning weight preserved from the original exam formulation.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"lambda_large1\", float(weights.get(\"lambda_large1\", 1)), desc=\"Large-gap penalty weight variant 1.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"lambda_large2\", float(weights.get(\"lambda_large2\", 1)), desc=\"Large-gap penalty weight variant 2.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"lambda_big\", float(weights.get(\"lambda_big\", 1000)), desc=\"Large constant used in block sequencing penalties.\", tags={\"block_seq\", \"weight\"})\n    register_parameter(model, \"frontload_block_size_cutoff\", frontload_block_size_cutoff, desc=\"Enrollment cutoff used to mark large blocks for front-loading.\", tags={\"block_seq\", \"frontload\"})\n    register_parameter(model, \"frontload_slot_cutoff\", frontload_slot_cutoff, desc=\"Last slot index considered early for front-loading large blocks.\", tags={\"block_seq\", \"frontload\"})\n    register_parameter(model, \"reserved_slots\", list(reserved_slots or []), desc=\"Slots reserved for deterministic virtual-block assignment.\", tags={\"block_seq\", \"availability\"}, aliases={\"forbidden_slots\"})\n    register_parameter(model, \"block_enrollment\", dict(block_enrollment or {}), desc=\"Enrollment by block from the sequencing instance summary.\", tags={\"block_seq\", \"blocks\"})\n    register_parameter(model, \"block_num_exams\", dict(block_num_exams or {}), desc=\"Number of exams assigned to each block.\", tags={\"block_seq\", \"blocks\"})\n    register_parameter(model, \"pair_counts\", dict(pair_counts or {}), desc=\"Base pairwise co-enrollment counts keyed by block pairs.\", tags={\"block_seq\", \"data\"})\n    register_parameter(model, \"triplet_counts\", dict(triplet_counts or {}), desc=\"Base triplet co-enrollment counts keyed by block triples.\", tags={\"block_seq\", \"data\"})\n    register_parameter(model, \"p\", {}, desc=\"Optional pairwise penalty overrides keyed by block pairs.\", tags={\"block_seq\", \"override\"})\n    register_parameter(model, \"t\", {}, desc=\"Optional triplet penalty overrides keyed by block triplets.\", tags={\"block_seq\", \"override\"})\n\n    model.artifacts.update({\"lp_path\": lp_path})\n    model.supports.update(\n        {\n            \"solver_backend\": \"gurobi\",\n            \"supports_warm_start\": True,\n            \"supports_tuned_solver\": False,\n        }\n    )\n    model.extras[\"base_parameters\"] = {\n        \"alpha\": float(weights.get(\"alpha\", 10)),\n        \"beta\": float(weights.get(\"beta\", 10)),\n        \"gamma1\": float(weights.get(\"gamma1\", 1)),\n        \"gamma2\": float(weights.get(\"gamma2\", 1)),\n        \"delta\": float(weights.get(\"delta\", 5)),\n    }\n    return model\n```\n\nContext payload:\nproblem_context\n\n# Exam Block Sequencing Context\n\nYou are helping the University Registrar evaluate changes to the final-exam schedule.\n\n- This is the block-sequencing stage of a Group-then-Sequence workflow: exams have already been grouped into blocks, and this model places those blocks into exam slots.\n- The model is about exam timing only; room assignment is handled separately.\n- Delta requests usually describe policy, comfort, or operational changes to the exam calendar.\n\n## Calendar And Basic Assumptions\n\n- The exam period is a fixed ordered sequence of slots.\n- The standard interpretation is three slots per day: morning, afternoon, and evening. In the packaged instances these are usually `9am`, `2pm`, and `7pm`.\n- Requests such as \u201cDay 2\u201d, \u201cmorning\u201d, \u201cafternoon\u201d, \u201cevening\u201d, or \u201cthe evening slot immediately before the final evening slot\u201d should be grounded through `slots_per_day`, `slot_times`, and slot ids, not through guessed LP names.\n- Some slots may be intentionally excluded from use. In practice, the Registrar may want to keep certain late slots empty for setup, cleanup, or special events.\n- In final patch proposals, relative calendar phrases should be resolved to explicit slot ids when the instance data makes that possible.\n\n## Objective\n\nThe sequencing objective penalizes stressful student exam patterns:\n\n- `alpha`: triples within one day\n- `beta`: triples within 24 hours\n- `gamma1`: evening-to-morning back-to-backs\n- `gamma2`: other back-to-backs\n- `delta`: three exams in four consecutive slots\n\nHere, a triple within one day (`alpha`) means three exams assigned to three consecutive slots that all fall on the same day. A triple within 24 hours (`beta`) means three exams assigned to three consecutive slots within a 24-hour window, which may cross an overnight boundary. A back-to-back means two exams assigned to consecutive slots; in this model, back-to-backs are split into evening-to-morning (`gamma1`) and other adjacent-slot pairs (`gamma2`). These events are not double-counted: exam pairs that are already part of a triple should not also be counted again as back-to-backs.\n\n## Core Model View\n\nThe sequencing formulation is cyclic over the slot set.\n\n- `x[i,j,k,s] = 1` means block `i` is placed at slot `s`, block `j` at slot `s+1`, and block `k` at slot `s+2`.\n- The block occupying slot `s` is identified by the first index of `x[i,j,k,s]`, so assignment-like policy rules should be expressed by summing `x[i,*,*,s]` terms over the relevant slots.\n- `y[...]` and `z[...]` are linkage variables used to score triple and four-slot patterns.\n\nAssignment and continuity constraints enforce a valid cyclic schedule in which each block is placed once and each slot receives one block.\n\n## Grounding Data\n\nThe rendered model representation already exposes the concrete instance data needed to ground requests, including `virtual_blocks`, `large_blocks`, `early_slots`, `reserved_slots`, `block_enrollment`, `pair_counts`, `triplet_counts`, `slots_per_day`, and `slot_times`.\n\nUse those rendered values directly instead of inventing symbolic placeholders, and use the exact numeric slot cutoff stated in the prompt when front-loading requests are instance-specific.\n\n## Canonical Interpretations\n\n- Slot reservation requests should use `reserved_virtual_slot`; `reserved_slots` is the canonical slot list feeding that mechanism.\n- Front-loading requests should be interpreted through `large_blocks` and `early_slots`.\n- Day-load requests should use `block_enrollment` and the first-index occupancy view of `x[i,j,k,s]`.\n- Co-enrollment changes usually affect `pair_counts` / `p` or `triplet_counts` / `t`; pairwise block relationships are unordered in the policy language, so update both ordered pair keys unless the request explicitly distinguishes direction.\n- Weight or comfort tradeoff requests usually affect `alpha`, `beta`, `gamma1`, `gamma2`, or `delta`.\n- If the instance data resolves a slot or day directly, emit explicit slot ids rather than symbolic formulas.\n\n## Combined Requests\n\n- Preserve the requested order when one request bundles several changes.\n- Combined Registrar edits may mix weight changes, co-enrollment edits, front-loading, slot reservations, and day-load restrictions.\n",
+          "role": "user"
+        }
+      ],
+      "response": "{\n  \"edit_summary\": \"Limit the total number of students taking exams on Day 2 to a maximum of 4,000 by adding a slot_load_cap constraint on Day 2.\",\n  \"affected_sets\": {\n    \"days\": [2]\n  },\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"block_enrollment\",\n    \"x\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"global\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\"day_2\"],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slots\": [4, 5, 6],\n                \"block_enrollment\": {\n                  \"1\": 320,\n                  \"2\": 280,\n                  \"3\": 340,\n                  \"4\": 310,\n                  \"5\": 295,\n                  \"6\": 300,\n                  \"7\": 315,\n                  \"8\": 290,\n                  \"9\": 325,\n                  \"10\": 275,\n                  \"11\": 305,\n                  \"12\": 335,\n                  \"13\": 285,\n                  \"14\": 295,\n                  \"15\": 310,\n                  \"16\": 320,\n                  \"17\": 305,\n                  \"18\": 315,\n                  \"19\": 325,\n                  \"20\": 330,\n                  \"21\": 0,\n                  \"22\": 0,\n                  \"23\": 0,\n                  \"24\": 0\n                }\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000\n              },\n              \"sense\": \"<=\"\n            }\n          },\n          \"notes\": \"Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"low\"\n  }\n}"
+    }
+  ],
+  "metadata": {
+    "campaign_id": "paper_full_gpt_3600s",
+    "campaign_stage": "full",
+    "instance_id": "I1",
+    "job_name": "I1_patchedit_auto_gpt41_prompts_P5",
+    "prompt_batch_count": 6,
+    "prompt_batch_index": 5,
+    "prompt_id": "P5",
+    "prompt_source": "catalog",
+    "run_mode": "patchedit-auto"
+  },
+  "mip_gap": 0.5549543456205613,
+  "model": "gpt-4.1",
+  "obj_bound": 3948.0,
+  "objective": 8871.0,
+  "planner_mode": "patchedit",
+  "problem": "exam_block_seq",
+  "problem_name": "Exam Block Sequencing",
+  "prompt_id": "P5",
+  "result": {
+    "base_evaluation": {
+      "checks": {
+        "has_solution": true
+      },
+      "details": {
+        "log_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.log",
+        "mip_gap": 0.247846,
+        "obj_bound": 4015.0,
+        "phase": "base",
+        "runtime": 86400.09,
+        "solution_count": 10,
+        "solution_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.sol",
+        "source": "saved_base_artifacts",
+        "status": 9
+      },
+      "feasible": true,
+      "ground_truth_case_id": null,
+      "ground_truth_checks": {},
+      "ground_truth_details": {},
+      "matches_ground_truth": null,
+      "objective": 5338.0,
+      "runtime": 86400.09,
+      "status": 9
+    },
+    "base_objective": 5338.0,
+    "base_solution": {
+      "1": 2,
+      "10": 4,
+      "11": 3,
+      "12": 7,
+      "13": 19,
+      "14": 15,
+      "15": 17,
+      "16": 9,
+      "17": 1,
+      "18": 6,
+      "19": 13,
+      "2": 16,
+      "20": 21,
+      "21": 22,
+      "22": 5,
+      "23": 24,
+      "24": 14,
+      "3": 12,
+      "4": 20,
+      "5": 8,
+      "6": 10,
+      "7": 18,
+      "8": 23,
+      "9": 11
+    },
+    "base_solve_meta": {
+      "log_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.log",
+      "mip_gap": 0.247846,
+      "obj_bound": 4015.0,
+      "runtime": 86400.09,
+      "solution_count": 10,
+      "solution_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.sol",
+      "source": "saved_base_artifacts",
+      "status": 9
+    },
+    "mode": "single",
+    "problem": {
+      "description": "Exam scheduling block sequencing problem packaged behind the generic interface.",
+      "name": "Exam Block Sequencing",
+      "package_root": "problems/exam_block_seq",
+      "problem_id": "exam_block_seq"
+    },
+    "steps": [
+      {
+        "action_kind": "patch",
+        "artifacts": {
+          "trace_dir": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41/step_01"
+        },
+        "candidate_patches": [
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "slot_load_cap"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Cap weighted enrollment across a selected slot set.",
+                "index_set": [
+                  "day_2"
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "day_2": {
+                      "block_weights": {
+                        "1": 2081.0,
+                        "10": 2312.0,
+                        "11": 2023.0,
+                        "12": 2012.0,
+                        "13": 1837.0,
+                        "14": 2232.0,
+                        "15": 2105.0,
+                        "16": 1841.0,
+                        "17": 2123.0,
+                        "18": 2468.0,
+                        "19": 2674.0,
+                        "2": 2027.0,
+                        "20": 2553.0,
+                        "3": 1803.0,
+                        "4": 1777.0,
+                        "5": 1989.0,
+                        "6": 2043.0,
+                        "7": 1955.0,
+                        "8": 1962.0,
+                        "9": 1770.0
+                      },
+                      "slots": [
+                        4,
+                        5,
+                        6
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "slot_load_cap_family"
+                },
+                "name": "slot_load_cap",
+                "rhs_spec": {
+                  "day_2": 4000.0
+                },
+                "sense": "<=",
+                "tags": [
+                  "block_seq",
+                  "load_cap"
+                ]
+              }
+            }
+          }
+        ],
+        "change_report": "Applied ADD_CONSTRAINT_FAMILY; objective 5338.0000 -> 8871.0000",
+        "chosen_patches": [
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "slot_load_cap"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Cap weighted enrollment across a selected slot set.",
+                "index_set": [
+                  "day_2"
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "day_2": {
+                      "block_weights": {
+                        "1": 2081.0,
+                        "10": 2312.0,
+                        "11": 2023.0,
+                        "12": 2012.0,
+                        "13": 1837.0,
+                        "14": 2232.0,
+                        "15": 2105.0,
+                        "16": 1841.0,
+                        "17": 2123.0,
+                        "18": 2468.0,
+                        "19": 2674.0,
+                        "2": 2027.0,
+                        "20": 2553.0,
+                        "3": 1803.0,
+                        "4": 1777.0,
+                        "5": 1989.0,
+                        "6": 2043.0,
+                        "7": 1955.0,
+                        "8": 1962.0,
+                        "9": 1770.0
+                      },
+                      "slots": [
+                        4,
+                        5,
+                        6
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "slot_load_cap_family"
+                },
+                "name": "slot_load_cap",
+                "rhs_spec": {
+                  "day_2": 4000.0
+                },
+                "sense": "<=",
+                "tags": [
+                  "block_seq",
+                  "load_cap"
+                ]
+              }
+            }
+          }
+        ],
+        "delta_request": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+        "evaluation": {
+          "checks": {
+            "has_solution": true
+          },
+          "details": {
+            "mip_gap": 0.5549543456205613,
+            "obj_bound": 3948.0,
+            "objective": 8871.0,
+            "objective_nonzero_coeffs": 439537,
+            "problem_id": "exam_block_seq",
+            "runtime": 3600.097316980362,
+            "sol_count": 1,
+            "status": 9,
+            "strategy": "warm+tuned",
+            "warm_start_applied": true,
+            "warm_start_mode": "base+heuristic",
+            "warm_start_source": "base+heuristic"
+          },
+          "feasible": true,
+          "ground_truth_case_id": null,
+          "ground_truth_checks": {},
+          "ground_truth_details": {},
+          "matches_ground_truth": null,
+          "objective": 8871.0,
+          "runtime": 3600.097316980362,
+          "status": 9
+        },
+        "event": {
+          "affected_sets": {
+            "days": [
+              2
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "days": [
+                2
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.",
+                    "op": "ADD_CONSTRAINT_FAMILY",
+                    "scope": "global",
+                    "target": {},
+                    "update": {
+                      "constraint": {
+                        "index_set": [
+                          "day_2"
+                        ],
+                        "lhs_spec": {
+                          "block_enrollment": {
+                            "1": 320,
+                            "10": 275,
+                            "11": 305,
+                            "12": 335,
+                            "13": 285,
+                            "14": 295,
+                            "15": 310,
+                            "16": 320,
+                            "17": 305,
+                            "18": 315,
+                            "19": 325,
+                            "2": 280,
+                            "20": 330,
+                            "21": 0,
+                            "22": 0,
+                            "23": 0,
+                            "24": 0,
+                            "3": 340,
+                            "4": 310,
+                            "5": 295,
+                            "6": 300,
+                            "7": 315,
+                            "8": 290,
+                            "9": 325
+                          },
+                          "kind": "slot_load_cap",
+                          "slots": [
+                            4,
+                            5,
+                            6
+                          ]
+                        },
+                        "name": "slot_load_cap",
+                        "rhs_spec": {
+                          "day_2": 4000
+                        },
+                        "sense": "<="
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "delta_metadata": {
+              "campaign_id": "paper_full_gpt_3600s",
+              "campaign_stage": "full",
+              "instance_id": "I1",
+              "job_name": "I1_patchedit_auto_gpt41_prompts_P5",
+              "prompt_batch_count": 6,
+              "prompt_batch_index": 5,
+              "prompt_id": "P5",
+              "prompt_source": "catalog",
+              "run_mode": "patchedit-auto"
+            },
+            "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.",
+            "planner_raw_response": "{\n  \"edit_summary\": \"Limit the total number of students taking exams on Day 2 to a maximum of 4,000 by adding a slot_load_cap constraint on Day 2.\",\n  \"affected_sets\": {\n    \"days\": [2]\n  },\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"block_enrollment\",\n    \"x\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"global\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\"day_2\"],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slots\": [4, 5, 6],\n                \"block_enrollment\": {\n                  \"1\": 320,\n                  \"2\": 280,\n                  \"3\": 340,\n                  \"4\": 310,\n                  \"5\": 295,\n                  \"6\": 300,\n                  \"7\": 315,\n                  \"8\": 290,\n                  \"9\": 325,\n                  \"10\": 275,\n                  \"11\": 305,\n                  \"12\": 335,\n                  \"13\": 285,\n                  \"14\": 295,\n                  \"15\": 310,\n                  \"16\": 320,\n                  \"17\": 305,\n                  \"18\": 315,\n                  \"19\": 325,\n                  \"20\": 330,\n                  \"21\": 0,\n                  \"22\": 0,\n                  \"23\": 0,\n                  \"24\": 0\n                }\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000\n              },\n              \"sense\": \"<=\"\n            }\n          },\n          \"notes\": \"Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"low\"\n  }\n}",
+            "planning_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "low"
+            },
+            "relevant_components": [
+              "slot_load_cap",
+              "block_enrollment",
+              "x"
+            ]
+          },
+          "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.",
+          "event_type": "unknown",
+          "intention": "update",
+          "raw_text": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000."
+        },
+        "model_summary": {
+          "artifacts": [
+            "lp_path"
+          ],
+          "extras": [
+            "base_parameters"
+          ],
+          "n_constraints": 8,
+          "n_objectives": 5,
+          "n_variables": 12,
+          "parameter_info": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ],
+          "parameters": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ]
+        },
+        "objective": 8871.0,
+        "planner_output": {
+          "action_kind": "patch",
+          "affected_sets": {
+            "days": [
+              2
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "days": [
+                2
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.",
+                    "op": "ADD_CONSTRAINT_FAMILY",
+                    "scope": "global",
+                    "target": {},
+                    "update": {
+                      "constraint": {
+                        "index_set": [
+                          "day_2"
+                        ],
+                        "lhs_spec": {
+                          "block_enrollment": {
+                            "1": 320,
+                            "10": 275,
+                            "11": 305,
+                            "12": 335,
+                            "13": 285,
+                            "14": 295,
+                            "15": 310,
+                            "16": 320,
+                            "17": 305,
+                            "18": 315,
+                            "19": 325,
+                            "2": 280,
+                            "20": 330,
+                            "21": 0,
+                            "22": 0,
+                            "23": 0,
+                            "24": 0,
+                            "3": 340,
+                            "4": 310,
+                            "5": 295,
+                            "6": 300,
+                            "7": 315,
+                            "8": 290,
+                            "9": 325
+                          },
+                          "kind": "slot_load_cap",
+                          "slots": [
+                            4,
+                            5,
+                            6
+                          ]
+                        },
+                        "name": "slot_load_cap",
+                        "rhs_spec": {
+                          "day_2": 4000
+                        },
+                        "sense": "<="
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planning_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "low"
+            },
+            "relevant_components": [
+              "slot_load_cap",
+              "block_enrollment",
+              "x"
+            ]
+          },
+          "candidate_action_sets": [
+            {
+              "action_kind": "patch",
+              "actions": [
+                {
+                  "notes": "Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.",
+                  "op": "ADD_CONSTRAINT_FAMILY",
+                  "scope": {},
+                  "target": {},
+                  "update": {
+                    "constraint": {
+                      "index_set": [
+                        "day_2"
+                      ],
+                      "lhs_spec": {
+                        "block_enrollment": {
+                          "1": 320,
+                          "10": 275,
+                          "11": 305,
+                          "12": 335,
+                          "13": 285,
+                          "14": 295,
+                          "15": 310,
+                          "16": 320,
+                          "17": 305,
+                          "18": 315,
+                          "19": 325,
+                          "2": 280,
+                          "20": 330,
+                          "21": 0,
+                          "22": 0,
+                          "23": 0,
+                          "24": 0,
+                          "3": 340,
+                          "4": 310,
+                          "5": 295,
+                          "6": 300,
+                          "7": 315,
+                          "8": 290,
+                          "9": 325
+                        },
+                        "kind": "slot_load_cap",
+                        "slots": [
+                          4,
+                          5,
+                          6
+                        ]
+                      },
+                      "name": "slot_load_cap",
+                      "rhs_spec": {
+                        "day_2": 4000
+                      },
+                      "sense": "<="
+                    }
+                  }
+                }
+              ],
+              "label": "",
+              "metadata": {}
+            }
+          ],
+          "candidate_actions": [],
+          "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.",
+          "planning_hints": {
+            "edit_scope": "structural",
+            "expected_reuse": "low",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planner_failed_semantically": false,
+            "planner_output_executable": true,
+            "planner_parse_ok": true
+          },
+          "raw_response": "{\n  \"edit_summary\": \"Limit the total number of students taking exams on Day 2 to a maximum of 4,000 by adding a slot_load_cap constraint on Day 2.\",\n  \"affected_sets\": {\n    \"days\": [2]\n  },\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"block_enrollment\",\n    \"x\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"global\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\"day_2\"],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slots\": [4, 5, 6],\n                \"block_enrollment\": {\n                  \"1\": 320,\n                  \"2\": 280,\n                  \"3\": 340,\n                  \"4\": 310,\n                  \"5\": 295,\n                  \"6\": 300,\n                  \"7\": 315,\n                  \"8\": 290,\n                  \"9\": 325,\n                  \"10\": 275,\n                  \"11\": 305,\n                  \"12\": 335,\n                  \"13\": 285,\n                  \"14\": 295,\n                  \"15\": 310,\n                  \"16\": 320,\n                  \"17\": 305,\n                  \"18\": 315,\n                  \"19\": 325,\n                  \"20\": 330,\n                  \"21\": 0,\n                  \"22\": 0,\n                  \"23\": 0,\n                  \"24\": 0\n                }\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000\n              },\n              \"sense\": \"<=\"\n            }\n          },\n          \"notes\": \"Adds a new load cap constraint for Day 2, covering slots 4,5,6 with a student enrollment sum cap of 4000.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"low\"\n  }\n}",
+          "relevant_components": [
+            "slot_load_cap",
+            "block_enrollment",
+            "x"
+          ]
+        },
+        "relevant_components": [
+          "slot_load_cap",
+          "block_enrollment",
+          "x"
+        ],
+        "solution": {
+          "1": 11,
+          "10": 7,
+          "11": 14,
+          "12": 15,
+          "13": 19,
+          "14": 8,
+          "15": 10,
+          "16": 18,
+          "17": 9,
+          "18": 3,
+          "19": 1,
+          "2": 13,
+          "20": 2,
+          "21": 5,
+          "22": 6,
+          "23": 23,
+          "24": 24,
+          "3": 20,
+          "4": 21,
+          "5": 16,
+          "6": 12,
+          "7": 17,
+          "8": 22,
+          "9": 4
+        },
+        "solve_meta": {
+          "mip_gap": 0.5549543456205613,
+          "obj_bound": 3948.0,
+          "objective": 8871.0,
+          "objective_nonzero_coeffs": 439537,
+          "runtime": 3600.097316980362,
+          "sol_count": 1,
+          "status": 9,
+          "warm_start_applied": true,
+          "warm_start_mode": "base+heuristic",
+          "warm_start_source": "base+heuristic"
+        },
+        "strategy": "warm+tuned",
+        "strategy_selection": {
+          "execution_label": "direct+heuristic+tuned",
+          "fallback_reason": "",
+          "fallback_used": false,
+          "metadata": {
+            "has_base_warm_start": false,
+            "has_prior_result": false,
+            "heuristic_prompt_ids": [],
+            "heuristic_warm_start_available": true,
+            "heuristic_warm_start_reason": "",
+            "patch_count": 1,
+            "planner_edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.",
+            "planner_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "low",
+              "planner_failed_semantically": false,
+              "planner_output_executable": true,
+              "planner_parse_ok": true
+            },
+            "planner_mode": "patchedit",
+            "planner_relevant_components": [
+              "slot_load_cap",
+              "block_enrollment",
+              "x"
+            ],
+            "selector_confidence": 1.0,
+            "selector_model": "gpt-4.1",
+            "structural_edit": true,
+            "supports_tuned_solver": true,
+            "supports_warm_start": true,
+            "toolbox_placeholders": [],
+            "toolbox_trace_only": false
+          },
+          "policy_name": "llm",
+          "prompt": [
+            {
+              "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+              "role": "system"
+            },
+            {
+              "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Limit the total number of students taking exams on Day 2 to a maximum of 4,00 by adding a slot_load_cap constraint on Day 2.\",\n    \"planning_hints\": {\n      \"edit_scope\": \"structural\",\n      \"expected_reuse\": \"low\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"slot_load_cap\",\n      \"block_enrollment\",\n      \"x\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 1,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": true,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+              "role": "user"
+            }
+          ],
+          "rationale": "This is a structural edit (adding a slot_load_cap constraint), which significantly impacts feasible solutions and limits reuse. The runtime supports tuned solving and both warm starts. The fastest safe option is to combine direct and heuristic warm starts with tuned solving, leveraging all available speedups for this structural change. This matches the default execution label and is most robust.",
+          "raw_response": "{\n  \"solve_strategy\": \"direct+heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"This is a structural edit (adding a slot_load_cap constraint), which significantly impacts feasible solutions and limits reuse. The runtime supports tuned solving and both warm starts. The fastest safe option is to combine direct and heuristic warm starts with tuned solving, leveraging all available speedups for this structural change. This matches the default execution label and is most robust.\",\n  \"confidence\": 1\n}",
+          "strategy": "warm+tuned",
+          "toolbox_plan": [
+            "direct_warm_start",
+            "heuristic_warm_start",
+            "tuned_config"
+          ]
+        }
+      }
+    ]
+  },
+  "run_id": "I1_P5_patchedit_auto_gpt41",
+  "runtime": 3600.097316980362,
+  "selection_fallback_used": false,
+  "status": "ok",
+  "strategy": "warm+tuned",
+  "strategy_policy": "llm",
+  "trace_dir": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41/step_01"
+}

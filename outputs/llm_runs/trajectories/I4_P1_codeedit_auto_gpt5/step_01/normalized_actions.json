@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -26,6 +26,8 @@\n     t: Dict[tuple[int, int, int], float] | None = None,\n     large_blocks: list[int] | None = None,\n     early_slots: list[int] | None = None,\n+    reserved_slots: list[int] | None = None,\n+    virtual_blocks: list[int] | None = None,\n     time_limit: float | None = None,\n ) -> \"gp.Model\":\n     \"\"\"Build the upstream block-sequencing model directly in gurobipy.\"\"\"\n@@ -55,6 +57,7 @@\n     y = m.addVars(block_sequence_trip, vtype=GRB.BINARY, name=\"y\")\n     z = m.addVars(block_sequence_quad, vtype=GRB.BINARY, name=\"z\")\n \n+    # Assignment and slot coverage constraints\n     m.addConstrs(\n         (\n             gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks for s in slots) == 1\n@@ -84,10 +87,12 @@\n         name=\"each_slot\",\n     )\n \n+    # No repeats within a triple window\n     m.addConstrs((x[i, i, k, s] == 0 for i in blocks for k in blocks for s in slots), name=\"no_ii\")\n     m.addConstrs((x[i, j, i, s] == 0 for i in blocks for j in blocks for s in slots), name=\"no_ik\")\n     m.addConstrs((x[i, j, j, s] == 0 for i in blocks for j in blocks for s in slots), name=\"no_jj\")\n \n+    # Continuity linking across slots\n     m.addConstrs(\n         (\n             gp.quicksum(x[i, j, k, s] for i in blocks)\n@@ -99,6 +104,7 @@\n         name=\"continuity\",\n     )\n \n+    # Link y/z variables to x for scoring patterns\n     m.addConstrs(\n         (\n             y[i, j, k] == gp.quicksum(x[i, j, k, s] for s in triple_slots)\n@@ -114,6 +120,7 @@\n         name=\"define_z\",\n     )\n \n+    # Frontloading for large exams\n     frontload_blocks = sorted(\n         {\n             int(block)\n@@ -137,6 +144,30 @@\n             name=\"frontload\",\n         )\n \n+    # Reserve specified slots for virtual (dummy) blocks\n+    reserved_slot_values = sorted(\n+        [int(s) for s in (reserved_slots or []) if isinstance(s, (int, float)) and int(s) in slots]\n+    )\n+    virtual_block_values = sorted(\n+        {\n+            int(b)\n+            for b in (virtual_blocks or [])\n+            if isinstance(b, (int, float)) and int(b) in blocks\n+        }\n+    )\n+    if reserved_slot_values and virtual_block_values:\n+        m.addConstrs(\n+            (\n+                gp.quicksum(\n+                    x[i, j, k, s] for i in virtual_block_values for j in blocks for k in blocks\n+                )\n+                == 1\n+                for s in reserved_slot_values\n+            ),\n+            name=\"reserve_slots_virtual\",\n+        )\n+\n+    # Objective: penalize stressful patterns\n     objective = (\n         gp.quicksum(\n             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]\n@@ -194,9 +225,27 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Ground the requested reservation: evening slot immediately before the final evening slot.\n+    blocks_list = [int(block) for block in data[\"blocks\"]]\n+    slots_per_day = int(data[\"slots_per_day\"])\n+    # Evening is the last slot-of-day; find the final evening slot, then step back one day.\n+    evening_mod = (slots_per_day - 1)\n+    final_evening_slot = max(s for s in blocks_list if (s - 1) % slots_per_day == evening_mod)\n+    previous_evening_slot = final_evening_slot - slots_per_day\n+    if previous_evening_slot not in blocks_list:\n+        # Fallback: wrap around cyclically if needed\n+        previous_evening_slot = ((final_evening_slot - 1 - slots_per_day) % len(blocks_list)) + 1\n+\n+    # Update reserved_slots with the computed slot\n+    current_reserved = [int(s) for s in (data.get(\"reserved_slots\") or [])]\n+    if previous_evening_slot not in current_reserved:\n+        current_reserved.append(previous_evening_slot)\n+    data[\"reserved_slots\"] = sorted(set(current_reserved))\n+\n     grb = build_exam_gurobi_model(\n-        blocks=[int(block) for block in data[\"blocks\"]],\n-        slots_per_day=int(data[\"slots_per_day\"]),\n+        blocks=blocks_list,\n+        slots_per_day=slots_per_day,\n         triple_24_start=[int(slot) for slot in data[\"triple_24_start\"]],\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n@@ -206,6 +255,8 @@\n         t=dict(data.get(\"triplet_counts\") or {}),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        reserved_slots=data.get(\"reserved_slots\", []),\n+        virtual_blocks=[int(b) for b in data.get(\"virtual_blocks\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I4_P1_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

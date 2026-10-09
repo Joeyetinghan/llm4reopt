@@ -1,0 +1,13 @@
+instance_dir: ../../../benchmark/raw_instances/blockseq_n544_blocks20_slots24_seed42
+slots_per_day: 3
+slot_times:
+  - 9am
+  - 2pm
+  - 7pm
+real_blocks: null
+weights: {}
+solution_dir: ../../../outputs/solves/base
+log_dir: ../../../outputs/solves/base
+tuned_param_dir: ../../../outputs/solves/tune/params
+time_limit: 600
+prompt_id: P1

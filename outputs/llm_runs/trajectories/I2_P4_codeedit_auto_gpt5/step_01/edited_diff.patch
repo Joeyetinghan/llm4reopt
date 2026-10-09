@@ -1,0 +1,25 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,13 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Adjust weights to reflect policy: three exams in 24 hours should be
++    # 20x the penalty of a regular (non-overnight) back-to-back.
++    weights = dict(data["weights"])
++    gamma2 = float(weights.get("gamma2", 1.0))
++    weights["beta"] = 20.0 * gamma2
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -201,7 +208,7 @@
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
++        weights=weights,
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],

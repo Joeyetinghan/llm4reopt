@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local (penalty adjustment), so solution structure is mostly unchanged and reuse is high. Heuristic warm start is available for reuse, and tuned configuration is supported and presents an efficient incremental solve. Combining heuristic warm start with tuned solving is both safe and expected to be the fastest practical route according to the runtime context and inventory.",
+  "confidence": 0.98
+}

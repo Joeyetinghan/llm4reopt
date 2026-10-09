@@ -1,0 +1,10 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structural (reserving a new slot by exclusion), with expected low solution reuse. Scratch solving is not necessary since tuned solving is available, and the runtime context supports both tuning and heuristic/direct warm starts. Using direct+heuristic+tuned leverages all available solving accelerators and tuning robustness, making it the fastest safe strategy for a structural local edit where reuse is fragile or unlikely.",
+  "confidence": 0.97
+}

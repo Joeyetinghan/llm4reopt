@@ -1,0 +1,450 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {
+    "early_slots": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "large_blocks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "slots": [
+      20
+    ],
+    "virtual_blocks": [
+      21
+    ],
+    "weights": [
+      "alpha",
+      "beta",
+      "gamma1",
+      "gamma2",
+      "delta"
+    ]
+  },
+  "annotations": {
+    "affected_sets": {
+      "early_slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "large_blocks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "slots": [
+        20
+      ],
+      "virtual_blocks": [
+        21
+      ],
+      "weights": [
+        "alpha",
+        "beta",
+        "gamma1",
+        "gamma2",
+        "delta"
+      ]
+    },
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Reserve penultimate evening slot (20) for virtual block 21.",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [
+                  [
+                    21,
+                    20
+                  ]
+                ],
+                "lhs_spec": {
+                  "kind": "reserved_virtual_slot",
+                  "slot": 20,
+                  "virtual_block": 21
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": {
+                  "[21, 20]": 1
+                },
+                "sense": "="
+              }
+            }
+          },
+          {
+            "notes": "Update early_slots parameter for front-loading large blocks.",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "early_slots"
+            },
+            "update": {
+              "name": "early_slots",
+              "value": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21
+              ]
+            }
+          },
+          {
+            "notes": "Update large_blocks parameter for front-loading.",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "large_blocks"
+            },
+            "update": {
+              "name": "large_blocks",
+              "value": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ]
+            }
+          },
+          {
+            "notes": "Set triple-in-day penalty weight alpha to 12.0.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "alpha"
+            },
+            "update": {
+              "weight": 12.0
+            }
+          },
+          {
+            "notes": "Set triple-in-24hr penalty weight beta to 9.0.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 9.0
+            }
+          },
+          {
+            "notes": "Set evening-to-morning back-to-back penalty weight gamma1 to 1.5.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "gamma1"
+            },
+            "update": {
+              "weight": 1.5
+            }
+          },
+          {
+            "notes": "Set other back-to-back penalty weight gamma2 to 1.2.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "gamma2"
+            },
+            "update": {
+              "weight": 1.2
+            }
+          },
+          {
+            "notes": "Set three-in-four penalty weight delta to 6.0.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "target": {
+              "objective": "delta"
+            },
+            "update": {
+              "weight": 6.0
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Apply (1) slot reservation to the penultimate evening slot for virtual block, (2) modify frontload/large exam settings, then (3) adjust penalty weights, in this exact order.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "reserved_virtual_slot",
+      "early_slots",
+      "large_blocks",
+      "frontload",
+      "alpha",
+      "beta",
+      "gamma1",
+      "gamma2",
+      "delta"
+    ],
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I1_P6_patchedit_auto_gpt41/run.json",
+    "replayed_from_run_id": "I1_P6_patchedit_auto_gpt41"
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "gamma1"
+          },
+          "update": {
+            "weight": 1.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 20.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              4,
+              9
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              4,
+              9
+            ],
+            "name": "p",
+            "value": 271.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              9,
+              4
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              9,
+              4
+            ],
+            "name": "p",
+            "value": 271.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {},
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "name": "reserved_slots",
+            "value": [
+              21
+            ]
+          }
+        },
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {
+            "constraint": "reserved_virtual_slot"
+          },
+          "update": {
+            "constraint": {
+              "aliases": [],
+              "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+              "index_set": [
+                21
+              ],
+              "lhs_spec": {
+                "kind": "exam_x_aggregate",
+                "rows": {
+                  "21": {
+                    "fixed_block": 21,
+                    "slots": [
+                      21
+                    ]
+                  }
+                }
+              },
+              "metadata": {
+                "rule_kind": "reserved_virtual_slot_family"
+              },
+              "name": "reserved_virtual_slot",
+              "rhs_spec": {
+                "21": 1.0
+              },
+              "sense": "=",
+              "tags": [
+                "availability",
+                "block_seq"
+              ]
+            }
+          }
+        }
+      ],
+      "label": "P6",
+      "metadata": {
+        "composed_prompt_ids": [
+          "P4",
+          "P2",
+          "P1"
+        ],
+        "deterministic_composition": true
+      }
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Apply (1) slot reservation to the penultimate evening slot for virtual block, (2) modify frontload/large exam settings, then (3) adjust penalty weights, in this exact order.",
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "model_attempt_count": 0,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P6_patchedit_auto_gpt41/run.json",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P6_patchedit_auto_gpt41/step_01"
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Apply (1) slot reservation to the penultimate evening slot for virtual block, (2) modify frontload/large exam settings, then (3) adjust penalty weights, in this exact order.\",\n  \"affected_sets\": {\n    \"slots\": [20],\n    \"virtual_blocks\": [21],\n    \"early_slots\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],\n    \"large_blocks\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],\n    \"weights\": [\"alpha\", \"beta\", \"gamma1\", \"gamma2\", \"delta\"]\n  },\n  \"relevant_components\": [\n    \"reserved_virtual_slot\",\n    \"early_slots\",\n    \"large_blocks\",\n    \"frontload\",\n    \"alpha\",\n    \"beta\",\n    \"gamma1\",\n    \"gamma2\",\n    \"delta\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"reserved_virtual_slot\",\n              \"index_set\": [[21, 20]],\n              \"lhs_spec\": {\n                \"kind\": \"reserved_virtual_slot\",\n                \"virtual_block\": 21,\n                \"slot\": 20\n              },\n              \"rhs_spec\": {\n                \"[21, 20]\": 1\n              },\n              \"sense\": \"=\"\n            }\n          },\n          \"notes\": \"Reserve penultimate evening slot (20) for virtual block 21.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"early_slots\"\n          },\n          \"update\": {\n            \"name\": \"early_slots\",\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]\n          },\n          \"notes\": \"Update early_slots parameter for front-loading large blocks.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"large_blocks\"\n          },\n          \"update\": {\n            \"name\": \"large_blocks\",\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]\n          },\n          \"notes\": \"Update large_blocks parameter for front-loading.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"alpha\"\n          },\n          \"update\": {\n            \"weight\": 12.0\n          },\n          \"notes\": \"Set triple-in-day penalty weight alpha to 12.0.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"beta\"\n          },\n          \"update\": {\n            \"weight\": 9.0\n          },\n          \"notes\": \"Set triple-in-24hr penalty weight beta to 9.0.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"gamma1\"\n          },\n          \"update\": {\n            \"weight\": 1.5\n          },\n          \"notes\": \"Set evening-to-morning back-to-back penalty weight gamma1 to 1.5.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"gamma2\"\n          },\n          \"update\": {\n            \"weight\": 1.2\n          },\n          \"notes\": \"Set other back-to-back penalty weight gamma2 to 1.2.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"delta\"\n          },\n          \"update\": {\n            \"weight\": 6.0\n          },\n          \"notes\": \"Set three-in-four penalty weight delta to 6.0.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "early_slots",
+    "large_blocks",
+    "frontload",
+    "alpha",
+    "beta",
+    "gamma1",
+    "gamma2",
+    "delta"
+  ]
+}

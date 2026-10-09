@@ -1,0 +1,16 @@
+{
+  "edit_summary": "Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.",
+  "affected_sets": {},
+  "relevant_components": [],
+  "candidate_action_sets": [],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "requires_content": [
+      "P4",
+      "P2",
+      "P1"
+    ],
+    "note": "Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order."
+  }
+}

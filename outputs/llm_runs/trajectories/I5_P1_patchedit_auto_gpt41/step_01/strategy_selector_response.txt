@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structurally significant (reserving a slot changes constraints), so pure warm reuse is fragile. However, since this is a localized slot-reservation and heuristic reuse is available, using the heuristic result as a warm start followed by tuned solving balances reuse and robustness. This is likely the fastest safe solve because tuned refinement adapts to structural changes, and no prior result or base warm solution exists.",
+  "confidence": 0.95
+}

@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local change to pairwise co-enrollment counts, which is highly friendly to solution reuse. Both heuristic warm start and tuned solving are available, and combining them accelerates convergence while ensuring a high quality solution. This is preferable over warm alone, as tuned config is supported and can further optimize the reused solution. Other options such as scratch or direct are less efficient for this type of local, reuse-friendly edit.",
+  "confidence": 0.97
+}

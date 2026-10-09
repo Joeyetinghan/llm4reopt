@@ -1,0 +1,25 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [],
+    "edit_summary": "Requested to apply updates P4, then P2, then P1, but their contents are not provided. No executable patches can be produced without the concrete definitions of P4, P2, and P1.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {},
+    "relevant_components": []
+  },
+  "candidate_action_sets": [],
+  "candidate_actions": [],
+  "edit_summary": "Requested to apply updates P4, then P2, then P1, but their contents are not provided. No executable patches can be produced without the concrete definitions of P4, P2, and P1.",
+  "planning_hints": {
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Requested to apply updates P4, then P2, then P1, but their contents are not provided. No executable patches can be produced without the concrete definitions of P4, P2, and P1.\",\n  \"affected_sets\": {},\n  \"relevant_components\": [],\n  \"candidate_action_sets\": [],\n  \"planning_hints\": {}\n}",
+  "relevant_components": []
+}

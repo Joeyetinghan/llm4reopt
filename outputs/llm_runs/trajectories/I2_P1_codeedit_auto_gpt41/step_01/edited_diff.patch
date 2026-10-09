@@ -1,0 +1,39 @@
+--- solver.py
++++ solver.py
+@@ -194,9 +194,34 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Reserve the evening slot immediately before the final evening slot
++    slot_times = data.get("slot_times", [])
++    slots_per_day = int(data.get("slots_per_day", 3))
++    blocks = [int(block) for block in data["blocks"]]
++    num_slots = len(blocks)
++    # Find all evening slot indices (slot_times == "7pm")
++    evening_indices = [i for i, t in enumerate(slot_times) if t == "7pm"]
++    # The final evening slot is the last "7pm" in slot_times
++    if evening_indices:
++        final_evening_idx = evening_indices[-1]
++        # The slot immediately before is the previous "7pm" if it exists, else the one before final_evening_idx
++        if len(evening_indices) >= 2:
++            before_final_evening_idx = evening_indices[-2]
++        else:
++            # fallback: previous slot in the sequence
++            before_final_evening_idx = final_evening_idx - slots_per_day if final_evening_idx - slots_per_day >= 0 else final_evening_idx - 1
++        # Convert to slot id (block id)
++        if 0 <= before_final_evening_idx < num_slots:
++            before_final_evening_slot_id = blocks[before_final_evening_idx]
++            reserved_slots = list(data.get("reserved_slots", []))
++            if before_final_evening_slot_id not in reserved_slots:
++                reserved_slots.append(before_final_evening_slot_id)
++            data["reserved_slots"] = reserved_slots
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        blocks=blocks,
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],

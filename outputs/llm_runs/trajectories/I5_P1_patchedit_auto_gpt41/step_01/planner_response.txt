@@ -1,0 +1,54 @@
+{
+  "edit_summary": "Reserve the evening slot immediately before the final evening slot (the penultimate evening slot) so it cannot be assigned to a real exam block, in order to allow auditorium arrangements for graduation events.",
+  "affected_sets": {
+    "slots": [23],
+    "virtual_blocks": [17, 18, 19, 20, 21, 22, 23, 24]
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "reserved_slots",
+    "virtual_blocks"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "name": "reserved_slots",
+            "key": 23,
+            "value": 23
+          },
+          "notes": "Add slot 23 (the penultimate slot) to the reserved_slots parameter, explicitly reserving it for a virtual block."
+        },
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [23],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 23,
+                "virtual_block": 17
+              },
+              "rhs_spec": {
+                "23": 1
+              },
+              "sense": "="
+            }
+          },
+          "notes": "Add a reserved_virtual_slot constraint for slot 23, assigning the first available virtual block (17) to this slot."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

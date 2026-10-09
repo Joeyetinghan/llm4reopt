@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 1
+- Model retries: 0
+- Edited files: solver.py
+- Code-edit attempts: 1
+- Code-edit repairs: 0
+- Strategy: warm+tuned
+- Execution label: direct+tuned
+- Strategy policy: llm
+- Toolbox plan: ['direct_warm_start', 'tuned_config']
+- Strategy fallback used: True
+- Objective: 7330.000000 -> 6239.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -194,6 +194,52 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Normalize and adjust pairwise co-enrollment counts, then apply requested increase for (4, 9) and (9, 4).\n+    raw_pair_counts = data.get(\"pair_counts\") or {}\n+    pair_counts: Dict[tuple[int, int], float] = {}\n+\n+    def _parse_pair_key(key: Any) -> tuple[int, int] | None:\n+        if isinstance(key, tuple) and len(key) == 2:\n+            try:\n+                return int(key[0]), int(key[1])\n+            except Exception:\n+                return None\n+        if isinstance(key, str):\n+            ks = key.strip()\n+            if ks.startswith(\"(\") and ks.endswith(\")\"):\n+                ks = ks[1:-1]\n+            parts = [p.strip() for p in ks.split(\",\")]\n+            if len(parts) == 2:\n+                try:\n+                    return int(parts[0]), int(parts[1])\n+                except Exception:\n+                    return None\n+        return None\n+\n+    if isinstance(raw_pair_counts, dict):\n+        for k, v in raw_pair_counts.items():\n+            # Some instances wrap data with keys like \"count\" and \"preview\"; merge preview if present.\n+            if k == \"preview\" and isinstance(v, dict):\n+                for pk, pv in v.items():\n+                    parsed = _parse_pair_key(pk)\n+                    if parsed is not None:\n+                        try:\n+                            pair_counts[parsed] = float(pv)\n+                        except Exception:\n+                            pass\n+                continue\n+            parsed = _parse_pair_key(k)\n+            if parsed is not None:\n+                try:\n+                    pair_counts[parsed] = float(v)\n+                except Exception:\n+                    pass\n+\n+    # Apply the requested symmetric increase by +120 for blocks 4 and 9.\n+    for a, b in ((4, 9), (9, 4)):\n+        pair_counts[(a, b)] = float(pair_counts.get((a, b), 0.0)) + 120.0\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -202,7 +248,7 @@\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n         weights=dict(data[\"weights\"]),\n-        p=dict(data.get(\"pair_counts\") or {}),\n+        p=pair_counts,\n         t=dict(data.get(\"triplet_counts\") or {}),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],", "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P2_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

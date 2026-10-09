@@ -1,0 +1,26 @@
+id: transport
+name: Transportation
+description: Small transportation LP packaged behind the generic patch-first interface.
+adapter: problems.transport.adapter:TransportProblemAdapter
+default_config: configs/default.yaml
+patchedit_artifacts:
+  - name: transport_structured
+    source_type: python_builder
+    path: structured.py
+    prompt_symbol: build_transport_structured_model
+    description: Structured-model registration surface for patch planning.
+codeedit_artifacts:
+  - name: transport_solver
+    source_type: python_builder
+    path: solver.py
+    prompt_symbol: build_transport_gurobi_model, solve_transport_direct
+    description: Direct Gurobi model builder and solve surface for code editing.
+data_artifacts:
+  - name: default_config
+    kind: yaml
+    path: configs/default.yaml
+    description: Default packaged transportation instance.
+contexts:
+  problem_context: context/problem_context.md
+capabilities:
+  solver_backend: gurobi

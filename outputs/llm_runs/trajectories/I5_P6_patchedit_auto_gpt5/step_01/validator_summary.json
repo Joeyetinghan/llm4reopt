@@ -1,0 +1,218 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "gamma1"
+      },
+      "update": {
+        "weight": 1.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 365.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 365.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "reserved_slots"
+      },
+      "update": {
+        "name": "reserved_slots",
+        "value": [
+          21
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 17,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 2674.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 7,
+    "10": 22,
+    "11": 4,
+    "12": 16,
+    "13": 19,
+    "14": 24,
+    "15": 1,
+    "16": 11,
+    "17": 21,
+    "18": 6,
+    "19": 23,
+    "2": 20,
+    "20": 10,
+    "21": 3,
+    "22": 15,
+    "23": 12,
+    "24": 18,
+    "3": 17,
+    "4": 2,
+    "5": 5,
+    "6": 13,
+    "7": 9,
+    "8": 14,
+    "9": 8
+  },
+  "solve_meta": {
+    "mip_gap": 0.18586387434554974,
+    "obj_bound": 2177.0,
+    "objective": 2674.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3600.1374700069427,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'reuse_expected': True}}\"",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 0,
+      "planner_edit_summary": "Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "note": "Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order.",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "requires_content": [
+          "P4",
+          "P2",
+          "P1"
+        ]
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [],
+      "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'reuse_expected': True}}\"",
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

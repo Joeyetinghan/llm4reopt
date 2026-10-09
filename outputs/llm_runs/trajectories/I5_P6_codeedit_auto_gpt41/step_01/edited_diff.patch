@@ -1,0 +1,44 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,25 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # P4: Increase alpha weight by 2.0
++    weights = dict(data["weights"])
++    weights["alpha"] = float(weights.get("alpha", 10.0)) + 2.0
++
++    # P2: Add a symmetric pair penalty of 50.0 between blocks 7 and 13
++    p = dict(data.get("pair_counts") or {})
++    p[(7, 13)] = float(p.get((7, 13), 0.0)) + 50.0
++    p[(13, 7)] = float(p.get((13, 7), 0.0)) + 50.0
++
++    # P1: Frontload block 11 by adding it to large_blocks and early_slots
++    large_blocks = list(data.get("large_blocks", []))
++    early_slots = list(data.get("early_slots", []))
++    if 11 not in large_blocks:
++        large_blocks.append(11)
++    # Add block 11 to early_slots if not already present
++    if 11 not in early_slots:
++        early_slots.append(11)
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -201,11 +220,11 @@
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
++        weights=weights,
++        p=p,
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=[int(block) for block in large_blocks],
++        early_slots=[int(slot) for slot in early_slots],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

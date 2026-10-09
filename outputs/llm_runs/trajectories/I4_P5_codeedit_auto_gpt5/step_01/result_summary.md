@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 1
+- Model retries: 0
+- Edited files: solver.py
+- Code-edit attempts: 1
+- Code-edit repairs: 0
+- Strategy: warm+tuned
+- Execution label: direct+tuned
+- Strategy policy: llm
+- Toolbox plan: ['direct_warm_start', 'tuned_config']
+- Strategy fallback used: True
+- Objective: 6009.000000 -> 5964.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -27,9 +27,10 @@\n     large_blocks: list[int] | None = None,\n     early_slots: list[int] | None = None,\n     time_limit: float | None = None,\n+    block_enrollment: Dict[int, float] | None = None,\n+    day2_load_cap: float | None = None,\n ) -> \"gp.Model\":\n     \"\"\"Build the upstream block-sequencing model directly in gurobipy.\"\"\"\n-    del slots_per_day\n     slots = list(blocks)\n     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]\n     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]\n@@ -137,6 +138,23 @@\n             name=\"frontload\",\n         )\n \n+    # Day 2 enrollment cap: sum of enrollments of blocks scheduled in Day 2 slots <= day2_load_cap\n+    # Uses first-index occupancy: sum_{j,k} x[i,j,k,s] = 1 if block i is assigned to slot s.\n+    if day2_load_cap is not None and block_enrollment:\n+        # Resolve Day 2 slots from the ordered slot list and slots_per_day\n+        # Day indices are 1-based in policy language; Day 2 starts at index slots_per_day (0-based)\n+        start_idx = slots_per_day  # zero-based index of the first slot of Day 2\n+        day2_slots = slots[start_idx:start_idx + slots_per_day]\n+        m.addConstr(\n+            gp.quicksum(\n+                float(block_enrollment.get(i, 0.0))\n+                * gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks for s in day2_slots)\n+                for i in blocks\n+            )\n+            <= float(day2_load_cap),\n+            name=\"cap_day2_total_enrollment\",\n+        )\n+\n     objective = (\n         gp.quicksum(\n             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]\n@@ -194,6 +212,14 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+    # Prepare block enrollment mapping as ints->float for load capping\n+    block_enrollment_map: Dict[int, float] = {}\n+    try:\n+        for k, v in (data.get(\"block_enrollment\") or {}).items():\n+            block_enrollment_map[int(k)] = float(v)\n+    except Exception:\n+        block_enrollment_map = {}\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -207,6 +233,8 @@\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n+        block_enrollment=block_enrollment_map,\n+        day2_load_cap=4000.0,\n     )\n     apply_solver_params(grb, solver_params)\n     apply_exam_warm_start_payload(grb, warm_start)", "workspace_problem_root": "outputs/llm_runs/trajectories/I4_P5_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

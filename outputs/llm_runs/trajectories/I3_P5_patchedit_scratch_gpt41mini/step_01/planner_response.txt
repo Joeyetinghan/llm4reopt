@@ -1,0 +1,43 @@
+{
+  "edit_summary": "Add enrollment cap constraint limiting total students on Day 2 to 4000",
+  "affected_sets": {
+    "slots": []
+  },
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "local",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": ["day_2"],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4, 5, 6],
+                "enroll_map": "block_enrollment",
+                "x_index_position": 0
+              },
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Slots 4, 5, 6 correspond to Day 2 slots of the 3-slots-per-day instance; use block_enrollment weights with x[i,j,k,s] indexed on position 0 as occupancy indicator to enforce max total enrollment cap of 4000 on Day 2."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

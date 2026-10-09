@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a new slot_load_cap constraint across all slots in Day 2, which is a structural change. While warm start and heuristic warm start are available, structural edits often make warm reuse fragile or suboptimal. Since tuned solving is supported and a tuned configuration is present in the toolbox, tuned is the safest and fastest strategy for this structural edit. Using tuned avoids potential instability from warm reuse and leverages optimized solver settings for robust convergence.",
+  "confidence": 0.95
+}

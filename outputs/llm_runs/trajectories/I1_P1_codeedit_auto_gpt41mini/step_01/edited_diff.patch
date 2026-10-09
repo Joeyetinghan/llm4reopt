@@ -1,0 +1,48 @@
+--- solver.py
++++ solver.py
+@@ -194,9 +194,44 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Reserve the evening slot immediately before the final evening slot for auditorium setup
++    # Determine the slot index for the final evening slot
++    slots_per_day = int(data["slots_per_day"])
++    slot_times = data.get("slot_times", [])
++    total_slots = len(data["blocks"])
++    # Evening slot index in the day (0-based)
++    try:
++        evening_index = slot_times.index("7pm")
++    except ValueError:
++        evening_index = slots_per_day - 1  # fallback to last slot in day if "7pm" not found
++
++    # Calculate the slot id for the final evening slot
++    final_evening_slot = None
++    for slot_id in reversed(data["blocks"]):
++        # slot_id is 1-based index of slot in the sequence
++        # Determine time of day for this slot
++        slot_pos_in_day = (slot_id - 1) % slots_per_day
++        if slot_pos_in_day == evening_index:
++            final_evening_slot = slot_id
++            break
++
++    # Calculate the slot immediately before the final evening slot (previous slot in cyclic order)
++    reserved_slot = None
++    if final_evening_slot is not None:
++        reserved_slot = final_evening_slot - 1
++        if reserved_slot < min(data["blocks"]):
++            reserved_slot = max(data["blocks"])
++
++    # Add reserved_slot to reserved_slots if not already present
++    reserved_slots = set(data.get("reserved_slots", []))
++    if reserved_slot is not None:
++        reserved_slots.add(reserved_slot)
++    data["reserved_slots"] = sorted(reserved_slots)
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],

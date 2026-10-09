@@ -1,0 +1,27 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,15 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Patch: Increase pairwise co-enrollment between Block 4 and Block 9 by 120 students (symmetric).
++    pair_counts = dict(data.get("pair_counts") or {})
++    for key in [(4, 9), (9, 4)]:
++        if key in pair_counts:
++            pair_counts[key] = float(pair_counts[key]) + 120
++        else:
++            pair_counts[key] = 120.0
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,7 +211,7 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
++        p=pair_counts,
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],

@@ -1,0 +1,118 @@
+--- solver.py
++++ solver.py
+@@ -26,6 +26,8 @@
+     t: Dict[tuple[int, int, int], float] | None = None,
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
++    reserved_slots: list[int] | None = None,
++    virtual_blocks: list[int] | None = None,
+     time_limit: float | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+@@ -55,6 +57,7 @@
+     y = m.addVars(block_sequence_trip, vtype=GRB.BINARY, name="y")
+     z = m.addVars(block_sequence_quad, vtype=GRB.BINARY, name="z")
+ 
++    # Assignment and slot coverage constraints
+     m.addConstrs(
+         (
+             gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks for s in slots) == 1
+@@ -84,10 +87,12 @@
+         name="each_slot",
+     )
+ 
++    # No repeats within a triple window
+     m.addConstrs((x[i, i, k, s] == 0 for i in blocks for k in blocks for s in slots), name="no_ii")
+     m.addConstrs((x[i, j, i, s] == 0 for i in blocks for j in blocks for s in slots), name="no_ik")
+     m.addConstrs((x[i, j, j, s] == 0 for i in blocks for j in blocks for s in slots), name="no_jj")
+ 
++    # Continuity linking across slots
+     m.addConstrs(
+         (
+             gp.quicksum(x[i, j, k, s] for i in blocks)
+@@ -99,6 +104,7 @@
+         name="continuity",
+     )
+ 
++    # Link y/z variables to x for scoring patterns
+     m.addConstrs(
+         (
+             y[i, j, k] == gp.quicksum(x[i, j, k, s] for s in triple_slots)
+@@ -114,6 +120,7 @@
+         name="define_z",
+     )
+ 
++    # Frontloading for large exams
+     frontload_blocks = sorted(
+         {
+             int(block)
+@@ -137,6 +144,30 @@
+             name="frontload",
+         )
+ 
++    # Reserve specified slots for virtual (dummy) blocks
++    reserved_slot_values = sorted(
++        [int(s) for s in (reserved_slots or []) if isinstance(s, (int, float)) and int(s) in slots]
++    )
++    virtual_block_values = sorted(
++        {
++            int(b)
++            for b in (virtual_blocks or [])
++            if isinstance(b, (int, float)) and int(b) in blocks
++        }
++    )
++    if reserved_slot_values and virtual_block_values:
++        m.addConstrs(
++            (
++                gp.quicksum(
++                    x[i, j, k, s] for i in virtual_block_values for j in blocks for k in blocks
++                )
++                == 1
++                for s in reserved_slot_values
++            ),
++            name="reserve_slots_virtual",
++        )
++
++    # Objective: penalize stressful patterns
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,9 +225,27 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Ground the requested reservation: evening slot immediately before the final evening slot.
++    blocks_list = [int(block) for block in data["blocks"]]
++    slots_per_day = int(data["slots_per_day"])
++    # Evening is the last slot-of-day; find the final evening slot, then step back one day.
++    evening_mod = (slots_per_day - 1)
++    final_evening_slot = max(s for s in blocks_list if (s - 1) % slots_per_day == evening_mod)
++    previous_evening_slot = final_evening_slot - slots_per_day
++    if previous_evening_slot not in blocks_list:
++        # Fallback: wrap around cyclically if needed
++        previous_evening_slot = ((final_evening_slot - 1 - slots_per_day) % len(blocks_list)) + 1
++
++    # Update reserved_slots with the computed slot
++    current_reserved = [int(s) for s in (data.get("reserved_slots") or [])]
++    if previous_evening_slot not in current_reserved:
++        current_reserved.append(previous_evening_slot)
++    data["reserved_slots"] = sorted(set(current_reserved))
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        blocks=blocks_list,
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -206,6 +255,8 @@
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        reserved_slots=data.get("reserved_slots", []),
++        virtual_blocks=[int(b) for b in data.get("virtual_blocks", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

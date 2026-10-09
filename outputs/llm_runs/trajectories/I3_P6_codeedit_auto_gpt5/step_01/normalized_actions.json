@@ -1,0 +1,25 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I3_P6_codeedit_auto_gpt5/step_01/attempt_03/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": []
+    }
+  }
+]

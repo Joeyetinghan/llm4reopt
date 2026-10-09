@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a new global scheduling constraint (large exams >300 students must finish before slot 19), which is model-effective and not locally projectable. There is no prior result or base warm start to reuse (has_prior_result=false, has_base_warm_start=false, heuristic_warm_start_available=false). Since a tuned solver is supported and available, using tuned directly is the safest and fastest approach. Running a direct pass first (direct+tuned) would add unnecessary overhead without warm-start benefits.",
+  "confidence": 0.82
+}

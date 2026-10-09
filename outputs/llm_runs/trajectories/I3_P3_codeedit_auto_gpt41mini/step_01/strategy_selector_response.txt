@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": "tuned_config",
+  "rationale": "The edit involves slot-load capacity constraints that could not be grounded, indicating complexity that benefits from solver tuning. Although warm starts are available, the lack of grounding makes warm reuse less reliable. Tuned solving ensures robust handling of the constraints and faster convergence compared to direct solving. Since the edit is not structural and warm starts are unavailable or unreliable, tuned solving is the fastest safe choice.",
+  "confidence": 0.9
+}

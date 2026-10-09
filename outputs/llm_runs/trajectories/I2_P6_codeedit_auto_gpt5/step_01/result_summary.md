@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Apply the following updates in this exact order: P4, then P2, then P1.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Apply the following updates in this exact order: P4, then P2, then P1.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 2
+- Model retries: 1
+- Edited files: solver.py
+- Code-edit attempts: 2
+- Code-edit repairs: 1
+- Strategy: warm+tuned
+- Execution label: direct+tuned
+- Strategy policy: llm
+- Toolbox plan: ['direct_warm_start', 'tuned_config']
+- Strategy fallback used: True
+- Objective: 7330.000000 -> 6104.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -194,6 +194,11 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Normalize pair and triplet penalties from runtime data.\n+    p = _extract_pair_penalties(data)\n+    t = _extract_triplet_penalties(data)\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -202,8 +207,8 @@\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n         weights=dict(data[\"weights\"]),\n-        p=dict(data.get(\"pair_counts\") or {}),\n-        t=dict(data.get(\"triplet_counts\") or {}),\n+        p=p,\n+        t=t,\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n@@ -268,3 +273,63 @@\n         except Exception:\n             pass\n     return meta\n+\n+\n+def _ensure_tuple_key(key: Any, arity: int) -> tuple[int, ...] | None:\n+    \"\"\"Convert keys like '(1, 2)' or '1,2' or tuple[int,...] into a canonical tuple[int,...] of given arity.\"\"\"\n+    if isinstance(key, tuple) and len(key) == arity:\n+        try:\n+            return tuple(int(x) for x in key)\n+        except Exception:\n+            return None\n+    if isinstance(key, str):\n+        s = key.strip()\n+        if s.startswith(\"(\") and s.endswith(\")\"):\n+            s = s[1:-1]\n+        parts = [p.strip() for p in s.split(\",\") if p.strip() != \"\"]\n+        if len(parts) != arity:\n+            return None\n+        try:\n+            return tuple(int(p) for p in parts)\n+        except Exception:\n+            return None\n+    return None\n+\n+\n+def _extract_pair_penalties(data: Mapping[str, Any]) -> Dict[tuple[int, int], float]:\n+    \"\"\"Extract pairwise penalties from runtime_data['pair_counts'], handling preview shape and string tuple keys.\"\"\"\n+    src = data.get(\"pair_counts\") or {}\n+    if isinstance(src, dict) and \"preview\" in src and isinstance(src[\"preview\"], dict):\n+        src = src[\"preview\"]\n+    if not isinstance(src, dict):\n+        return {}\n+    out: Dict[tuple[int, int], float] = {}\n+    for k, v in src.items():\n+        key = _ensure_tuple_key(k, 2)\n+        if key is None:\n+            continue\n+        try:\n+            out[key] = float(v)\n+        except Exception:\n+            # Skip values that cannot be parsed to float\n+            continue\n+    return out\n+\n+\n+def _extract_triplet_penalties(data: Mapping[str, Any]) -> Dict[tuple[int, int, int], float]:\n+    \"\"\"Extract triplet penalties from runtime_data['triplet_counts'], handling preview shape and string tuple keys.\"\"\"\n+    src = data.get(\"triplet_counts\") or {}\n+    if isinstance(src, dict) and \"preview\" in src and isinstance(src[\"preview\"], dict):\n+        src = src[\"preview\"]\n+    if not isinstance(src, dict):\n+        return {}\n+    out: Dict[tuple[int, int, int], float] = {}\n+    for k, v in src.items():\n+        key = _ensure_tuple_key(k, 3)\n+        if key is None:\n+            continue\n+        try:\n+            out[key] = float(v)\n+        except Exception:\n+            continue\n+    return out", "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P6_codeedit_auto_gpt5/step_01/attempt_02/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

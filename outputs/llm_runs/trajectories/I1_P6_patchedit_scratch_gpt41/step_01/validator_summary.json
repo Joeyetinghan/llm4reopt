@@ -1,0 +1,219 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "gamma1"
+      },
+      "update": {
+        "weight": 1.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "reserved_slots"
+      },
+      "update": {
+        "name": "reserved_slots",
+        "value": [
+          21
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 21,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 7932.0,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 6,
+    "10": 11,
+    "11": 7,
+    "12": 17,
+    "13": 4,
+    "14": 19,
+    "15": 5,
+    "16": 8,
+    "17": 13,
+    "18": 16,
+    "19": 1,
+    "2": 14,
+    "20": 20,
+    "21": 21,
+    "22": 10,
+    "23": 22,
+    "24": 24,
+    "3": 12,
+    "4": 3,
+    "5": 18,
+    "6": 9,
+    "7": 2,
+    "8": 23,
+    "9": 15
+  },
+  "solve_meta": {
+    "mip_gap": 0.36800302571860816,
+    "obj_bound": 5013.0,
+    "objective": 7932.0,
+    "objective_nonzero_coeffs": 439537,
+    "runtime": 3600.085399866104,
+    "sol_count": 2,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 6,
+      "planner_edit_summary": "Apply (1) slot reservation to the penultimate evening slot for virtual block, (2) modify frontload/large exam settings, then (3) adjust penalty weights, in this exact order.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P6_patchedit_auto_gpt41/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P6_patchedit_auto_gpt41/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "reserved_virtual_slot",
+        "early_slots",
+        "large_blocks",
+        "frontload",
+        "alpha",
+        "beta",
+        "gamma1",
+        "gamma2",
+        "delta"
+      ],
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

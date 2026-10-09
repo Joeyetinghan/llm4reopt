@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edits correspond to objective_weight_update semantics, which is well-suited for heuristic warm start. Warm start is available and a tuned solver is supported, so combining heuristic warm start with tuned solving yields the fastest safe reoptimization. The change is non-structural and warm reuse is applicable.",
+  "confidence": 0.95
+}

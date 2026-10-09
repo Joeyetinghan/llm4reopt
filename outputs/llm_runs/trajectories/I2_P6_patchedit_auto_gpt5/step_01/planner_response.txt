@@ -1,0 +1,11 @@
+{
+  "edit_summary": "Requested to apply updates P4, then P2, then P1, but the concrete contents of P4/P2/P1 were not provided. No executable patches can be generated without those details.",
+  "affected_sets": {},
+  "relevant_components": [],
+  "candidate_action_sets": [],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "blocked_on": "missing composed prompt details for P4, P2, and P1"
+  }
+}

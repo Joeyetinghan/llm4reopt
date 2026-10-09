@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit projects into a structured heuristic semantic (slot_load_cap), and a heuristic warm start is available and reuse-friendly due to the local and non-structural nature of the change. Tuned solving is supported, and combining the heuristic warm start with the tuned solver will provide a fast, safe reoptimization. This combination improves runtime compared to scratch or tuned alone and is preferable to direct strategies for this edit.",
+  "confidence": 0.98
+}

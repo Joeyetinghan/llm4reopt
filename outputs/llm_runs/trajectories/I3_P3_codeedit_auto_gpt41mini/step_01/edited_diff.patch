@@ -1,0 +1,34 @@
+--- solver.py
++++ solver.py
+@@ -136,6 +136,31 @@
+             ),
+             name="frontload",
+         )
++
++    # Enforce that all large exams with enrollment > 300 are scheduled before slot 17
++    large_exam_cutoff = 300
++    large_exam_deadline_slot = 17
++    large_blocks_set = set(frontload_blocks)
++    # We need block_enrollment data to identify large exams; it is not passed here,
++    # so we will add a parameter for block_enrollment to the function signature and use it here.
++    # But since the user requested no new interface, we will assume large_blocks are those with enrollment > 300.
++    # So we will constrain all large_blocks to be assigned only to slots < 17.
++
++    # Add constraint: For each large block, sum of x[i, j, k, s] over s >= 17 is zero
++    m.addConstrs(
++        (
++            gp.quicksum(
++                x[i, j, k, s]
++                for j in blocks
++                for k in blocks
++                for s in slots
++                if s >= large_exam_deadline_slot
++            )
++            == 0
++            for i in large_blocks_set
++        ),
++        name="large_exam_deadline",
++    )
+ 
+     objective = (
+         gp.quicksum(

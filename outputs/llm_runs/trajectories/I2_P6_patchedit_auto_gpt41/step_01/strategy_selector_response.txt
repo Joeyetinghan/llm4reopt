@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit scope is local, but reuse is expected to be low due to semantic complexity and the application order. There is no prior result or base warm start. Since tuned solving is supported and available, combining heuristic warm start with tuned configuration gives fastest safe optimization. This matches allowed strategies, preferred for edits where reuse is weak but tuning is available.",
+  "confidence": 0.95
+}

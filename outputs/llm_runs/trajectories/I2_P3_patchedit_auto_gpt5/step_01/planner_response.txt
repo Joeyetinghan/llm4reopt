@@ -1,0 +1,46 @@
+{
+  "edit_summary": "Front-load all large exams (>300 students) to slots 1–18 so they are completed before the 19th slot.",
+  "affected_sets": {
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+  },
+  "relevant_components": [
+    "frontload",
+    "early_slots",
+    "frontload_slot_cutoff",
+    "large_blocks"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "scope": "global",
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+          },
+          "notes": "Restrict eligible early slots for frontloading to 1..18 (before the 19th slot)."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "scope": "global",
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 18
+          },
+          "notes": "Align scalar cutoff with the early slot list; informational parameter for consistency."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

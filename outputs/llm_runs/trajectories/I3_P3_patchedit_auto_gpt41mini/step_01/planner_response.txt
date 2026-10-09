@@ -1,0 +1,74 @@
+{
+  "edit_summary": "Restrict all large exams with over 300 students to be scheduled before slot 17 to ensure grading time.",
+  "affected_sets": {
+    "large_blocks": "large_blocks",
+    "early_slots": "early_slots"
+  },
+  "relevant_components": [
+    "frontload",
+    "large_blocks",
+    "early_slots",
+    "frontload_block_size_cutoff",
+    "frontload_slot_cutoff"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 16
+          },
+          "notes": "Set cutoff to slot 16 so that large blocks must be scheduled before slot 17."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_block_size_cutoff"
+          },
+          "update": {
+            "name": "frontload_block_size_cutoff",
+            "value": 300
+          },
+          "notes": "Ensure large blocks are defined as those with enrollment over 300."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "name": "early_slots",
+            "value": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ]
+          },
+          "notes": "Restrict early slots to all slots before slot 17 (exclusive)."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

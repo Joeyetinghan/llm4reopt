@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": ["tuned_config"],
+  "rationale": "The edit is a local, non-structural code change related to reserved slots, but no heuristic warm start is available. Since tuned solving is supported and the best available way to achieve a fast safe reoptimization without warm reuse, tuned strategy is preferred over direct or scratch.",
+  "confidence": 0.9
+}

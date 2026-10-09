@@ -1,0 +1,47 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "heuristic",
+    "tuned",
+    "direct+heuristic",
+    "direct+tuned",
+    "heuristic+tuned",
+    "direct+heuristic+tuned",
+    "scratch"
+  ],
+  "delta_text": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.",
+  "planner_summary": {
+    "edit_summary": "Increase pairwise co-enrollment count between Block 4 and Block 9 by 120 students",
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "relevant_components": [
+      "pair_counts",
+      "p"
+    ]
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+heuristic+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": true,
+    "patch_count": 2,
+    "planner_mode": "patchedit",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

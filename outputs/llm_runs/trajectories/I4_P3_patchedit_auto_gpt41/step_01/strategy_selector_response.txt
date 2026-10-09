@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local, and expected solution reuse is high due to the limited scope of restricting large exams to earlier slots. 'heuristic_warm_start' enables fast, directly relevant reuse of previous feasible solutions, while 'tuned_config' ensures high solver performance even for this patched scenario. This combination is both safe and efficient given toolbox availability and high reuse confidence.",
+  "confidence": 0.95
+}

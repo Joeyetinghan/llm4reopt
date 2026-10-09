@@ -1,0 +1,42 @@
+{
+  "edit_summary": "Increase pairwise co-enrollment count between Block 4 and Block 9 by 120 students.",
+  "affected_sets": {
+    "blocks": [4, 9]
+  },
+  "relevant_components": [
+    "pair_counts",
+    "p"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "p"
+          },
+          "update": {
+            "key": "[4,9]",
+            "delta": 120
+          },
+          "notes": "Increase pairwise co-enrollment override from block 4 to block 9 by 120."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "p"
+          },
+          "update": {
+            "key": "[9,4]",
+            "delta": 120
+          },
+          "notes": "Increase pairwise co-enrollment override from block 9 to block 4 by 120."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

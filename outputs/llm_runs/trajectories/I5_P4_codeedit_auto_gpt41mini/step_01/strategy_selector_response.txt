@@ -1,0 +1,11 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": {
+    "steps": [
+      "Run heuristic solver with warm start from updated objective weight",
+      "Run tuned solver to refine results after heuristic warm start"
+    ]
+  },
+  "rationale": "The edit is a local, safe update to objective weights involving penalty scaling. The heuristic warm start is available and applicable, allowing reuse-friendly warm solving. Using tuned solver after heuristic warm start optimizes solution speed and quality. Hence, heuristic+tuned is the fastest safe reoptimization strategy matching the context.",
+  "confidence": 0.95
+}

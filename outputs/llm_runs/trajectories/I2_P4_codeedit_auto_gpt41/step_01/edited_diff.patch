@@ -1,0 +1,12 @@
+--- solver.py
++++ solver.py
+@@ -41,7 +41,8 @@
+     triplet_penalties = dict(t or {})
+ 
+     alpha = float(weights.get("alpha", 10.0))
+-    beta = float(weights.get("beta", 10.0))
++    # Increase penalty for "three exams in 24 hours" to be 20 times that of a regular back-to-back
++    beta = 20.0 * float(weights.get("gamma2", 1.0))
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))

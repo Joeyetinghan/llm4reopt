@@ -1,0 +1,21 @@
+--- solver.py
++++ solver.py
+@@ -40,10 +40,16 @@
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
+ 
+-    alpha = float(weights.get("alpha", 10.0))
+-    beta = float(weights.get("beta", 10.0))
++    # Weights
++    # gamma1: evening-to-morning back-to-backs
++    # gamma2: other (regular) back-to-backs
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
++    # alpha: triples within one day
++    alpha = float(weights.get("alpha", 10.0))
++    # beta: triples within 24 hours; policy change makes this 20x a regular back-to-back (gamma2)
++    beta = 20.0 * gamma2
++    # delta: three exams in four consecutive slots
+     delta = float(weights.get("delta", 5.0))
+ 
+     m = gp.Model("BlockSequencing")

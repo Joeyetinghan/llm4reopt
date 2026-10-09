@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a localized objective weight update, which is well-suited to warm start strategies. Both heuristic_warm_start and tuned_config are available in the toolbox. Since the change can reuse heuristic history and a tuned configuration is supported, combining warm heuristic initialization with tuned solving yields the fastest safe reoptimization. This approach is faster and safer than scratch, and more robust than warm start alone.",
+  "confidence": 0.98
+}

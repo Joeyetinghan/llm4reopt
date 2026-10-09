@@ -1,0 +1,47 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 2,
+    "planner_edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "reserved_virtual_slot",
+      "reserved_slots",
+      "virtual_blocks",
+      "slot_times",
+      "slots_per_day"
+    ],
+    "selector_error": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+    "selector_model": "gpt-4.1-mini",
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

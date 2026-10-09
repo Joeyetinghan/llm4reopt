@@ -1,0 +1,134 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "gamma1"
+        },
+        "update": {
+          "weight": 1.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {
+          "entity": [
+            4,
+            9
+          ]
+        },
+        "target": {
+          "name": "pair_counts"
+        },
+        "update": {
+          "key": [
+            4,
+            9
+          ],
+          "name": "p",
+          "value": 365.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {
+          "entity": [
+            9,
+            4
+          ]
+        },
+        "target": {
+          "name": "pair_counts"
+        },
+        "update": {
+          "key": [
+            9,
+            4
+          ],
+          "name": "p",
+          "value": 365.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "reserved_slots"
+        },
+        "update": {
+          "name": "reserved_slots",
+          "value": [
+            21
+          ]
+        }
+      },
+      {
+        "notes": "",
+        "op": "ADD_CONSTRAINT_FAMILY",
+        "scope": {},
+        "target": {
+          "constraint": "reserved_virtual_slot"
+        },
+        "update": {
+          "constraint": {
+            "aliases": [],
+            "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+            "index_set": [
+              21
+            ],
+            "lhs_spec": {
+              "kind": "exam_x_aggregate",
+              "rows": {
+                "21": {
+                  "fixed_block": 17,
+                  "slots": [
+                    21
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "rule_kind": "reserved_virtual_slot_family"
+            },
+            "name": "reserved_virtual_slot",
+            "rhs_spec": {
+              "21": 1.0
+            },
+            "sense": "=",
+            "tags": [
+              "availability",
+              "block_seq"
+            ]
+          }
+        }
+      }
+    ],
+    "label": "P6",
+    "metadata": {
+      "composed_prompt_ids": [
+        "P4",
+        "P2",
+        "P1"
+      ],
+      "deterministic_composition": true
+    }
+  }
+]

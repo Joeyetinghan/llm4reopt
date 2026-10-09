@@ -1,0 +1,39 @@
+--- solver.py
++++ solver.py
+@@ -40,11 +40,12 @@
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
+ 
+-    alpha = float(weights.get("alpha", 10.0))
+-    beta = float(weights.get("beta", 10.0))
+-    gamma1 = float(weights.get("gamma1", 1.0))
+-    gamma2 = float(weights.get("gamma2", 1.0))
+-    delta = float(weights.get("delta", 5.0))
++    # P4: Increase alpha by 5, decrease beta by 2, increase gamma1 by 1, decrease gamma2 by 0.5, increase delta by 3
++    alpha = float(weights.get("alpha", 10.0)) + 5.0
++    beta = float(weights.get("beta", 10.0)) - 2.0
++    gamma1 = float(weights.get("gamma1", 1.0)) + 1.0
++    gamma2 = float(weights.get("gamma2", 1.0)) - 0.5
++    delta = float(weights.get("delta", 5.0)) + 3.0
+ 
+     m = gp.Model("BlockSequencing")
+     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)
+@@ -194,6 +195,18 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # P2: Reserve slot 7 (2pm on day 3) by adding it to reserved_slots
++    reserved_slots = set(data.get("reserved_slots", []))
++    reserved_slots.add(7)
++    data["reserved_slots"] = sorted(reserved_slots)
++
++    # P1: Increase pair_counts for (1,2) and (2,1) by 10 symmetrically
++    pair_counts = dict(data.get("pair_counts") or {})
++    pair_counts[(1, 2)] = pair_counts.get((1, 2), 0) + 10
++    pair_counts[(2, 1)] = pair_counts.get((2, 1), 0) + 10
++    data["pair_counts"] = pair_counts
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),

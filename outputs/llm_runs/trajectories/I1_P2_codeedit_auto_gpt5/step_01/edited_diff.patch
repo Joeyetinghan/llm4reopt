@@ -1,0 +1,31 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,19 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Materialize pair counts and apply the requested symmetric +120 increase for blocks 4 and 9
++    base_pair_counts = dict(data.get("pair_counts") or {})
++    b1, b2 = 4, 9
++    increment = 120.0
++    try:
++        base_pair_counts[(b1, b2)] = float(base_pair_counts.get((b1, b2), 0.0)) + increment
++        base_pair_counts[(b2, b1)] = float(base_pair_counts.get((b2, b1), 0.0)) + increment
++    except Exception:
++        # If any unexpected types exist in the input mapping, fall back to injecting the tuple keys
++        base_pair_counts[(b1, b2)] = float(base_pair_counts.get((b1, b2), 0.0) or 0.0) + increment
++        base_pair_counts[(b2, b1)] = float(base_pair_counts.get((b2, b1), 0.0) or 0.0) + increment
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,7 +215,7 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
++        p=base_pair_counts,
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],

@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "This is a local objective-weight change (non-structural), and a heuristic warm start is available. Using a heuristic warm start with the tuned solver provides a fast, safe reoptimization. There is no prior result for direct warm reuse, so heuristic warm start is the best warm option. Compared to direct+tuned, starting warm avoids a cold start and should converge faster. Other multi-stage or scratch approaches are unnecessary for this small, reuse-friendly edit.",
+  "confidence": 0.86
+}

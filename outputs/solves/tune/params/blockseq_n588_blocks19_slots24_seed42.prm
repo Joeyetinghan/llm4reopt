@@ -1,0 +1,5 @@
+MIPGap  0.01
+Threads  8
+DegenMoves  0
+MIPFocus  2
+NoRelHeurTime  900

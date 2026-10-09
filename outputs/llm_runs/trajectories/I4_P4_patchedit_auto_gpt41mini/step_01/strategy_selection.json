@@ -1,0 +1,47 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 1,
+    "planner_edit_summary": "Increase penalty weight for three exams in 24 hours to 20 times regular back-to-back penalty.",
+    "planner_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "delta",
+      "gamma1",
+      "gamma2",
+      "objective_component",
+      "parameter"
+    ],
+    "selector_error": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'direct_warm_start', 'tuned_config']",
+    "selector_model": "gpt-4.1-mini",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

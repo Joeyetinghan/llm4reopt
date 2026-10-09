@@ -1,0 +1,35 @@
+--- solver.py
++++ solver.py
+@@ -194,9 +194,31 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Reserve the evening slot immediately before the final evening slot for auditorium setup
++    # Determine the final evening slot index
++    slots_per_day = int(data["slots_per_day"])
++    slot_times = data.get("slot_times", [])
++    slots = list(data["blocks"])  # ordered slots
++    # Find all evening slots (7pm)
++    evening_time = "7pm"
++    evening_slots = [slot for slot in slots if slot_times[(slot - 1) % slots_per_day] == evening_time]
++    if evening_slots:
++        # Sort evening slots to find the last one
++        evening_slots_sorted = sorted(evening_slots)
++        final_evening_slot = evening_slots_sorted[-1]
++        # Find the slot immediately before the final evening slot (cyclic)
++        idx = slots.index(final_evening_slot)
++        prev_idx = (idx - 1) % len(slots)
++        reserved_slot = slots[prev_idx]
++        # Add reserved_slot to reserved_slots list in data
++        reserved_slots = set(data.get("reserved_slots", []))
++        reserved_slots.add(reserved_slot)
++        data["reserved_slots"] = list(reserved_slots)
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],

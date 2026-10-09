@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a parameter weight change (local), expected to be highly reuse-friendly. Both heuristic warm start and tuned solving are available, and the default execution label prefers a tuned solution. 'heuristic+tuned' offers a fast and safe path by leveraging heuristic initialization and parameter-specific tuned solver configurations, resulting in high speed and robustness for this type of local adjustment.",
+  "confidence": 0.98
+}

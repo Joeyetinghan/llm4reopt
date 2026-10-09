@@ -1,0 +1,84 @@
+--- solver.py
++++ solver.py
+@@ -26,6 +26,8 @@
+     t: Dict[tuple[int, int, int], float] | None = None,
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
++    reserved_slots: list[int] | None = None,
++    virtual_blocks: list[int] | None = None,
+     time_limit: float | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+@@ -137,6 +139,24 @@
+             name="frontload",
+         )
+ 
++    # Reserve specified slots for virtual blocks (materializes empty slots).
++    reserved_slot_values = sorted({int(s) for s in (reserved_slots or []) if int(s) in slots})
++    virtual_block_values = sorted({int(b) for b in (virtual_blocks or []) if int(b) in blocks})
++    if reserved_slot_values and virtual_block_values:
++        m.addConstrs(
++            (
++                gp.quicksum(
++                    x[i, j, k, s]
++                    for i in virtual_block_values
++                    for j in blocks
++                    for k in blocks
++                )
++                == 1
++                for s in reserved_slot_values
++            ),
++            name="reserve_slots",
++        )
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,9 +214,36 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Resolve the evening slot immediately before the final evening slot.
++    blocks_list = [int(block) for block in data["blocks"]]
++    total_slots = len(blocks_list)
++    spd = int(data["slots_per_day"])
++    slot_times = list(data.get("slot_times") or [])
++    evening_index: int | None = None
++    if slot_times and len(slot_times) >= spd:
++        for idx, label in enumerate(slot_times, start=1):
++            lab = str(label).strip().lower()
++            if lab == "evening" or lab == "7pm":
++                evening_index = idx
++                break
++    if evening_index is None:
++        evening_index = spd  # default to the last slot of the day
++
++    days_count = total_slots // spd if spd > 0 else 0
++    final_evening_slot = evening_index + max(0, days_count - 1) * spd
++    prev_evening_slot = final_evening_slot - spd if spd > 0 else final_evening_slot
++
++    existing_reserved = [int(s) for s in data.get("reserved_slots", [])]
++    # Only add if in valid range
++    if 1 <= prev_evening_slot <= total_slots:
++        reserved_slots = sorted({*existing_reserved, prev_evening_slot})
++    else:
++        reserved_slots = existing_reserved
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        blocks=blocks_list,
++        slots_per_day=spd,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -206,6 +253,8 @@
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        reserved_slots=reserved_slots,
++        virtual_blocks=[int(b) for b in data.get("virtual_blocks", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

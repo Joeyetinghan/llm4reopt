@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 1
+- Model retries: 0
+- Edited files: solver.py
+- Code-edit attempts: 1
+- Code-edit repairs: 0
+- Strategy: tuned
+- Execution label: tuned
+- Strategy policy: llm
+- Toolbox plan: ['tuned_config']
+- Strategy fallback used: False
+- Objective: 7330.000000 -> 7302.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -26,6 +26,8 @@\n     t: Dict[tuple[int, int, int], float] | None = None,\n     large_blocks: list[int] | None = None,\n     early_slots: list[int] | None = None,\n+    virtual_blocks: list[int] | None = None,\n+    reserved_slots: list[int] | None = None,\n     time_limit: float | None = None,\n ) -> \"gp.Model\":\n     \"\"\"Build the upstream block-sequencing model directly in gurobipy.\"\"\"\n@@ -137,6 +139,22 @@\n             name=\"frontload\",\n         )\n \n+    # Reserve specified slots via the virtual-block mechanism:\n+    # force the slot's first index to be a virtual block so no real exam is scheduled there.\n+    reserved_values = [int(s) for s in (reserved_slots or [])]\n+    virtual_values = sorted(\n+        {int(b) for b in (virtual_blocks or []) if isinstance(b, (int, float)) and int(b) in blocks}\n+    )\n+    if reserved_values and virtual_values:\n+        m.addConstrs(\n+            (\n+                gp.quicksum(x[i, j, k, s] for i in virtual_values for j in blocks for k in blocks) == 1\n+                for s in reserved_values\n+                if s in slots\n+            ),\n+            name=\"reserved_virtual_slot\",\n+        )\n+\n     objective = (\n         gp.quicksum(\n             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]\n@@ -194,9 +212,46 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Derive the evening slot immediately before the final evening slot and reserve it.\n+    blocks_list = [int(block) for block in data[\"blocks\"]]\n+    slots_per_day = int(data[\"slots_per_day\"])\n+    slot_times = list(data.get(\"slot_times\") or [])\n+    reserved_slots = [int(s) for s in (data.get(\"reserved_slots\") or [])]\n+\n+    # Resolve the evening index within a day from slot_times; default to the last slot of the day.\n+    def _evening_index(times: list[Any], day_width: int) -> int:\n+        try:\n+            labels = [str(t).strip().lower() for t in times]\n+        except Exception:\n+            labels = []\n+        # Prefer explicit evening labels or 7pm if present\n+        for idx, lbl in enumerate(labels):\n+            if \"evening\" in lbl or lbl in {\"7pm\", \"7 pm\", \"19:00\", \"1900\"}:\n+                return idx\n+        # Fallback: use the last slot of the day\n+        return max(0, day_width - 1)\n+\n+    evening_idx = _evening_index(slot_times, slots_per_day)\n+\n+    # Enumerate all evening slots that exist in the calendar\n+    total_slots = len(blocks_list)\n+    evening_slots = []\n+    num_days = (total_slots + slots_per_day - 1) // slots_per_day\n+    for day in range(1, num_days + 1):\n+        slot_id = (day - 1) * slots_per_day + (evening_idx + 1)\n+        if 1 <= slot_id <= total_slots:\n+            evening_slots.append(slot_id)\n+\n+    # Reserve the evening slot immediately before the final evening slot, if available.\n+    if len(evening_slots) >= 2:\n+        reserve_slot = evening_slots[-2]\n+        if reserve_slot not in reserved_slots:\n+            reserved_slots.append(reserve_slot)\n+\n     grb = build_exam_gurobi_model(\n-        blocks=[int(block) for block in data[\"blocks\"]],\n-        slots_per_day=int(data[\"slots_per_day\"]),\n+        blocks=blocks_list,\n+        slots_per_day=slots_per_day,\n         triple_24_start=[int(slot) for slot in data[\"triple_24_start\"]],\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n@@ -206,6 +261,8 @@\n         t=dict(data.get(\"triplet_counts\") or {}),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        virtual_blocks=[int(b) for b in data.get(\"virtual_blocks\", [])],\n+        reserved_slots=reserved_slots,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)", "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P1_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

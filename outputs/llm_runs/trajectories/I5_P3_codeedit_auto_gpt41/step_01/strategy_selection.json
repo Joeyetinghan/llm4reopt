@@ -1,0 +1,53 @@
+{
+  "execution_label": "direct+tuned",
+  "fallback_reason": "Exam execution label 'direct+tuned' requires toolbox plan ['direct_warm_start', 'tuned_config'], got ['tuned_config']",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": false,
+    "heuristic_warm_start_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+    "patch_count": 0,
+    "planner_edit_summary": "Ensure all large exams with over 300 students are completed before the 15th time slot to allow teaching assistants sufficient grading time.",
+    "planner_hints": {
+      "changed_file_count": 1,
+      "codeedit_noop": false,
+      "editable_file_count": 1,
+      "heuristic_warm_start_available": false,
+      "heuristic_warm_start_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+      "model_effective_edit": true,
+      "model_effective_edit_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+      "planner_failed_semantically": false,
+      "planner_mode": "codeedit",
+      "planner_model": "gpt-4.1",
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "planner_warning_count": 0,
+      "planner_warnings": [],
+      "projected_patch_ops": [],
+      "projected_semantics": [],
+      "projection_reason": "Detected slot-load-cap-related code edits, but could not ground the target day slots or cap. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+      "projection_state": "nonprojectable"
+    },
+    "planner_mode": "codeedit",
+    "planner_relevant_components": [],
+    "selector_error": "Exam execution label 'direct+tuned' requires toolbox plan ['direct_warm_start', 'tuned_config'], got ['tuned_config']",
+    "selector_model": "gpt-4.1",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ]
+}

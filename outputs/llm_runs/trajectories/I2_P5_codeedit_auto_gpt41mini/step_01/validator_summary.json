@@ -1,0 +1,112 @@
+{
+  "chosen_patches": [],
+  "codeedit_attempt_count": 1,
+  "codeedit_repair_count": 0,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 6789.0,
+  "objective_before": 7330.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 9,
+    "10": 2,
+    "11": 14,
+    "12": 20,
+    "13": 16,
+    "14": 1,
+    "15": 3,
+    "16": 5,
+    "17": 13,
+    "18": 17,
+    "19": 15,
+    "2": 7,
+    "20": 6,
+    "21": 4,
+    "22": 24,
+    "23": 22,
+    "24": 23,
+    "3": 21,
+    "4": 19,
+    "5": 11,
+    "6": 8,
+    "7": 10,
+    "8": 18,
+    "9": 12
+  },
+  "solve_meta": {
+    "mip_gap": 0.3094712034172927,
+    "obj_bound": 4688.0,
+    "objective": 6789.0,
+    "runtime": 3600.0803310871124,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base",
+    "warm_start_source": "base"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": false,
+      "heuristic_warm_start_reason": "Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+      "patch_count": 0,
+      "planner_edit_summary": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+      "planner_hints": {
+        "changed_file_count": 1,
+        "codeedit_noop": false,
+        "editable_file_count": 1,
+        "heuristic_warm_start_available": false,
+        "heuristic_warm_start_reason": "Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "model_effective_edit": true,
+        "model_effective_edit_reason": "Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "planner_failed_semantically": false,
+        "planner_mode": "codeedit",
+        "planner_model": "gpt-4.1-mini",
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "planner_warning_count": 0,
+        "planner_warnings": [],
+        "projected_patch_ops": [],
+        "projected_semantics": [],
+        "projection_reason": "Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.",
+        "projection_state": "nonprojectable"
+      },
+      "planner_mode": "codeedit",
+      "planner_relevant_components": [],
+      "selector_confidence": 0.95,
+      "selector_model": "gpt-4.1-mini",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"tuned\",\n    \"direct+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n    \"planning_hints\": {\n      \"changed_file_count\": 1,\n      \"codeedit_noop\": false,\n      \"editable_file_count\": 1,\n      \"heuristic_warm_start_available\": false,\n      \"heuristic_warm_start_reason\": \"Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"model_effective_edit\": true,\n      \"model_effective_edit_reason\": \"Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"planner_failed_semantically\": false,\n      \"planner_mode\": \"codeedit\",\n      \"planner_model\": \"gpt-4.1-mini\",\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true,\n      \"planner_warning_count\": 0,\n      \"planner_warnings\": [],\n      \"projected_patch_ops\": [],\n      \"projected_semantics\": [],\n      \"projection_reason\": \"Detected objective-weight-related code edits, but could not ground the resulting weight updates. Recognized some exam semantics, but residual model-effective edits could not be projected fairly.\",\n      \"projection_state\": \"nonprojectable\"\n    },\n    \"relevant_components\": []\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": false,\n    \"patch_count\": 0,\n    \"planner_mode\": \"codeedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The edit is related to an objective-weight change which couldn't be fully grounded for heuristic warm start, so warm start alone isn't sufficient. However, warm start is available and the solver supports tuning, so combining 'direct_warm_start' with 'tuned_config' leverages the warm reuse and tuning capabilities to achieve the fastest safe reoptimization solution.",
+    "raw_response": "{\n  \"solve_strategy\": \"direct+tuned\",\n  \"toolbox_plan\": [\n    \"direct_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The edit is related to an objective-weight change which couldn't be fully grounded for heuristic warm start, so warm start alone isn't sufficient. However, warm start is available and the solver supports tuning, so combining 'direct_warm_start' with 'tuned_config' leverages the warm reuse and tuning capabilities to achieve the fastest safe reoptimization solution.\",\n  \"confidence\": 0.95\n}",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "tuned_config"
+    ]
+  }
+}

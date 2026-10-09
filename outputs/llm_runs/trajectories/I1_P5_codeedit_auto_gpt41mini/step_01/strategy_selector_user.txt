@@ -1,0 +1,61 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "heuristic",
+    "tuned",
+    "direct+heuristic",
+    "direct+tuned",
+    "heuristic+tuned",
+    "direct+heuristic+tuned",
+    "scratch"
+  ],
+  "delta_text": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+  "planner_summary": {
+    "edit_summary": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+    "planning_hints": {
+      "changed_file_count": 1,
+      "codeedit_noop": false,
+      "editable_file_count": 1,
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "model_effective_edit": true,
+      "model_effective_edit_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "planner_failed_semantically": false,
+      "planner_mode": "codeedit",
+      "planner_model": "gpt-4.1-mini",
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "planner_warning_count": 0,
+      "planner_warnings": [],
+      "projected_patch_ops": [
+        "ADD_CONSTRAINT_FAMILY"
+      ],
+      "projected_semantics": [
+        "slot_load_cap"
+      ],
+      "projection_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "projection_state": "projectable"
+    },
+    "relevant_components": []
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": true,
+    "patch_count": 0,
+    "planner_mode": "codeedit",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

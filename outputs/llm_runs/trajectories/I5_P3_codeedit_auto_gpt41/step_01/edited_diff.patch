@@ -1,0 +1,34 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,20 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Patch early_slots to ensure all large exams (>300 students) are completed before the 15th slot
++    block_enrollment = data.get("block_enrollment", {})
++    large_blocks = [int(b) for b, n in block_enrollment.items() if n > 300 and int(b) in data["blocks"]]
++    early_slots = [s for s in data["blocks"] if int(s) < 15]
++
++    # Use the union of existing large_blocks and computed large_blocks
++    orig_large_blocks = [int(block) for block in data.get("large_blocks", [])]
++    merged_large_blocks = sorted(set(orig_large_blocks) | set(large_blocks))
++
++    # Use the union of existing early_slots and computed early_slots
++    orig_early_slots = [int(slot) for slot in data.get("early_slots", [])]
++    merged_early_slots = sorted(set(orig_early_slots) | set(early_slots))
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -204,8 +218,8 @@
+         weights=dict(data["weights"]),
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=merged_large_blocks,
++        early_slots=merged_early_slots,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

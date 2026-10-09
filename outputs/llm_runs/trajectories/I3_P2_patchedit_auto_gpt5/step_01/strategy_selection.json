@@ -1,0 +1,43 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq'}}\"",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 2,
+    "planner_edit_summary": "Increase pairwise co-enrollment counts between Blocks 4 and 9 by +120 in both ordered keys.",
+    "planner_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "pair_counts"
+    ],
+    "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq'}}\"",
+    "selector_model": "gpt-5",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "Warm reuse is not available for this edit (heuristic_warm_start_available=false, no prior result), and the planner could not ground a reusable reserved-slot assignment. Since the runtime supports tuned solving and we have a tuned_config tool, the fastest safe approach is to run the tuned solver directly. This avoids fragile warm assumptions while efficiently reoptimizing a small, non-structural change.",
+  "confidence": 0.7
+}

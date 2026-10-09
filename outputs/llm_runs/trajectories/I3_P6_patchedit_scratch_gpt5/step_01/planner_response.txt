@@ -1,0 +1,7 @@
+{
+  "edit_summary": "Unable to apply the requested updates (P4, then P2, then P1) because the contents of P4/P2/P1 were not provided; no executable patches can be grounded.",
+  "affected_sets": {},
+  "relevant_components": [],
+  "candidate_action_sets": [],
+  "planning_hints": {}
+}

@@ -1,0 +1,49 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "ADD_CONSTRAINT_FAMILY",
+        "scope": {},
+        "target": {
+          "constraint": "reserved_virtual_slot"
+        },
+        "update": {
+          "constraint": {
+            "aliases": [],
+            "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+            "index_set": [
+              22
+            ],
+            "lhs_spec": {
+              "kind": "exam_x_aggregate",
+              "rows": {
+                "22": {
+                  "fixed_block": 18,
+                  "slots": [
+                    22
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "rule_kind": "reserved_virtual_slot_family"
+            },
+            "name": "reserved_virtual_slot",
+            "rhs_spec": {
+              "22": 1.0
+            },
+            "sense": "=",
+            "tags": [
+              "availability",
+              "block_seq"
+            ]
+          }
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

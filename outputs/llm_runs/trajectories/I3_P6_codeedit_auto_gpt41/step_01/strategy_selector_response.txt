@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "direct+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "Although warm start is generally preferable for local edits, the planner summary indicates nonprojectable edits and could not ground key details about the changes, making warm reuse potentially fragile. Since tuned solving is supported and both 'direct_warm_start' and 'tuned_config' are available, 'direct+tuned' offers the fastest safe route by leveraging tuned settings and executing both direct warm start and tuned config. This ensures robust reoptimization while minimizing solve time.",
+  "confidence": 0.98
+}

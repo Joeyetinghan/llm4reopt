@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "direct+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit involves a pairwise co-enrollment count adjustment, which is a local change that can benefit from warm start. Although the planner was unable to ground the exact update effectively, warm start is available and the solver supports tuning. Using 'direct+tuned' leverages warm reuse and tuning to achieve the fastest safe reoptimization solve."
+}

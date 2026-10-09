@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a structural change (a new cap constraint for Day 2) and affects enrollment limits; although warm start options are available, structural edits typically require more robust adjustments to solver configuration. Since tuned solving is supported and available in the toolbox, this strategy will quickly find a safe, high-quality solution adjusted to the new constraint. Scratch solving would be slower, and warm start alone may not fully accommodate the new constraint. Tuned is both fast and safe for this edit.",
+  "confidence": 0.95
+}

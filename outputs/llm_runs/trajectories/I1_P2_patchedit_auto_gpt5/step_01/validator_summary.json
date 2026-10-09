@@ -1,0 +1,146 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "p"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "p"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 271.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 6662.0,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 14,
+    "10": 1,
+    "11": 18,
+    "12": 13,
+    "13": 3,
+    "14": 20,
+    "15": 5,
+    "16": 2,
+    "17": 19,
+    "18": 7,
+    "19": 21,
+    "2": 15,
+    "20": 9,
+    "21": 4,
+    "22": 22,
+    "23": 24,
+    "24": 8,
+    "3": 16,
+    "4": 10,
+    "5": 6,
+    "6": 11,
+    "7": 17,
+    "8": 23,
+    "9": 12
+  },
+  "solve_meta": {
+    "mip_gap": 0.408886220354248,
+    "obj_bound": 3938.0,
+    "objective": 6662.0,
+    "objective_nonzero_coeffs": 439537,
+    "runtime": 3600.1379170417786,
+    "sol_count": 4,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 4,
+      "planner_edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students; apply symmetrically to (4,9) and (9,4).",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "pair_counts",
+        "p"
+      ],
+      "selector_confidence": 0.83,
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students; apply symmetrically to (4,9) and (9,4).\",\n    \"planning_hints\": {\n      \"edit_scope\": \"local\",\n      \"expected_reuse\": \"high\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"pair_counts\",\n      \"p\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 4,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The change is a small, local adjustment to pairwise co-enrollment counts with high expected reuse and no structural edits. There is no prior solve to reuse directly, but a heuristic warm start is available and the tuned solver is supported. Using a heuristic warm start followed by a tuned solve provides the fastest safe reoptimization without the extra overhead of a direct pass.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The change is a small, local adjustment to pairwise co-enrollment counts with high expected reuse and no structural edits. There is no prior solve to reuse directly, but a heuristic warm start is available and the tuned solver is supported. Using a heuristic warm start followed by a tuned solve provides the fastest safe reoptimization without the extra overhead of a direct pass.\",\n  \"confidence\": 0.83\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

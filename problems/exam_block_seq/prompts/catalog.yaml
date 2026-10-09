@@ -1,0 +1,31 @@
+prompts:
+  P1:
+    text: >
+      Reserve the evening slot immediately before the final evening slot so the
+      staff can begin arranging the auditorium for graduation events.
+  P2:
+    text: >
+      Increase the pairwise co-enrollment count between Block 4 and Block 9 by
+      120 students due to late add/drop changes.
+  P3:
+    text: >
+      Ensure all large exams with over 300 students are completed before the
+      {slot_cutoff_ordinal} time slot to allow teaching assistants sufficient
+      grading time.
+    required_params:
+      - slot_cutoff_exclusive
+      - slot_cutoff_ordinal
+  P4:
+    text: >
+      The Student Assembly raised concerns about extreme stress; increase the
+      penalty for having "three exams in 24 hours" to be 20 times that of a
+      regular back-to-back.
+  P5:
+    text: >
+      Due to an unexpected shortage of available proctors, limit the total
+      number of students taking exams on Day 2 to a maximum of 4,000.
+  P6:
+    text: >
+      Apply the following updates in this exact order: P4, then P2, then P1.
+    metadata:
+      composed_prompt_ids: [P4, P2, P1]

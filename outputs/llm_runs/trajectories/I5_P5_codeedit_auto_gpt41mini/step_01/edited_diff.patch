@@ -1,0 +1,47 @@
+--- solver.py
++++ solver.py
+@@ -27,10 +27,12 @@
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
+     time_limit: float | None = None,
++    block_enrollment: dict[int, int] | None = None,
++    slots: list[int] | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+     del slots_per_day
+-    slots = list(blocks)
++    slots = list(blocks) if slots is None else slots
+     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+     block_sequence_slot = [(i, j, k, s) for i in blocks for j in blocks for k in blocks for s in slots]
+@@ -136,6 +138,21 @@
+             ),
+             name="frontload",
+         )
++
++    # Add constraint to limit total students on Day 2 to max 4000
++    if block_enrollment is not None and slots is not None:
++        # Determine slots for Day 2
++        day2_slots = [slot for slot in slots if 4 <= slot <= 6]  # slots 4,5,6 are Day 2 (3 slots per day)
++        # Sum over all blocks assigned to Day 2 slots, weighted by enrollment
++        total_students_expr = gp.LinExpr()
++        for i in blocks:
++            enrollment = block_enrollment.get(i, 0)
++            if enrollment > 0:
++                for j in blocks:
++                    for k in blocks:
++                        for s in day2_slots:
++                            total_students_expr += enrollment * x[i, j, k, s]
++        m.addConstr(total_students_expr <= 4000, name="day2_student_limit")
+ 
+     objective = (
+         gp.quicksum(
+@@ -207,6 +224,8 @@
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
++        block_enrollment={int(k): int(v) for k, v in data.get("block_enrollment", {}).items()},
++        slots=[int(slot) for slot in data.get("slots", [])] if isinstance(data.get("slots"), (list, tuple)) else None,
+     )
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)

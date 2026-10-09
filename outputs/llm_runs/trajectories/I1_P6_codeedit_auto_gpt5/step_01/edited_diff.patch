@@ -1,0 +1,56 @@
+--- solver.py
++++ solver.py
+@@ -214,6 +214,53 @@
+     grb.optimize()
+ 
+     solve_meta = extract_solve_meta(grb)
++    # Enrich solve_meta with instance/runtime context for traceability
++    # This does not affect solve behavior.
++    for key in (
++        "lp_stem",
++        "artifact_stem",
++        "instance_id",
++        "reference_semester",
++    ):
++        if key in data:
++            try:
++                solve_meta[key] = str(data[key])
++            except Exception:
++                pass
++    for key in (
++        "size",
++        "seed",
++        "slots",
++        "slots_per_day",
++        "time_limit",
++        "frontload_block_size_cutoff",
++        "frontload_slot_cutoff",
++    ):
++        if key in data:
++            try:
++                # Cast numerics safely; leave strings untouched
++                val = data[key]
++                if isinstance(val, (int, float)):
++                    solve_meta[key] = float(val) if isinstance(val, float) else int(val)
++                else:
++                    # best-effort numeric cast, else store as string
++                    try:
++                        ival = int(val)
++                        solve_meta[key] = ival
++                    except Exception:
++                        try:
++                            fval = float(val)
++                            solve_meta[key] = fval
++                        except Exception:
++                            solve_meta[key] = str(val)
++            except Exception:
++                pass
++    # Also include block/slot counts for quick diagnostics
++    try:
++        solve_meta["num_blocks"] = int(len(data.get("blocks", [])))
++    except Exception:
++        pass
++
+     solve_meta["warm_start_applied"] = warm_start is not None
+     solve_meta["warm_start_source"] = "provided" if warm_start is not None else "none"
+     solve_meta["warm_start_mode"] = solve_meta["warm_start_source"]

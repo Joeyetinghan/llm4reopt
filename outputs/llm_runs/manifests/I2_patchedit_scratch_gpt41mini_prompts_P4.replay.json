@@ -1,0 +1,11 @@
+{
+  "job_name": "I2_patchedit_scratch_gpt41mini_prompts_P4",
+  "output_dir": "../../../runs/exam/paper_full_gpt_3600s/results/I2_patchedit_scratch_gpt41mini_prompts_P4",
+  "solver_time_limit": 3600,
+  "source_job_name": "I2_patchedit_auto_gpt41mini_prompts_P4",
+  "source_results": [
+    "../../../runs/exam/paper_full_gpt_3600s/results/I2_patchedit_auto_gpt41mini_prompts_P4/runs/I2_P4_patchedit_auto_gpt41mini.json"
+  ],
+  "strategy": "scratch",
+  "trace_root": "../../../runs/exam/paper_full_gpt_3600s/traces/I2_patchedit_scratch_gpt41mini_prompts_P4"
+}

@@ -1,0 +1,331 @@
+
+Gurobi 13.0.1 (linux64) logging started Thu Apr  9 10:50:50 2026
+
+Set parameter LogFile to value "outputs/solves/tune/logs/blockseq_n601_blocks18_slots24_seed42.log"
+Set parameter Threads to value 8
+Set parameter MIPGap to value 0.01
+Set parameter TuneTimeLimit to value 86400
+Set parameter TuneResults to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64gpu - "Red Hat Enterprise Linux 9.6 (Plow)")
+
+CPU model: Intel(R) Xeon(R) Gold 6226 CPU @ 2.70GHz, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 24 physical cores, 24 logical processors, using up to 8 threads
+
+Non-default parameters:
+MIPGap  0.01
+Threads  8
+TuneResults  1
+
+Start tuning.
+Tune 34 parameters.
+
+Solving model using baseline parameter set with TimeLimit=3600s
+
+Total tuning time limit is 86400s
+(set the TuneTimeLimit parameter to choose a different value)
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 1...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 46.6%
+Solving model_000 (Min) with random seed #2 ... MIP gap 33.6%
+Solving model_000 (Min) with random seed #3 ... MIP gap 44.2%
+
+Summary candidate parameter set 1 
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     46.6%    33.6%    44.2%    41.5%     5.66    46.6%
+
+-------------------------------------------------------------------------------
+Begin tuning (baseline maximum MIP gap 46.6%)...
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 2...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	NoRelHeurTime 900
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 28.4%
+Solving model_000 (Min) with random seed #2 ... MIP gap 31.6%
+Solving model_000 (Min) with random seed #3 ... MIP gap 29.8%
+
+Summary candidate parameter set 2 
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     28.4%    31.6%    29.8%    29.9%     1.32    31.6%
+
+Improvement found:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  improved: maximum MIP gap 31.6% (parameter set 2, 1 non-defaults)
+Total elapsed tuning time 21601s (64799s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 3...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #2 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #3 ... MIP gap 28.2%
+
+Summary candidate parameter set 3 
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     25.5%    25.5%    28.2%    26.4%     1.25    28.2%
+
+Improvement found:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  improved: maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 32401s (53999s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 4...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	SimplexPricing 3
+	MIPFocus 2
+	NoRelHeurTime 900
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 29.0%
+
+Summary candidate parameter set 4 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     29.0%        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 36001s (50399s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 5...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	Method 1
+	MIPFocus 2
+	NoRelHeurTime 900
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 100%
+
+Summary candidate parameter set 5 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000      100%        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 39602s (46798s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 6...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+
+Solving model_000 (Min) with random seed #1 ... MIP gap -
+
+Summary candidate parameter set 6 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000         -        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 43202s (43198s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 7...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	Method 0
+	MIPFocus 2
+	NoRelHeurTime 900
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 100%
+
+Summary candidate parameter set 7 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000      100%        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 46802s (39598s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 8...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	PrePasses 1
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 46.6%
+
+Summary candidate parameter set 8 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     46.6%        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 50402s (35998s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 9...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+	RINS 2500
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #2 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #3 ... MIP gap 28.2%
+
+Summary candidate parameter set 9 
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     25.5%    25.5%    28.2%    26.4%     1.25    28.2%
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 61202s (25198s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 10...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	NoRelHeurTime 900
+	Aggregate 0
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 28.4%
+
+Summary candidate parameter set 10 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     28.4%        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 64803s (21597s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 11...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+	PreSparsify 0
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #2 ... MIP gap 25.5%
+Solving model_000 (Min) with random seed #3 ... MIP gap 28.2%
+
+Summary candidate parameter set 11 
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     25.5%    25.5%    28.2%    26.4%     1.25    28.2%
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 75603s (10797s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 12...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	CutPasses 5
+
+Solving model_000 (Min) with random seed #1 ... MIP gap -
+
+Summary candidate parameter set 12 (discarded)
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000         -        -        -        -        -        -
+
+Progress so far:
+  baseline: maximum MIP gap 46.6% (parameter set 1, 0 non-defaults)
+  best:     maximum MIP gap 28.2% (parameter set 3, 2 non-defaults)
+Total elapsed tuning time 79203s (7197s remaining, 1 running jobs)
+
+-------------------------------------------------------------------------------
+
+Testing candidate parameter set 13...
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+	CutPasses 1
+
+Solving model_000 (Min) with random seed #1 ... MIP gap 25.2%
+Solving model_000 (Min) with random seed #2 ... MIP gap 25.5%
+
+
+Tune time limit reached
+
+-------------------------------------------------------------------------------
+
+Tested 12 parameter sets in 86403.43s
+Total optimization run time for up to 1 concurrent runs: 86403.22s
+
+Baseline parameter set: maximum MIP gap 46.6%
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     46.6%    33.6%    44.2%    41.5%     5.66    46.6%
+
+Improved parameter set 1 (maximum MIP gap 28.2%):
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+	RINS 2500
+
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     25.5%    25.5%    28.2%    26.4%     1.25    28.2%
+
+Improved parameter set 2 (maximum MIP gap 28.2%):
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	MIPFocus 2
+	NoRelHeurTime 900
+
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     25.5%    25.5%    28.2%    26.4%     1.25    28.2%
+
+Improved parameter set 3 (maximum MIP gap 31.6%):
+
+	MIPGap 0.01 (fixed)
+	Threads 8 (fixed)
+	NoRelHeurTime 900
+
+ # Name              0        1        2      Avg  Std Dev      Max
+ 0 model_000     28.4%    31.6%    29.8%    29.9%     1.32    31.6%
+

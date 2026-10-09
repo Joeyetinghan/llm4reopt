@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -194,8 +194,14 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Enforce the request: all large exams (>300) must be completed before slot 19.\n+    # We honor this via the existing frontload mechanism by restricting early_slots to slots < 19.\n+    blocks_list = [int(block) for block in data[\"blocks\"]]\n+    early_slots_before_19 = [s for s in blocks_list if s < 19]\n+\n     grb = build_exam_gurobi_model(\n-        blocks=[int(block) for block in data[\"blocks\"]],\n+        blocks=blocks_list,\n         slots_per_day=int(data[\"slots_per_day\"]),\n         triple_24_start=[int(slot) for slot in data[\"triple_24_start\"]],\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n@@ -205,7 +211,7 @@\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        early_slots=early_slots_before_19,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I4_P3_codeedit_auto_gpt5/step_01/attempt_03/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

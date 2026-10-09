@@ -1,0 +1,145 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 365.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 365.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 2560.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 14,
+    "10": 24,
+    "11": 11,
+    "12": 6,
+    "13": 2,
+    "14": 23,
+    "15": 8,
+    "16": 4,
+    "17": 3,
+    "18": 22,
+    "19": 13,
+    "2": 17,
+    "20": 7,
+    "21": 10,
+    "22": 16,
+    "23": 19,
+    "24": 5,
+    "3": 18,
+    "4": 9,
+    "5": 12,
+    "6": 20,
+    "7": 1,
+    "8": 21,
+    "9": 15
+  },
+  "solve_meta": {
+    "mip_gap": 0.20429687499999707,
+    "obj_bound": 2037.0000000000075,
+    "objective": 2560.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3600.088462114334,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 2,
+      "planner_edit_summary": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students for both (4,9) and (9,4) entries.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "pair_counts"
+      ],
+      "selector_confidence": 0.97,
+      "selector_model": "gpt-4.1",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students for both (4,9) and (9,4) entries.\",\n    \"planning_hints\": {\n      \"edit_scope\": \"local\",\n      \"expected_reuse\": \"high\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"pair_counts\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 2,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The edit is a local change to pairwise co-enrollment counts, which is highly friendly to solution reuse. Both heuristic warm start and tuned solving are available, and combining them accelerates convergence while ensuring a high quality solution. This is preferable over warm alone, as tuned config is supported and can further optimize the reused solution. Other options such as scratch or direct are less efficient for this type of local, reuse-friendly edit.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The edit is a local change to pairwise co-enrollment counts, which is highly friendly to solution reuse. Both heuristic warm start and tuned solving are available, and combining them accelerates convergence while ensuring a high quality solution. This is preferable over warm alone, as tuned config is supported and can further optimize the reused solution. Other options such as scratch or direct are less efficient for this type of local, reuse-friendly edit.\",\n  \"confidence\": 0.97\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "This is a structural edit (adding a slot_load_cap constraint), which significantly impacts feasible solutions and limits reuse. The runtime supports tuned solving and both warm starts. The fastest safe option is to combine direct and heuristic warm starts with tuned solving, leveraging all available speedups for this structural change. This matches the default execution label and is most robust.",
+  "confidence": 1
+}

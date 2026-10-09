@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a new slot load cap for Day 2, which is a local change but classified as structural. There is no base prior result or warm start, but heuristic warm start is available and reuse is expected to be high. The runtime supports tuned solving, and both heuristic and tuned items are present in the toolbox. Given these factors, the fastest safe approach is to use the heuristic warm start to guide the solver, combined with tuned solving for robustness and efficiency. This avoids full scratch or direct strategies and leverages all available reuse and tuning.",
+  "confidence": 0.95
+}

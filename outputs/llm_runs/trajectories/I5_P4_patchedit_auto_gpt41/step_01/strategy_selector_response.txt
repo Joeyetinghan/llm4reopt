@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is a local parameter tweak (increasing a penalty weight), and both heuristic warm start and tuned config are available. Using 'heuristic+tuned' allows fast reuse of the current solution's neighborhood (since reuse potential is high for local edits) and benefits from tuned solving performance. This avoids unnecessary direct/scratch solving while providing rapid convergence for the updated objective.",
+  "confidence": 0.98
+}

@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local objective weight update (increasing penalty weight), which projects well to a heuristic warm start. Since the environment supports tuned solving and warm start, combining heuristic warm start with tuned solver is preferred for fastest safe reoptimization.",
+  "confidence": 0.95
+}

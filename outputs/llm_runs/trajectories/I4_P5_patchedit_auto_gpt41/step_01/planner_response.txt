@@ -1,0 +1,41 @@
+{
+  "edit_summary": "Limit the total number of students taking exams on Day 2 to a maximum of 4,000 due to proctor shortage.",
+  "affected_sets": {
+    "day": 2,
+    "slots_in_day": [4, 5, 6]
+  },
+  "relevant_components": ["slot_load_cap", "block_enrollment", "x", "slots_per_day"],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "global",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": ["day_2"],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4, 5, 6],
+                "block_enrollment": "block_enrollment",
+                "assignment_terms": "x[i,*,*,s]"  // Canonical for slot occupancy in block-sequencing
+              },
+              "rhs_spec": {
+                "day_2": 4000.0
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Constrains student headcount in Day 2 slots (4,5,6) to <= 4000 using block_enrollment and assignment variables."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "constraint_family": "slot_load_cap"
+  }
+}

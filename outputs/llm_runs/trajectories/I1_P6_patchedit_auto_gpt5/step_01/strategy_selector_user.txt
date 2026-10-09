@@ -1,0 +1,42 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "heuristic",
+    "tuned",
+    "direct+heuristic",
+    "direct+tuned",
+    "heuristic+tuned",
+    "direct+heuristic+tuned",
+    "scratch"
+  ],
+  "delta_text": "Apply the following updates in this exact order: P4, then P2, then P1.",
+  "planner_summary": {
+    "edit_summary": "Requested to apply updates P4, then P2, then P1, but their contents are not provided. No executable patches can be produced without the concrete definitions of P4, P2, and P1.",
+    "planning_hints": {
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "relevant_components": []
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+heuristic+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": true,
+    "patch_count": 0,
+    "planner_mode": "patchedit",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

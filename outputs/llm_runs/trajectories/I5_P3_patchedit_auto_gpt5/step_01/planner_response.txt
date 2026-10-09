@@ -1,0 +1,46 @@
+{
+  "edit_summary": "Front-load all large exams (>300 students) by restricting eligible early slots to 1..14 so they finish before the 15th slot.",
+  "affected_sets": {
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  },
+  "relevant_components": [
+    "frontload",
+    "early_slots",
+    "frontload_slot_cutoff",
+    "large_blocks"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "scope": "model",
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+          },
+          "notes": "Constrain frontloading to slots before the 15th slot per policy."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "scope": "model",
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 14
+          },
+          "notes": "Align cutoff parameter with early_slots for consistency and reporting."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

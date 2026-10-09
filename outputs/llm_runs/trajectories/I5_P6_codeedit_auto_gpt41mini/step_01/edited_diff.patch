@@ -1,0 +1,28 @@
+--- solver.py
++++ solver.py
+@@ -136,6 +136,25 @@
+             ),
+             name="frontload",
+         )
++
++    # P4: Increase gamma1 by 50%
++    gamma1 *= 1.5
++
++    # P2: Increase pair penalties for pairs (1,2) and (2,1) by 10
++    for pair in [(1, 2), (2, 1)]:
++        pair_penalties[pair] = pair_penalties.get(pair, 0.0) + 10.0
++
++    # P1: Reserve slot 22 (indexing from 1) by excluding it from slots and adding a constraint
++    reserved_slot = 22
++    if reserved_slot in slots:
++        slots.remove(reserved_slot)
++    # Add constraint to ensure no block is assigned to reserved_slot
++    m.addConstrs(
++        (
++            gp.quicksum(x[i, j, k, reserved_slot] for i in blocks for j in blocks for k in blocks) == 0,
++        ),
++        name="reserved_slot_22_empty",
++    )
+ 
+     objective = (
+         gp.quicksum(

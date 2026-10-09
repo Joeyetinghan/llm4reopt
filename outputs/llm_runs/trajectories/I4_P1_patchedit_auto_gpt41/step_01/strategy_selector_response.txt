@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structural because it changes reservation constraints, but it is scope-limited and the planner expects high reuse. The runtime has both heuristic warm start and tuned solver available, but no reusable full solution ('warm') exists. Using 'heuristic+tuned' leverages a partial solution from heuristics which is then refined and guaranteed feasible by the tuned solver, providing a fast and robust approach for this type of local but structural change.",
+  "confidence": 0.95
+}

@@ -1,0 +1,151 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {
+    "blocks": [
+      4,
+      9
+    ],
+    "pair_keys": [
+      [
+        4,
+        9
+      ],
+      [
+        9,
+        4
+      ]
+    ]
+  },
+  "annotations": {
+    "affected_sets": {
+      "blocks": [
+        4,
+        9
+      ],
+      "pair_keys": [
+        [
+          4,
+          9
+        ],
+        [
+          9,
+          4
+        ]
+      ]
+    },
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Increase co-enrollment count for (4,9) by +120.",
+            "op": "UPDATE_PARAMETER",
+            "scope": "global",
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "delta": 120,
+              "key": [
+                4,
+                9
+              ],
+              "name": "pair_counts"
+            }
+          },
+          {
+            "notes": "Mirror update for (9,4) to maintain unordered pair symmetry.",
+            "op": "UPDATE_PARAMETER",
+            "scope": "global",
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "delta": 120,
+              "key": [
+                9,
+                4
+              ],
+              "name": "pair_counts"
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Increase pairwise co-enrollment counts between Blocks 4 and 9 by +120 in both ordered keys.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "pair_counts"
+    ]
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "Increase co-enrollment count for (4,9) by +120.",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              4,
+              9
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "delta": 120.0,
+            "key": [
+              4,
+              9
+            ],
+            "name": "pair_counts"
+          }
+        },
+        {
+          "notes": "Mirror update for (9,4) to maintain unordered pair symmetry.",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              9,
+              4
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "delta": 120.0,
+            "key": [
+              9,
+              4
+            ],
+            "name": "pair_counts"
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Increase pairwise co-enrollment counts between Blocks 4 and 9 by +120 in both ordered keys.",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Increase pairwise co-enrollment counts between Blocks 4 and 9 by +120 in both ordered keys.\",\n  \"affected_sets\": {\n    \"blocks\": [4, 9],\n    \"pair_keys\": [[4, 9], [9, 4]]\n  },\n  \"relevant_components\": [\n    \"pair_counts\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"global\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [4, 9],\n            \"delta\": 120\n          },\n          \"notes\": \"Increase co-enrollment count for (4,9) by +120.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"global\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [9, 4],\n            \"delta\": 120\n          },\n          \"notes\": \"Mirror update for (9,4) to maintain unordered pair symmetry.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "pair_counts"
+  ]
+}

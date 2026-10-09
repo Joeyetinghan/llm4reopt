@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "direct+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "No reusable warm start or prior result is available, and the edit is non-structural. Running a direct solve first provides the fastest attempt, with a tuned solve as a robust fallback if needed. This matches the default execution mode and uses the available toolbox items exactly.",
+  "confidence": 0.74
+}

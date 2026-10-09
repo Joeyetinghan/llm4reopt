@@ -1,0 +1,29 @@
+{
+  "edit_summary": "Increase penalty weight delta for three exams in 24 hours to 20 times the regular back-to-back penalty gamma2",
+  "affected_sets": {},
+  "relevant_components": [
+    "parameter.delta",
+    "parameter.gamma2"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "delta"
+          },
+          "update": {
+            "value": 20,
+            "name": "delta"
+          },
+          "notes": "Set three-exams-in-four-slots penalty weight to 20 to match 20x regular back-to-back penalty (gamma2=1)"
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

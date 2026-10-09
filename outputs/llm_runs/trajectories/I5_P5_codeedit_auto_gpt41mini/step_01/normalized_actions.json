@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -27,10 +27,12 @@\n     large_blocks: list[int] | None = None,\n     early_slots: list[int] | None = None,\n     time_limit: float | None = None,\n+    block_enrollment: dict[int, int] | None = None,\n+    slots: list[int] | None = None,\n ) -> \"gp.Model\":\n     \"\"\"Build the upstream block-sequencing model directly in gurobipy.\"\"\"\n     del slots_per_day\n-    slots = list(blocks)\n+    slots = list(blocks) if slots is None else slots\n     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]\n     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]\n     block_sequence_slot = [(i, j, k, s) for i in blocks for j in blocks for k in blocks for s in slots]\n@@ -136,6 +138,21 @@\n             ),\n             name=\"frontload\",\n         )\n+\n+    # Add constraint to limit total students on Day 2 to max 4000\n+    if block_enrollment is not None and slots is not None:\n+        # Determine slots for Day 2\n+        day2_slots = [slot for slot in slots if 4 <= slot <= 6]  # slots 4,5,6 are Day 2 (3 slots per day)\n+        # Sum over all blocks assigned to Day 2 slots, weighted by enrollment\n+        total_students_expr = gp.LinExpr()\n+        for i in blocks:\n+            enrollment = block_enrollment.get(i, 0)\n+            if enrollment > 0:\n+                for j in blocks:\n+                    for k in blocks:\n+                        for s in day2_slots:\n+                            total_students_expr += enrollment * x[i, j, k, s]\n+        m.addConstr(total_students_expr <= 4000, name=\"day2_student_limit\")\n \n     objective = (\n         gp.quicksum(\n@@ -207,6 +224,8 @@\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n+        block_enrollment={int(k): int(v) for k, v in data.get(\"block_enrollment\", {}).items()},\n+        slots=[int(slot) for slot in data.get(\"slots\", [])] if isinstance(data.get(\"slots\"), (list, tuple)) else None,\n     )\n     apply_solver_params(grb, solver_params)\n     apply_exam_warm_start_payload(grb, warm_start)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I5_P5_codeedit_auto_gpt41mini/step_01/attempt_02/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

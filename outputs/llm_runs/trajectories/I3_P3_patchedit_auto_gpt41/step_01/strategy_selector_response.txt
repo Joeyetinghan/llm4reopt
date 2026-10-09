@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local, reuse is expected to be high, and the change is front-loading large exams to early slots. Both heuristic warm start and tuned solving are available in the toolbox. Combining these leverages the reusable warm start for efficiency and the tuned solver for optimality and safety. This is faster and safer than a pure scratch or direct solve, and matches the toolbox capabilities. Warm reuse plus tuning is preferred to warm alone when tuned solving is available and edits are local.",
+  "confidence": 0.98
+}

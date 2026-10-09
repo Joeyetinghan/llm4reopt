@@ -1,0 +1,54 @@
+--- solver.py
++++ solver.py
+@@ -27,9 +27,9 @@
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
+     time_limit: float | None = None,
++    block_enrollment: Dict[int, int] | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+-    del slots_per_day
+     slots = list(blocks)
+     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+@@ -45,6 +45,7 @@
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))
++    lambda_big = float(weights.get("lambda_big", 0.0))
+ 
+     m = gp.Model("BlockSequencing")
+     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)
+@@ -179,6 +180,24 @@
+             for l in blocks
+         )
+     )
++
++    # Day 2 total enrollment cap with soft overage penalty to preserve feasibility
++    if block_enrollment is not None and slots_per_day > 0:
++        day2_start = slots_per_day + 1
++        day2_end = 2 * slots_per_day
++        day2_slots = [s for s in slots if day2_start <= s <= day2_end]
++        if day2_slots:
++            # Nonnegative overage variable; penalized in the objective
++            day2_overage = m.addVar(lb=0.0, name="day2_overage")
++            # Total students scheduled on Day 2 across its slots
++            day2_total = gp.quicksum(
++                gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks) * float(block_enrollment.get(i, 0.0))
++                for s in day2_slots
++                for i in blocks
++            )
++            m.addConstr(day2_total <= 4000.0 + day2_overage, name="cap_day2_total_enrollment")
++            objective = objective + lambda_big * day2_overage
++
+     m.setObjective(objective, GRB.MINIMIZE)
+ 
+     m.update()
+@@ -207,6 +226,7 @@
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
++        block_enrollment={int(k): int(v) for k, v in (data.get("block_enrollment") or {}).items()},
+     )
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)

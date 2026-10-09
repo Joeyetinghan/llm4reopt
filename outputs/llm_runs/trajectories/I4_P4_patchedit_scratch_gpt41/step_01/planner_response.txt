@@ -1,0 +1,46 @@
+{
+  "edit_summary": "Increase the penalty for 'three exams in 24 hours' to be 20 times the penalty weight for a regular back-to-back event.",
+  "affected_sets": {
+    "objective_components": [
+      "beta",
+      "gamma1",
+      "gamma2"
+    ]
+  },
+  "relevant_components": [
+    "beta",
+    "gamma1",
+    "gamma2"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "beta"
+          },
+          "update": {
+            "name": "beta",
+            "value": 20.0
+          },
+          "notes": "Set the triple-in-24hr penalty weight to 20x the regular back-to-back (gamma1/gamma2, both 1.0)."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 20.0
+          },
+          "notes": "Update objective weight for beta to match the parameter value, ensuring the objective term is scaled."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

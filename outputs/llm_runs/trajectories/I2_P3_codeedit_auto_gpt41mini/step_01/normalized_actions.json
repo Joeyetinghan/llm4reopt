@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -137,6 +137,26 @@\n             name=\"frontload\",\n         )\n \n+    # New constraint: large exams with enrollment > 300 must be scheduled before slot 19\n+    large_blocks_set = set(frontload_blocks)\n+    large_block_enrollments = {int(b): 0 for b in large_blocks_set}\n+    # We will fill large_block_enrollments in solve_exam_direct and pass as parameter if needed\n+    # But since we cannot add new parameters, we will extract enrollment from weights or p or t is not suitable\n+    # Instead, we will add this constraint in solve_exam_direct by filtering large_blocks by enrollment > 300 and early_slots < 19\n+\n+    # So here we add a constraint for large blocks that are in early_slot_values and have enrollment > 300\n+    # But we don't have enrollment here, so we will add the constraint in solve_exam_direct by filtering early_slots accordingly\n+\n+    # Instead, we add a constraint that large blocks must be assigned only to slots < 19\n+    # We do this by forbidding assignment to slots >= 19 for large blocks\n+\n+    for i in frontload_blocks:\n+        for j in blocks:\n+            for k in blocks:\n+                for s in slots:\n+                    if s >= 19:\n+                        m.addConstr(x[i, j, k, s] == 0, name=f\"large_block_before_slot19_{i}_{s}\")\n+\n     objective = (\n         gp.quicksum(\n             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]\n@@ -194,6 +214,18 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Filter large_blocks to only those with enrollment > 300\n+    large_blocks_filtered = []\n+    block_enrollment = data.get(\"block_enrollment\", {})\n+    for block in data.get(\"large_blocks\", []):\n+        enrollment = block_enrollment.get(str(block), 0)\n+        if enrollment > 300:\n+            large_blocks_filtered.append(int(block))\n+\n+    # Filter early_slots to only those less than 19 (to ensure large exams finish before slot 19)\n+    early_slots_filtered = [int(slot) for slot in data.get(\"early_slots\", []) if int(slot) < 19]\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -204,8 +236,8 @@\n         weights=dict(data[\"weights\"]),\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n-        large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        large_blocks=large_blocks_filtered,\n+        early_slots=early_slots_filtered,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P3_codeedit_auto_gpt41mini/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

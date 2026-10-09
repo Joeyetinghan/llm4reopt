@@ -1,0 +1,32 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "beta"
+        },
+        "update": {
+          "name": "beta",
+          "value": 20.0
+        }
+      },
+      {
+        "notes": "Set the objective weight for three-in-24hr penalty (beta) to 20.0 to match new policy.",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

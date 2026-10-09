@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local with high expected reuse, and both warm start and tuned solving are available. Using a heuristic warm start followed by a tuned solve is the fastest safe approach. Although execution is currently blocked by missing details for P4, P2, and P1, this strategy will efficiently reoptimize once the concrete update contents are provided.",
+  "confidence": 0.66
+}

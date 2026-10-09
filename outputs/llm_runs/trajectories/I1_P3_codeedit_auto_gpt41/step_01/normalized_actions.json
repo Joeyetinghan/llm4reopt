@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -194,6 +194,17 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Patch: Ensure all large exams (>300 students) are completed before the 20th slot\n+    block_enrollment = data.get(\"block_enrollment\", {})\n+    # Find blocks with enrollment > 300\n+    large_exam_blocks = [int(b) for b, n in block_enrollment.items() if n > 300]\n+    # Set early_slots to slots 1-19 (before 20th slot)\n+    early_slots = list(range(1, 20))\n+    # Merge with any existing large_blocks and early_slots\n+    merged_large_blocks = sorted(set(large_exam_blocks) | set([int(b) for b in data.get(\"large_blocks\", [])]))\n+    merged_early_slots = sorted(set(early_slots) | set([int(s) for s in data.get(\"early_slots\", [])]))\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -204,8 +215,8 @@\n         weights=dict(data[\"weights\"]),\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n-        large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        large_blocks=merged_large_blocks,\n+        early_slots=merged_early_slots,\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I1_P3_codeedit_auto_gpt41/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

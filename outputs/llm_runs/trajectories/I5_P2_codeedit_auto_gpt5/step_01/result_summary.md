@@ -1,0 +1,31 @@
+# Exam Block Sequencing planner summary
+
+- Delta: Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.
+- Action kind: codeedit
+- Supported ops: UPDATE_PARAMETER, UPDATE_BOUND, UPDATE_CONSTRAINT_RHS, UPDATE_CONSTRAINT_LHS, UPDATE_OBJECTIVE_COEFF, UPDATE_OBJECTIVE_WEIGHT, ADD_CONSTRAINT_FAMILY
+- Relevant components: []
+- Edit summary: Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.
+- Planner parse ok: True
+- Planner output executable: True
+- Planner failed semantically: False
+- Model attempts: 1
+- Model retries: 0
+- Edited files: solver.py
+- Code-edit attempts: 1
+- Code-edit repairs: 0
+- Strategy: warm+tuned
+- Execution label: direct+tuned
+- Strategy policy: llm
+- Toolbox plan: ['direct_warm_start', 'tuned_config']
+- Strategy fallback used: True
+- Objective: 2577.000000 -> 2537.000000
+- Solve status: 9
+
+## Candidate actions
+
+- action_set `aider_edit`
+  - `codeedit` {"artifact_paths": {}, "changed_files": ["solver.py"], "editable_files": ["solver.py"], "planner_warnings": [], "read_only_files": ["runtime_snapshot.json"], "source_problem_root": "problems/exam_block_seq", "unified_diff": "--- solver.py\n+++ solver.py\n@@ -3,6 +3,7 @@\n from __future__ import annotations\n \n import os\n+import ast\n from typing import Any, Dict, Mapping, Tuple\n \n import gurobipy as gp\n@@ -194,6 +195,14 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Normalize and apply requested pairwise co-enrollment change:\n+    # Increase symmetric pair counts for blocks 4 and 9 by +120.\n+    raw_pair_counts = data.get(\"pair_counts\")\n+    pair_counts = _normalize_pair_counts(raw_pair_counts)\n+    for i, j in ((4, 9), (9, 4)):\n+        pair_counts[(i, j)] = float(pair_counts.get((i, j), 0.0)) + 120.0\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -202,8 +211,8 @@\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n         weights=dict(data[\"weights\"]),\n-        p=dict(data.get(\"pair_counts\") or {}),\n-        t=dict(data.get(\"triplet_counts\") or {}),\n+        p=pair_counts,\n+        t=_normalize_triplet_counts(data.get(\"triplet_counts\")),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n@@ -268,3 +277,80 @@\n         except Exception:\n             pass\n     return meta\n+\n+\n+def _parse_pair_key(key: Any) -> tuple[int, int] | None:\n+    \"\"\"Parse raw pair key into a 2-int tuple, if possible.\"\"\"\n+    if isinstance(key, tuple) and len(key) == 2:\n+        try:\n+            return int(key[0]), int(key[1])\n+        except Exception:\n+            return None\n+    if isinstance(key, str):\n+        s = key.strip()\n+        try:\n+            val = ast.literal_eval(s)\n+            if isinstance(val, tuple) and len(val) == 2:\n+                return int(val[0]), int(val[1])\n+        except Exception:\n+            # Try simple comma-separated form \"i,j\"\n+            try:\n+                parts = [p.strip() for p in s.split(\",\")]\n+                if len(parts) == 2:\n+                    return int(parts[0]), int(parts[1])\n+            except Exception:\n+                return None\n+    return None\n+\n+\n+def _normalize_pair_counts(raw: Any) -> Dict[tuple[int, int], float]:\n+    \"\"\"Normalize pair_counts mapping to Dict[(i,j)] -> float, skipping non-pair entries.\"\"\"\n+    result: Dict[tuple[int, int], float] = {}\n+    if not isinstance(raw, dict):\n+        return result\n+    for k, v in raw.items():\n+        pair = _parse_pair_key(k)\n+        if pair is None:\n+            # Ignore non-pair summary keys like 'count' or nested previews\n+            continue\n+        try:\n+            result[pair] = float(v)\n+        except Exception:\n+            # Skip entries that cannot be cast to float\n+            continue\n+    return result\n+\n+\n+def _parse_triplet_key(key: Any) -> tuple[int, int, int] | None:\n+    \"\"\"Parse raw triplet key into a 3-int tuple, if possible.\"\"\"\n+    if isinstance(key, tuple) and len(key) == 3:\n+        try:\n+            return int(key[0]), int(key[1]), int(key[2])\n+        except Exception:\n+            return None\n+    if isinstance(key, str):\n+        s = key.strip()\n+        try:\n+            val = ast.literal_eval(s)\n+            if isinstance(val, tuple) and len(val) == 3:\n+                return int(val[0]), int(val[1]), int(val[2])\n+        except Exception:\n+            return None\n+    return None\n+\n+\n+def _normalize_triplet_counts(raw: Any) -> Dict[tuple[int, int, int], float]:\n+    \"\"\"Normalize triplet_counts mapping to Dict[(i,j,k)] -> float, skipping non-triplet entries.\"\"\"\n+    result: Dict[tuple[int, int, int], float] = {}\n+    if not isinstance(raw, dict):\n+        return result\n+    for k, v in raw.items():\n+        trip = _parse_triplet_key(k)\n+        if trip is None:\n+            # Ignore non-triplet summary keys like 'count' or 'preview'\n+            continue\n+        try:\n+            result[trip] = float(v)\n+        except Exception:\n+            continue\n+    return result", "workspace_problem_root": "outputs/llm_runs/trajectories/I5_P2_codeedit_auto_gpt5/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"}
+
+## Chosen actions
+
+- Rebuilt and solved from edited source files.

@@ -1,0 +1,98 @@
+{
+  "input_paths": {
+    "figures_dir": "outputs/llm_runs/figures",
+    "output_dir": "outputs/llm_runs",
+    "reference_dir": "outputs/solves/reference/3600s",
+    "runs_dir": "runs/exam/paper_full_gpt_3600s",
+    "tables_dir": "outputs/llm_runs/tables"
+  },
+  "method_labels": {
+    "coedit-auto": "Direct-Code Agent",
+    "patch-edit-auto": "ReOpt-LLM-Patch",
+    "patch-edit-scratch": "ReOpt-LLM-Patch without Selector"
+  },
+  "method_short_labels": {
+    "coedit-auto": "Code",
+    "patch-edit-auto": "Patch",
+    "patch-edit-scratch": "Patch-NoSel"
+  },
+  "missing_metrics_assumptions": [
+    "Failure taxonomy CSVs preserve prior high-level and lower-level taxonomy records when failure_analysis_all_runs.csv and failure_modes_detailed.csv are present.",
+    "General model violations are schedule-level assignment violations recoverable from saved block schedules.",
+    "Integrality metrics are zero when an integral block schedule is saved; raw solver variable integrality is not logged.",
+    "Missing saved final schedule for I1_P1_patchedit_scratch_gpt5",
+    "Missing saved final schedule for I1_P2_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I1_P3_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I1_P3_patchedit_scratch_gpt41mini",
+    "Missing saved final schedule for I1_P3_patchedit_scratch_gpt5",
+    "Missing saved final schedule for I2_P4_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I2_P4_patchedit_scratch_gpt5",
+    "Missing saved final schedule for I3_P1_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I3_P6_codeedit_auto_gpt5",
+    "Missing saved final schedule for I4_P2_codeedit_auto_gpt41mini",
+    "Missing saved final schedule for I4_P2_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I4_P2_patchedit_scratch_gpt41mini",
+    "Missing saved final schedule for I4_P2_patchedit_scratch_gpt5",
+    "Missing saved final schedule for I4_P3_codeedit_auto_gpt5",
+    "Missing saved final schedule for I4_P5_patchedit_scratch_gpt41",
+    "Missing saved final schedule for I4_P5_patchedit_scratch_gpt41mini",
+    "Missing saved final schedule for I4_P5_patchedit_scratch_gpt5",
+    "Missing saved final schedule for I4_P6_codeedit_auto_gpt5",
+    "Missing saved final schedule for I5_P3_codeedit_auto_gpt5",
+    "Missing saved final schedule for I5_P6_codeedit_auto_gpt41mini",
+    "Missing saved final schedule for I5_P6_codeedit_auto_gpt5",
+    "P1/P3/P5 prompt-specific violations are recovered from saved final block schedules.",
+    "P2/P4 prompt-specific compliance is treated as an applied-update check from operation semantic logs.",
+    "P6 is evaluated as the composed P4 -> P2 -> P1 update; prompt-specific satisfaction requires operation correctness and the P1 reserved-slot check.",
+    "Patch-edit-scratch is included only as an ablation to test the LLM selector.",
+    "Retry counts are missing for some runs",
+    "Some update correctness values are unavailable in operation logs",
+    "Three-in-4 counts sum all three-block combinations inside each four-slot window.",
+    "Two-in-24h counts sum pair co-enrollments for slot separations up to slots_per_day."
+  ],
+  "models_included": [
+    "gpt-4.1-mini",
+    "gpt-4.1",
+    "gpt-5"
+  ],
+  "number_of_evaluated_runs": 270,
+  "plot_paths": [
+    "outputs/llm_runs/figures/cornell_reference_gap.pdf"
+  ],
+  "prompts_included": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "reference_label": "3600-second hindsight reference incumbent",
+  "reference_short_label": "Ref.",
+  "selected_edit_mode": "patch-edit-auto",
+  "selected_method_label": "ReOpt-LLM-Patch",
+  "selected_method_short_label": "Patch",
+  "selected_model": "gpt-5",
+  "selection_metrics": {
+    "component_identification_accuracy": 1.0,
+    "edit_mode": "patch-edit-auto",
+    "final_success_rate": 1.0,
+    "first_attempt_success_rate": 1.0,
+    "mean_back_to_back_count": 3338.9,
+    "mean_obj_diff": 121.33333333333333,
+    "mean_ref_gap_pct": 2.0806141498294095,
+    "mean_retry_count_for_successful_runs": 0.0,
+    "mean_three_in_4_slots_count": 603.4666666666667,
+    "mean_triple_count": 126.5,
+    "mean_two_in_24hr_count": 10399.6,
+    "method_label": "ReOpt-LLM-Patch",
+    "method_short_label": "Patch",
+    "model": "gpt-5",
+    "patch_validity_rate": 1.0,
+    "prompt_satisfaction_rate": 1.0,
+    "runs": 30,
+    "update_correctness_rate": 1.0
+  },
+  "time_limit_sec": 3600,
+  "timestamp": "2026-10-08T03:44:09.235751+00:00"
+}

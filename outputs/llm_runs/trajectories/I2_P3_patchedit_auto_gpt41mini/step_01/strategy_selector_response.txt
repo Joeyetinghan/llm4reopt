@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": ["heuristic_warm_start", "tuned_config"],
+  "rationale": "The edit is local and reuse is expected to be high, so we select a warm start strategy. Both heuristic warm start and tuned solving are supported and available; combining heuristic warm start with tuned solving generally yields faster and higher quality reoptimization than heuristic alone. Direct warm start is less preferred here given the heuristic warm start availability and the local nature of the edit.",
+  "confidence": 0.9
+}

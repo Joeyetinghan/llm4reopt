@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "No prior result or base warm start is available, but heuristic warm start and tuned solver are supported. The edit is non-structural and reuse-friendly. Using a heuristic warm start seeded into a tuned solve is the fastest safe approach, avoiding the overhead of also running a direct warm start that provides little value without a prior solution.",
+  "confidence": 0.77
+}

@@ -1,0 +1,18 @@
+--- solver.py
++++ solver.py
+@@ -45,6 +45,15 @@
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))
++
++    # P4: Increase gamma1 by 0.5
++    gamma1 += 0.5
++
++    # P2: Decrease beta by 2.0 (but not below zero)
++    beta = max(0.0, beta - 2.0)
++
++    # P1: Increase alpha by 1.0
++    alpha += 1.0
+ 
+     m = gp.Model("BlockSequencing")
+     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)

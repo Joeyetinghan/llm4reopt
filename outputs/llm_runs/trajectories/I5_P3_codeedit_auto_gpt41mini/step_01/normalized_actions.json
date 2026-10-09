@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -135,6 +135,27 @@\n                 for i in frontload_blocks\n             ),\n             name=\"frontload\",\n+        )\n+\n+    # New constraint: large exams with enrollment > 300 must be scheduled before slot 15\n+    large_exam_cutoff = 300\n+    cutoff_slot = 15\n+    block_enrollment = {int(k): v for k, v in (weights.get(\"block_enrollment\", {}) or {}).items()}\n+    large_exams = [b for b in frontload_blocks if block_enrollment.get(b, 0) > large_exam_cutoff]\n+    if large_exams:\n+        early_slots_for_large = [s for s in slots if s < cutoff_slot]\n+        m.addConstrs(\n+            (\n+                gp.quicksum(\n+                    x[i, j, k, s]\n+                    for j in blocks\n+                    for k in blocks\n+                    for s in early_slots_for_large\n+                )\n+                == 1\n+                for i in large_exams\n+            ),\n+            name=\"large_exam_early_slot\",\n         )\n \n     objective = (",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I5_P3_codeedit_auto_gpt41mini/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

@@ -1,0 +1,66 @@
+--- solver.py
++++ solver.py
+@@ -51,6 +51,9 @@
+     if time_limit:
+         m.setParam("TimeLimit", float(time_limit))
+ 
++    # Attach block_enrollment to model for use in constraints
++    m._block_enrollment = {}
++
+     x = m.addVars(block_sequence_slot, vtype=GRB.BINARY, name="x")
+     y = m.addVars(block_sequence_trip, vtype=GRB.BINARY, name="y")
+     z = m.addVars(block_sequence_quad, vtype=GRB.BINARY, name="z")
+@@ -137,6 +140,32 @@
+             name="frontload",
+         )
+ 
++    # Enforce that all large exams with enrollment > 300 are scheduled before slot 19
++    large_enrollment_cutoff = 300
++    cutoff_slot = 19
++    large_blocks_over_cutoff = [
++        int(block)
++        for block in (large_blocks or [])
++        if isinstance(block, (int, float))
++        and int(block) in blocks
++        and m._block_enrollment.get(int(block), 0) > large_enrollment_cutoff  # type: ignore
++    ]
++    if large_blocks_over_cutoff:
++        m.addConstrs(
++            (
++                gp.quicksum(
++                    x[i, j, k, s]
++                    for j in blocks
++                    for k in blocks
++                    for s in slots
++                    if s < cutoff_slot
++                )
++                == 1
++                for i in large_blocks_over_cutoff
++            ),
++            name="large_before_cutoff",
++        )
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,6 +223,10 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Attach block_enrollment to model builder for use in constraints
++    block_enrollment = {int(k): int(v) for k, v in data.get("block_enrollment", {}).items()}
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -208,6 +241,9 @@
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
++    # Provide block_enrollment to model for large exam cutoff constraint
++    grb._block_enrollment = block_enrollment
++
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)
+     grb.update()

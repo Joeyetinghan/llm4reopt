@@ -1,0 +1,16 @@
+--- solver.py
++++ solver.py
+@@ -41,10 +41,13 @@
+     triplet_penalties = dict(t or {})
+ 
+     alpha = float(weights.get("alpha", 10.0))
++    # Read base weights
+     beta = float(weights.get("beta", 10.0))
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))
++    # Increase the 24-hour triple penalty to be at least 20x the regular back-to-back penalty (gamma2)
++    beta = max(beta, 20.0 * gamma2)
+ 
+     m = gp.Model("BlockSequencing")
+     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)

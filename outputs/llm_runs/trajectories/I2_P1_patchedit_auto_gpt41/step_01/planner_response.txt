@@ -1,0 +1,50 @@
+{
+  "edit_summary": "Reserve the penultimate evening slot by assigning a virtual block to the evening slot immediately before the final evening slot, so it is unavailable for exams.",
+  "affected_sets": {
+    "slots": [20],
+    "virtual_blocks": [23]
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "reserved_slots",
+    "virtual_blocks"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [20],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "virtual_block": 23,
+                "slot": 20
+              },
+              "rhs_spec": 1,
+              "sense": "="
+            }
+          },
+          "notes": "Reserve slot 20 (penultimate evening slot) by assigning virtual block 23, so it cannot be used for exams."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "reserved_slots"},
+          "update": {
+            "name": "reserved_slots",
+            "value": [20],
+            "key": null
+          },
+          "notes": "Update reserved_slots parameter to include slot 20."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

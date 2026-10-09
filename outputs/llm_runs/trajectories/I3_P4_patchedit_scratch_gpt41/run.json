@@ -1,0 +1,618 @@
+{
+  "base_objective": 4218.0,
+  "chosen_patch_op": "UPDATE_PARAMETER",
+  "cost_delta": 2459.0,
+  "error": "",
+  "execution_label": "scratch",
+  "failure_detail": null,
+  "failure_label": null,
+  "failure_stage": null,
+  "feasible": true,
+  "ground_truth": null,
+  "input": {
+    "case_id": "P4",
+    "config": {
+      "instance_dir": "benchmark/raw_instances/blockseq_n553_blocks17_slots25_seed42",
+      "log_dir": "outputs/solves/base",
+      "model_failure_retry_budget": 3,
+      "prompt_id": "P1",
+      "real_blocks": null,
+      "slot_times": [
+        "9am",
+        "2pm",
+        "7pm"
+      ],
+      "slots_per_day": 3,
+      "solution_dir": "outputs/solves/base",
+      "threads": 6,
+      "time_limit": 3600,
+      "tuned_param_dir": "outputs/solves/tune/params",
+      "weights": {}
+    },
+    "config_path": "problems/exam_block_seq/configs/default.yaml",
+    "delta_text": "The Student Assembly raised concerns about extreme stress; increase the penalty for having \"three exams in 24 hours\" to be 20 times that of a regular back-to-back.",
+    "examples_path": null,
+    "model": "gpt-4.1",
+    "planner_mode": "patchedit",
+    "problem": "exam_block_seq",
+    "problem_root": null,
+    "prompt_id": "P4",
+    "strategy": "scratch",
+    "strategy_policy": "rule",
+    "strategy_selector_model": null,
+    "trace_root": "outputs/llm_runs/trajectories/I3_P4_patchedit_scratch_gpt41"
+  },
+  "instance_id": "I3",
+  "llm_trace": [],
+  "metadata": {
+    "campaign_id": "paper_full_gpt_3600s",
+    "campaign_stage": "full",
+    "instance_id": "I3",
+    "job_name": "I3_patchedit_auto_gpt41_prompts_P4",
+    "prompt_batch_count": 6,
+    "prompt_batch_index": 4,
+    "prompt_id": "P4",
+    "prompt_source": "catalog",
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+    "replay_source_run_id": "I3_P4_patchedit_auto_gpt41",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/step_01",
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+    "replayed_from_run_id": "I3_P4_patchedit_auto_gpt41",
+    "run_mode": "patchedit-scratch-replay"
+  },
+  "mip_gap": 0.47775947281713343,
+  "model": "gpt-4.1",
+  "obj_bound": 3487.0,
+  "objective": 6677.0,
+  "planner_mode": "patchedit",
+  "problem": "exam_block_seq",
+  "problem_name": "Exam Block Sequencing",
+  "prompt_id": "P4",
+  "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+  "replay_source_run_id": "I3_P4_patchedit_auto_gpt41",
+  "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/step_01",
+  "result": {
+    "base_evaluation": {
+      "checks": {
+        "has_solution": true
+      },
+      "details": {
+        "log_path": "outputs/solves/base/blockseq_n553_blocks17_slots25_seed42.log",
+        "mip_gap": 0.22095800000000002,
+        "obj_bound": 3286.0,
+        "phase": "base",
+        "runtime": 86400.07,
+        "solution_count": 9,
+        "solution_path": "outputs/solves/base/blockseq_n553_blocks17_slots25_seed42.sol",
+        "source": "saved_base_artifacts",
+        "status": 9
+      },
+      "feasible": true,
+      "ground_truth_case_id": null,
+      "ground_truth_checks": {},
+      "ground_truth_details": {},
+      "matches_ground_truth": null,
+      "objective": 4218.0,
+      "runtime": 86400.07,
+      "status": 9
+    },
+    "base_objective": 4218.0,
+    "base_solution": {
+      "1": 10,
+      "10": 20,
+      "11": 5,
+      "12": 12,
+      "13": 21,
+      "14": 2,
+      "15": 6,
+      "16": 14,
+      "17": 1,
+      "18": 24,
+      "19": 19,
+      "2": 17,
+      "20": 3,
+      "21": 25,
+      "22": 13,
+      "23": 22,
+      "24": 7,
+      "25": 16,
+      "3": 4,
+      "4": 11,
+      "5": 8,
+      "6": 15,
+      "7": 23,
+      "8": 18,
+      "9": 9
+    },
+    "base_solve_meta": {
+      "log_path": "outputs/solves/base/blockseq_n553_blocks17_slots25_seed42.log",
+      "mip_gap": 0.22095800000000002,
+      "obj_bound": 3286.0,
+      "runtime": 86400.07,
+      "solution_count": 9,
+      "solution_path": "outputs/solves/base/blockseq_n553_blocks17_slots25_seed42.sol",
+      "source": "saved_base_artifacts",
+      "status": 9
+    },
+    "mode": "single",
+    "problem": {
+      "description": "Exam scheduling block sequencing problem packaged behind the generic interface.",
+      "name": "Exam Block Sequencing",
+      "package_root": "problems/exam_block_seq",
+      "problem_id": "exam_block_seq"
+    },
+    "steps": [
+      {
+        "action_kind": "patch",
+        "artifacts": {
+          "trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_scratch_gpt41/step_01"
+        },
+        "candidate_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {},
+            "target": {
+              "name": "beta"
+            },
+            "update": {
+              "name": "beta",
+              "value": 20.0
+            }
+          },
+          {
+            "notes": "Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 20.0
+            }
+          }
+        ],
+        "change_report": "Applied UPDATE_PARAMETER, UPDATE_OBJECTIVE_WEIGHT; objective 4218.0000 -> 6677.0000",
+        "chosen_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {},
+            "target": {
+              "name": "beta"
+            },
+            "update": {
+              "name": "beta",
+              "value": 20.0
+            }
+          },
+          {
+            "notes": "Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 20.0
+            }
+          }
+        ],
+        "delta_request": "The Student Assembly raised concerns about extreme stress; increase the penalty for having \"three exams in 24 hours\" to be 20 times that of a regular back-to-back.",
+        "evaluation": {
+          "checks": {
+            "has_solution": true
+          },
+          "details": {
+            "mip_gap": 0.47775947281713343,
+            "obj_bound": 3487.0,
+            "objective": 6677.0,
+            "objective_nonzero_coeffs": 333584,
+            "problem_id": "exam_block_seq",
+            "runtime": 3600.0952649116516,
+            "sol_count": 1,
+            "status": 9,
+            "strategy": "scratch",
+            "warm_start_applied": false,
+            "warm_start_mode": "none",
+            "warm_start_source": "none"
+          },
+          "feasible": true,
+          "ground_truth_case_id": null,
+          "ground_truth_checks": {},
+          "ground_truth_details": {},
+          "matches_ground_truth": null,
+          "objective": 6677.0,
+          "runtime": 3600.0952649116516,
+          "status": 9
+        },
+        "event": {
+          "affected_sets": {
+            "objective_components": [
+              "beta",
+              "gamma1",
+              "gamma2"
+            ],
+            "parameters": [
+              "beta",
+              "gamma1",
+              "gamma2"
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "objective_components": [
+                "beta",
+                "gamma1",
+                "gamma2"
+              ],
+              "parameters": [
+                "beta",
+                "gamma1",
+                "gamma2"
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Set 24hr triple penalty weight to 20x back-to-back base (which is 1.0 for gamma1/gamma2 in this instance); was 10.0 before.",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "beta"
+                    },
+                    "update": {
+                      "name": "beta",
+                      "value": 20.0
+                    }
+                  },
+                  {
+                    "notes": "Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.",
+                    "op": "UPDATE_OBJECTIVE_WEIGHT",
+                    "target": {
+                      "objective": "beta"
+                    },
+                    "update": {
+                      "weight": 20.0
+                    }
+                  }
+                ]
+              }
+            ],
+            "delta_metadata": {
+              "campaign_id": "paper_full_gpt_3600s",
+              "campaign_stage": "full",
+              "instance_id": "I3",
+              "job_name": "I3_patchedit_auto_gpt41_prompts_P4",
+              "prompt_batch_count": 6,
+              "prompt_batch_index": 4,
+              "prompt_id": "P4",
+              "prompt_source": "catalog",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/step_01",
+              "replayed_from_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+              "replayed_from_run_id": "I3_P4_patchedit_auto_gpt41",
+              "run_mode": "patchedit-scratch-replay"
+            },
+            "edit_summary": "Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planner_raw_response": "{\n  \"edit_summary\": \"Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).\",\n  \"affected_sets\": {\n    \"objective_components\": [\"beta\", \"gamma1\", \"gamma2\"],\n    \"parameters\": [\"beta\", \"gamma1\", \"gamma2\"]\n  },\n  \"relevant_components\": [\"beta\", \"gamma1\", \"gamma2\", \"objective_component\"],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\"name\": \"beta\"},\n          \"update\": {\n            \"name\": \"beta\",\n            \"value\": 20.0\n          },\n          \"notes\": \"Set 24hr triple penalty weight to 20x back-to-back base (which is 1.0 for gamma1/gamma2 in this instance); was 10.0 before.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\"objective\": \"beta\"},\n          \"update\": {\n            \"weight\": 20.0\n          },\n          \"notes\": \"Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "beta",
+              "gamma1",
+              "gamma2",
+              "objective_component"
+            ]
+          },
+          "edit_summary": "Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).",
+          "event_type": "unknown",
+          "intention": "update",
+          "raw_text": "The Student Assembly raised concerns about extreme stress; increase the penalty for having \"three exams in 24 hours\" to be 20 times that of a regular back-to-back."
+        },
+        "model_summary": {
+          "artifacts": [
+            "lp_path"
+          ],
+          "extras": [
+            "base_parameters"
+          ],
+          "n_constraints": 8,
+          "n_objectives": 5,
+          "n_variables": 12,
+          "parameter_info": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ],
+          "parameters": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ]
+        },
+        "objective": 6677.0,
+        "planner_output": {
+          "action_kind": "patch",
+          "affected_sets": {
+            "objective_components": [
+              "beta",
+              "gamma1",
+              "gamma2"
+            ],
+            "parameters": [
+              "beta",
+              "gamma1",
+              "gamma2"
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "objective_components": [
+                "beta",
+                "gamma1",
+                "gamma2"
+              ],
+              "parameters": [
+                "beta",
+                "gamma1",
+                "gamma2"
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Set 24hr triple penalty weight to 20x back-to-back base (which is 1.0 for gamma1/gamma2 in this instance); was 10.0 before.",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "beta"
+                    },
+                    "update": {
+                      "name": "beta",
+                      "value": 20.0
+                    }
+                  },
+                  {
+                    "notes": "Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.",
+                    "op": "UPDATE_OBJECTIVE_WEIGHT",
+                    "target": {
+                      "objective": "beta"
+                    },
+                    "update": {
+                      "weight": 20.0
+                    }
+                  }
+                ]
+              }
+            ],
+            "edit_summary": "Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "beta",
+              "gamma1",
+              "gamma2",
+              "objective_component"
+            ],
+            "replayed_from_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+            "replayed_from_run_id": "I3_P4_patchedit_auto_gpt41"
+          },
+          "candidate_action_sets": [
+            {
+              "action_kind": "patch",
+              "actions": [
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {},
+                  "target": {
+                    "name": "beta"
+                  },
+                  "update": {
+                    "name": "beta",
+                    "value": 20.0
+                  }
+                },
+                {
+                  "notes": "Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.",
+                  "op": "UPDATE_OBJECTIVE_WEIGHT",
+                  "scope": {},
+                  "target": {
+                    "objective": "beta"
+                  },
+                  "update": {
+                    "weight": 20.0
+                  }
+                }
+              ],
+              "label": "",
+              "metadata": {}
+            }
+          ],
+          "candidate_actions": [],
+          "edit_summary": "Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).",
+          "planning_hints": {
+            "edit_scope": "local",
+            "expected_reuse": "high",
+            "model_attempt_count": 0,
+            "model_retry_count": 0,
+            "planner_failed_semantically": false,
+            "planner_output_executable": true,
+            "planner_parse_ok": true,
+            "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+            "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/step_01"
+          },
+          "raw_response": "{\n  \"edit_summary\": \"Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).\",\n  \"affected_sets\": {\n    \"objective_components\": [\"beta\", \"gamma1\", \"gamma2\"],\n    \"parameters\": [\"beta\", \"gamma1\", \"gamma2\"]\n  },\n  \"relevant_components\": [\"beta\", \"gamma1\", \"gamma2\", \"objective_component\"],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\"name\": \"beta\"},\n          \"update\": {\n            \"name\": \"beta\",\n            \"value\": 20.0\n          },\n          \"notes\": \"Set 24hr triple penalty weight to 20x back-to-back base (which is 1.0 for gamma1/gamma2 in this instance); was 10.0 before.\"\n        },\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\"objective\": \"beta\"},\n          \"update\": {\n            \"weight\": 20.0\n          },\n          \"notes\": \"Increase objective weight for triple-in-24hr penalty to match 20x a single back-to-back.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+          "relevant_components": [
+            "beta",
+            "gamma1",
+            "gamma2",
+            "objective_component"
+          ]
+        },
+        "relevant_components": [
+          "beta",
+          "gamma1",
+          "gamma2",
+          "objective_component"
+        ],
+        "solution": {
+          "1": 19,
+          "10": 10,
+          "11": 4,
+          "12": 1,
+          "13": 9,
+          "14": 12,
+          "15": 7,
+          "16": 15,
+          "17": 13,
+          "18": 24,
+          "19": 22,
+          "2": 21,
+          "20": 8,
+          "21": 20,
+          "22": 2,
+          "23": 11,
+          "24": 14,
+          "25": 23,
+          "3": 3,
+          "4": 16,
+          "5": 17,
+          "6": 6,
+          "7": 25,
+          "8": 5,
+          "9": 18
+        },
+        "solve_meta": {
+          "mip_gap": 0.47775947281713343,
+          "obj_bound": 3487.0,
+          "objective": 6677.0,
+          "objective_nonzero_coeffs": 333584,
+          "runtime": 3600.0952649116516,
+          "sol_count": 1,
+          "status": 9,
+          "warm_start_applied": false,
+          "warm_start_mode": "none",
+          "warm_start_source": "none"
+        },
+        "strategy": "scratch",
+        "strategy_selection": {
+          "execution_label": "scratch",
+          "fallback_reason": "",
+          "fallback_used": false,
+          "metadata": {
+            "has_base_warm_start": false,
+            "has_prior_result": false,
+            "heuristic_prompt_ids": [],
+            "heuristic_warm_start_available": true,
+            "heuristic_warm_start_reason": "",
+            "patch_count": 2,
+            "planner_edit_summary": "Increase the penalty for 'three exams in 24 hours' (beta) to 20x that of a regular back-to-back (gamma1/gamma2).",
+            "planner_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high",
+              "model_attempt_count": 0,
+              "model_retry_count": 0,
+              "planner_failed_semantically": false,
+              "planner_output_executable": true,
+              "planner_parse_ok": true,
+              "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/run.json",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_auto_gpt41/step_01"
+            },
+            "planner_mode": "patchedit",
+            "planner_relevant_components": [
+              "beta",
+              "gamma1",
+              "gamma2",
+              "objective_component"
+            ],
+            "structural_edit": false,
+            "supports_tuned_solver": true,
+            "supports_warm_start": true,
+            "toolbox_placeholders": [],
+            "toolbox_trace_only": false
+          },
+          "policy_name": "manual",
+          "prompt": [],
+          "rationale": "User-requested exam execution-label override.",
+          "raw_response": "",
+          "strategy": "scratch",
+          "toolbox_plan": []
+        }
+      }
+    ]
+  },
+  "run_id": "I3_P4_patchedit_scratch_gpt41",
+  "runtime": 3600.0952649116516,
+  "selection_fallback_used": false,
+  "status": "ok",
+  "strategy": "scratch",
+  "strategy_policy": "manual",
+  "trace_dir": "outputs/llm_runs/trajectories/I3_P4_patchedit_scratch_gpt41/step_01"
+}

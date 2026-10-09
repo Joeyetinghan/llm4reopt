@@ -1,0 +1,150 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {
+    "reserved_slots": [],
+    "reserved_virtual_slot": "reserved_virtual_slot",
+    "virtual_blocks": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ]
+  },
+  "annotations": {
+    "affected_sets": {
+      "reserved_slots": [],
+      "reserved_virtual_slot": "reserved_virtual_slot",
+      "virtual_blocks": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ]
+    },
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Reserve evening slot 22 (immediately before final evening slot 24) by assigning permanent virtual block 18 for setup.",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": "local",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [
+                  "slot_before_final_evening_22"
+                ],
+                "lhs_spec": {
+                  "kind": "reserved_virtual_slot",
+                  "slot": 22,
+                  "virtual_block": 18
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": 1.0,
+                "sense": "="
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Reserve the evening slot immediately before the final evening slot with a virtual block to block scheduling for setup before graduation.",
+    "model_attempt_count": 2,
+    "model_prior_failures": [
+      {
+        "attempt": 1,
+        "failure_kind": "unparseable_patch_plan",
+        "failure_message": "Planner did not return any candidate action sets",
+        "failure_stage": "Interpretation"
+      }
+    ],
+    "model_retry_count": 1,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "reserved_virtual_slot",
+      "virtual_blocks",
+      "reserved_slots"
+    ],
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I3_P1_patchedit_auto_gpt41mini/run.json",
+    "replayed_from_run_id": "I3_P1_patchedit_auto_gpt41mini"
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {
+            "constraint": "reserved_virtual_slot"
+          },
+          "update": {
+            "constraint": {
+              "aliases": [],
+              "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+              "index_set": [
+                22
+              ],
+              "lhs_spec": {
+                "kind": "exam_x_aggregate",
+                "rows": {
+                  "22": {
+                    "fixed_block": 18,
+                    "slots": [
+                      22
+                    ]
+                  }
+                }
+              },
+              "metadata": {
+                "rule_kind": "reserved_virtual_slot_family"
+              },
+              "name": "reserved_virtual_slot",
+              "rhs_spec": {
+                "22": 1.0
+              },
+              "sense": "=",
+              "tags": [
+                "availability",
+                "block_seq"
+              ]
+            }
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Reserve the evening slot immediately before the final evening slot with a virtual block to block scheduling for setup before graduation.",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "model_attempt_count": 0,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P1_patchedit_auto_gpt41mini/run.json",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P1_patchedit_auto_gpt41mini/step_01"
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Reserve the evening slot immediately before the final evening slot with a virtual block to block scheduling for setup before graduation.\",\n  \"affected_sets\": {\n    \"reserved_virtual_slot\": \"reserved_virtual_slot\",\n    \"virtual_blocks\": [18,19,20,21,22,23,24,25],\n    \"reserved_slots\": []\n  },\n  \"relevant_components\": [\n    \"reserved_virtual_slot\",\n    \"virtual_blocks\",\n    \"reserved_slots\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"local\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"reserved_virtual_slot\",\n              \"index_set\": [\"slot_before_final_evening_22\"],\n              \"lhs_spec\": {\n                \"kind\": \"reserved_virtual_slot\",\n                \"slot\": 22,\n                \"virtual_block\": 18\n              },\n              \"rhs_spec\": 1.0,\n              \"sense\": \"=\"\n            }\n          },\n          \"notes\": \"Reserve evening slot 22 (immediately before final evening slot 24) by assigning permanent virtual block 18 for setup.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "virtual_blocks",
+    "reserved_slots"
+  ]
+}

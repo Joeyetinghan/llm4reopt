@@ -1,0 +1,42 @@
+{
+  "edit_summary": "Add a day-level enrollment cap constraint to limit the total number of students taking exams on Day 2 to at most 4,000.",
+  "affected_sets": {
+    "days": [2]
+  },
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "global",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": ["day_2"],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4, 5, 6],
+                "enrollment_parameter": "block_enrollment"
+              },
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Add a slot_load_cap constraint for Day 2, summing enrollment of blocks assigned to slots 4, 5, and 6 and capping total to 4,000."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

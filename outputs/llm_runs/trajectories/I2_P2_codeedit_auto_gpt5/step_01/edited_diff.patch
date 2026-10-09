@@ -1,0 +1,64 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,52 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Normalize and adjust pairwise co-enrollment counts, then apply requested increase for (4, 9) and (9, 4).
++    raw_pair_counts = data.get("pair_counts") or {}
++    pair_counts: Dict[tuple[int, int], float] = {}
++
++    def _parse_pair_key(key: Any) -> tuple[int, int] | None:
++        if isinstance(key, tuple) and len(key) == 2:
++            try:
++                return int(key[0]), int(key[1])
++            except Exception:
++                return None
++        if isinstance(key, str):
++            ks = key.strip()
++            if ks.startswith("(") and ks.endswith(")"):
++                ks = ks[1:-1]
++            parts = [p.strip() for p in ks.split(",")]
++            if len(parts) == 2:
++                try:
++                    return int(parts[0]), int(parts[1])
++                except Exception:
++                    return None
++        return None
++
++    if isinstance(raw_pair_counts, dict):
++        for k, v in raw_pair_counts.items():
++            # Some instances wrap data with keys like "count" and "preview"; merge preview if present.
++            if k == "preview" and isinstance(v, dict):
++                for pk, pv in v.items():
++                    parsed = _parse_pair_key(pk)
++                    if parsed is not None:
++                        try:
++                            pair_counts[parsed] = float(pv)
++                        except Exception:
++                            pass
++                continue
++            parsed = _parse_pair_key(k)
++            if parsed is not None:
++                try:
++                    pair_counts[parsed] = float(v)
++                except Exception:
++                    pass
++
++    # Apply the requested symmetric increase by +120 for blocks 4 and 9.
++    for a, b in ((4, 9), (9, 4)):
++        pair_counts[(a, b)] = float(pair_counts.get((a, b), 0.0)) + 120.0
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,7 +248,7 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
++        p=pair_counts,
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],

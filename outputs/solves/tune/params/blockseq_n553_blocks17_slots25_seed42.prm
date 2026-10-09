@@ -1,0 +1,6 @@
+MIPGap  0.01
+Threads  8
+SimplexPricing  3
+MIPFocus  2
+NoRelHeurTime  900
+RINS  2500

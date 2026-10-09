@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is structural but reuse-friendly (expected reuse high). Warm start is available via heuristic (no base/prior result for direct warm start), and tuned solving is supported. Heuristic warm start plus tuned configuration provides the fastest safe reoptimization given the lack of a prior direct warm start, outperforming warm-only and avoiding the overhead of adding an ineffective direct warm step.",
+  "confidence": 0.82
+}

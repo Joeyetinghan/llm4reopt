@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit introduces a new constraint affecting how large exams are scheduled with respect to the time slots, which requires the solver to respect these semantics and potentially adjust many assignments. Warm start is not heuristically available, model-edit is flagged as non-projectable, and tuned solving is supported. Therefore, the fastest safe approach is to use the tuned configuration, which will likely yield higher performance than a direct solve without warm start.",
+  "confidence": 0.98
+}

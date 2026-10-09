@@ -1,0 +1,487 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "early_slots"
+      },
+      "update": {
+        "name": "early_slots",
+        "value": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_CONSTRAINT_LHS",
+      "scope": {},
+      "target": {
+        "constraint": "frontload"
+      },
+      "update": {
+        "lhs_spec": {
+          "kind": "exam_x_aggregate",
+          "rows": {
+            "1": {
+              "fixed_block": 1,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "10": {
+              "fixed_block": 10,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "11": {
+              "fixed_block": 11,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "12": {
+              "fixed_block": 12,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "13": {
+              "fixed_block": 13,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "14": {
+              "fixed_block": 14,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "15": {
+              "fixed_block": 15,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "16": {
+              "fixed_block": 16,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "17": {
+              "fixed_block": 17,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "2": {
+              "fixed_block": 2,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "3": {
+              "fixed_block": 3,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "4": {
+              "fixed_block": 4,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "5": {
+              "fixed_block": 5,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "6": {
+              "fixed_block": 6,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "8": {
+              "fixed_block": 8,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            },
+            "9": {
+              "fixed_block": 9,
+              "slots": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 9468.0,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 3,
+    "10": 14,
+    "11": 13,
+    "12": 5,
+    "13": 15,
+    "14": 1,
+    "15": 2,
+    "16": 7,
+    "17": 16,
+    "18": 24,
+    "19": 20,
+    "2": 8,
+    "20": 22,
+    "21": 25,
+    "22": 21,
+    "23": 19,
+    "24": 17,
+    "25": 18,
+    "3": 6,
+    "4": 4,
+    "5": 12,
+    "6": 9,
+    "7": 23,
+    "8": 10,
+    "9": 11
+  },
+  "solve_meta": {
+    "mip_gap": 0.33090409801436416,
+    "obj_bound": 6335.0,
+    "objective": 9468.0,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.124552965164,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Tighten front-loading so that exams with over 300 students (large_blocks) are only assigned to slots before the 17th slot (slots 1\u201316), ensuring TAs have time for grading.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "frontload",
+        "large_blocks",
+        "early_slots",
+        "block_enrollment"
+      ],
+      "selector_confidence": 0.98,
+      "selector_model": "gpt-4.1",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Ensure all large exams with over 300 students are completed before the 17th time slot to allow teaching assistants sufficient grading time.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Tighten front-loading so that exams with over 300 students (large_blocks) are only assigned to slots before the 17th slot (slots 1\\u201316), ensuring TAs have time for grading.\",\n    \"planning_hints\": {\n      \"edit_scope\": \"local\",\n      \"expected_reuse\": \"high\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"frontload\",\n      \"large_blocks\",\n      \"early_slots\",\n      \"block_enrollment\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 1,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The edit is local, reuse is expected to be high, and the change is front-loading large exams to early slots. Both heuristic warm start and tuned solving are available in the toolbox. Combining these leverages the reusable warm start for efficiency and the tuned solver for optimality and safety. This is faster and safer than a pure scratch or direct solve, and matches the toolbox capabilities. Warm reuse plus tuning is preferred to warm alone when tuned solving is available and edits are local.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The edit is local, reuse is expected to be high, and the change is front-loading large exams to early slots. Both heuristic warm start and tuned solving are available in the toolbox. Combining these leverages the reusable warm start for efficiency and the tuned solver for optimality and safety. This is faster and safer than a pure scratch or direct solve, and matches the toolbox capabilities. Warm reuse plus tuning is preferred to warm alone when tuned solving is available and edits are local.\",\n  \"confidence\": 0.98\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

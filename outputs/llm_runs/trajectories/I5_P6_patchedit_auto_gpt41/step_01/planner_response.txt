@@ -1,0 +1,65 @@
+{
+  "edit_summary": "Apply updates P4, then P2, then P1 in order: (P4) reserve penultimate evening slot for a virtual block, (P2) add block pairwise penalty override p[3,8]=7.0, p[8,3]=7.0, (P1) increase alpha penalty weight by 5.",
+  "affected_sets": {
+    "slots": [20],
+    "blocks": [3, 8]
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "reserved_slots",
+    "p",
+    "alpha"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "reserved_slots"},
+          "update": {"name": "reserved_slots", "value": [20]},
+          "notes": "Reserve slot 20 (penultimate evening slot) for a virtual block."
+        },
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [20],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 20,
+                "virtual_block": 17
+              },
+              "rhs_spec": { "20": 1 },
+              "sense": "="
+            }
+          },
+          "notes": "Enforce that virtual block 17 is assigned to reserved slot 20."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "p"},
+          "update": {"name": "p", "key": [3, 8], "value": 7.0},
+          "notes": "Apply pairwise penalty override for (3,8)."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "p"},
+          "update": {"name": "p", "key": [8, 3], "value": 7.0},
+          "notes": "Apply pairwise penalty override for (8,3)."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {"objective": "alpha"},
+          "update": {"delta": 5.0},
+          "notes": "Increase alpha penalty weight by 5."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

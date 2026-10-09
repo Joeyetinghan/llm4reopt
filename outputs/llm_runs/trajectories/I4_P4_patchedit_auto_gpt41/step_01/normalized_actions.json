@@ -1,0 +1,32 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "beta"
+        },
+        "update": {
+          "name": "beta",
+          "value": 20.0
+        }
+      },
+      {
+        "notes": "Update objective weight for beta to match the parameter value, ensuring the objective term is scaled.",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

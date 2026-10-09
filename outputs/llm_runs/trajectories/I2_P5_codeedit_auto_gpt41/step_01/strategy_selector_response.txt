@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The planner projects the edit as a local constraint addition—well suited for warm start reuse. With tuned solving supported and available, combining heuristic warm start with tuned configuration is the fastest safe reoptimization strategy for this case, leveraging reusable solutions specific to slot_load_cap edits and maximizing solve speed and robustness.",
+  "confidence": 0.98
+}

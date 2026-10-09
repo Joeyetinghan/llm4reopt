@@ -1,0 +1,10 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local and has high expected reuse, making it friendly for warm starts. The runtime supports both warm starts and tuned solving, and the available inventory provides both warm start options and a tuned configuration. The default execution label in this context is also 'direct+heuristic+tuned', indicating this is optimized for the fastest and safest solve. Using all available warm start mechanisms with tuned solving maximizes reuse and robustness for local edits.",
+  "confidence": 1
+}

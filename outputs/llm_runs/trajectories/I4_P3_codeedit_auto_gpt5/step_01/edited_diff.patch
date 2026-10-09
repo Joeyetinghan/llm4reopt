@@ -1,0 +1,27 @@
+--- solver.py
++++ solver.py
+@@ -194,8 +194,14 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Enforce the request: all large exams (>300) must be completed before slot 19.
++    # We honor this via the existing frontload mechanism by restricting early_slots to slots < 19.
++    blocks_list = [int(block) for block in data["blocks"]]
++    early_slots_before_19 = [s for s in blocks_list if s < 19]
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
++        blocks=blocks_list,
+         slots_per_day=int(data["slots_per_day"]),
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+@@ -205,7 +211,7 @@
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        early_slots=early_slots_before_19,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

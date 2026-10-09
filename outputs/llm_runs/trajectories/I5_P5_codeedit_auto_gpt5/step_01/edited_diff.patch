@@ -1,0 +1,59 @@
+--- solver.py
++++ solver.py
+@@ -26,10 +26,10 @@
+     t: Dict[tuple[int, int, int], float] | None = None,
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
++    block_enrollment: Dict[int, float] | None = None,
+     time_limit: float | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+-    del slots_per_day
+     slots = list(blocks)
+     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]
+     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]
+@@ -39,6 +39,7 @@
+     triple_slots = sorted(list(triple_day_start) + list(triple_24_start))
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
++    enroll = {int(k): float(v) for k, v in (block_enrollment or {}).items()}
+ 
+     alpha = float(weights.get("alpha", 10.0))
+     beta = float(weights.get("beta", 10.0))
+@@ -136,6 +137,28 @@
+             ),
+             name="frontload",
+         )
++
++    # Day 2 total enrollment cap: sum of enrollments across Day 2 slots <= 4000
++    # Identify Day 2 slots using slots_per_day and the slots list.
++    if slots_per_day and slots_per_day > 0:
++        day2_start_idx = (2 - 1) * int(slots_per_day)  # zero-based index into slots list
++        d2_slots = [
++            slots[day2_start_idx + offset]
++            for offset in range(int(slots_per_day))
++            if (day2_start_idx + offset) < len(slots)
++        ]
++        if d2_slots:
++            m.addConstr(
++                gp.quicksum(
++                    float(enroll.get(i, 0.0)) * x[i, j, k, s]
++                    for s in d2_slots
++                    for i in blocks
++                    for j in blocks
++                    for k in blocks
++                )
++                <= 4000.0,
++                name="cap_day2_enrollment",
++            )
+ 
+     objective = (
+         gp.quicksum(
+@@ -206,6 +229,7 @@
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        block_enrollment={int(k): float(v) for k, v in (data.get("block_enrollment") or {}).items()},
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

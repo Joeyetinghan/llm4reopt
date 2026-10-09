@@ -1,0 +1,249 @@
+
+Gurobi 13.0.1 (linux64) logging started Sun Apr 26 23:53:19 2026
+
+Set parameter LogFile to value "outputs/llm_runs/trajectories/I3_P5_patchedit_auto_gpt41/step_01/attempt_01/candidate_01_solver.log"
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Red Hat Enterprise Linux 9.6 (Plow)")
+
+CPU model: Intel(R) Xeon(R) Gold 6226 CPU @ 2.70GHz, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 24 physical cores, 24 logical processors, using up to 6 threads
+
+Non-default parameters:
+TimeLimit  3600
+MIPGap  0.01
+SimplexPricing  3
+MIPFocus  2
+NoRelHeurTime  900
+RINS  2500
+LogToConsole  0
+Threads  6
+
+Optimize a model with 468867 rows, 796875 columns and 4179350 nonzeros (Min)
+Model fingerprint: 0x520e4803
+Model has 333584 linear objective coefficients
+Variable types: 0 continuous, 796875 integer (796875 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+03]
+  Objective range  [5e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 4e+03]
+
+Presolve removed 314630 rows and 325267 columns (presolve time = 5s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 10s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 15s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 20s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 27s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 33s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 38s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 43s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 48s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 54s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 59s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 64s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 70s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 75s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 80s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 85s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 91s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 96s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 101s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 106s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 112s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 117s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 122s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 127s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 133s)...
+Presolve removed 315174 rows and 333699 columns (presolve time = 138s)...
+Presolve removed 315174 rows and 335043 columns (presolve time = 169s)...
+Presolve removed 315174 rows and 335043 columns (presolve time = 170s)...
+Presolve removed 315174 rows and 335043 columns
+Presolve time: 174.77s
+Presolved: 153693 rows, 461832 columns, 2103656 nonzeros
+Variable types: 0 continuous, 461832 integer (461832 binary)
+Starting NoRel heuristic
+Found phase-1 solution: relaxation 55
+Elapsed time for NoRel heuristic: 9s (best bound 0)
+Elapsed time for NoRel heuristic: 19s (best bound 0)
+Elapsed time for NoRel heuristic: 31s (best bound 0)
+Elapsed time for NoRel heuristic: 47s (best bound 0)
+Elapsed time for NoRel heuristic: 59s (best bound 0)
+Elapsed time for NoRel heuristic: 72s (best bound 0)
+Elapsed time for NoRel heuristic: 90s (best bound 0)
+Found heuristic solution: objective 5377.0000000
+Found heuristic solution: objective 5299.0000000
+Found heuristic solution: objective 5224.0000000
+Transition to phase 2
+Elapsed time for NoRel heuristic: 115s (best bound 0)
+Found heuristic solution: objective 5170.0000000
+Elapsed time for NoRel heuristic: 128s (best bound 0)
+Elapsed time for NoRel heuristic: 134s (best bound 0)
+Found heuristic solution: objective 5123.0000000
+Found heuristic solution: objective 4960.0000000
+Found heuristic solution: objective 4907.0000000
+Elapsed time for NoRel heuristic: 147s (best bound 0)
+Elapsed time for NoRel heuristic: 160s (best bound 0)
+Elapsed time for NoRel heuristic: 175s (best bound 0)
+Elapsed time for NoRel heuristic: 183s (best bound 0)
+Elapsed time for NoRel heuristic: 189s (best bound 0)
+Found heuristic solution: objective 4784.0000000
+Found heuristic solution: objective 4771.0000000
+Found heuristic solution: objective 4702.0000000
+Elapsed time for NoRel heuristic: 228s (best bound 0)
+Elapsed time for NoRel heuristic: 253s (best bound 0)
+Found heuristic solution: objective 4655.0000000
+Elapsed time for NoRel heuristic: 265s (best bound 0)
+Found heuristic solution: objective 4654.0000000
+Found heuristic solution: objective 4594.0000000
+Elapsed time for NoRel heuristic: 284s (best bound 0)
+Elapsed time for NoRel heuristic: 310s (best bound 0)
+Found heuristic solution: objective 4584.0000000
+Found heuristic solution: objective 4577.0000000
+Elapsed time for NoRel heuristic: 330s (best bound 0)
+Elapsed time for NoRel heuristic: 360s (best bound 0)
+Found heuristic solution: objective 4569.0000000
+Elapsed time for NoRel heuristic: 382s (best bound 0)
+Found heuristic solution: objective 4562.0000000
+Elapsed time for NoRel heuristic: 409s (best bound 0)
+Found heuristic solution: objective 4502.0000000
+Found heuristic solution: objective 4473.0000000
+Elapsed time for NoRel heuristic: 454s (best bound 0)
+Found heuristic solution: objective 4440.0000000
+Elapsed time for NoRel heuristic: 475s (best bound 0)
+Elapsed time for NoRel heuristic: 503s (best bound 0)
+Found heuristic solution: objective 4386.0000000
+Elapsed time for NoRel heuristic: 528s (best bound 0)
+Found heuristic solution: objective 4326.0000000
+Elapsed time for NoRel heuristic: 558s (best bound 0)
+Elapsed time for NoRel heuristic: 588s (best bound 0)
+Elapsed time for NoRel heuristic: 618s (best bound 0)
+Elapsed time for NoRel heuristic: 649s (best bound 0)
+Found heuristic solution: objective 4288.0000000
+Elapsed time for NoRel heuristic: 766s (best bound 0)
+Elapsed time for NoRel heuristic: 826s (best bound 0)
+Elapsed time for NoRel heuristic: 858s (best bound 0)
+Found heuristic solution: objective 4223.0000000
+Elapsed time for NoRel heuristic: 909s (best bound 0)
+NoRel heuristic complete
+Root relaxation presolve removed 1 rows and 0 columns
+Root relaxation presolved: 153692 rows, 461832 columns, 2091200 nonzeros
+
+Deterministic concurrent LP optimizer: primal simplex, dual simplex, and barrier
+Showing barrier log only...
+
+Root barrier log...
+
+Ordering time: 5.88s
+Elapsed ordering time = 6s
+Elapsed ordering time = 10s
+Elapsed ordering time = 10s
+Elapsed ordering time = 12s
+Elapsed ordering time = 14s
+Elapsed ordering time = 15s
+Elapsed ordering time = 16s
+Ordering time: 17.30s
+
+Barrier statistics:
+ Dense cols : 5115
+ AA' NZ     : 1.369e+06
+ Factor NZ  : 8.412e+07 (roughly 800 MB of memory)
+ Factor Ops : 5.629e+11 (roughly 4 seconds per iteration)
+ Threads    : 4
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   1.68513393e+08 -1.10164600e+08  7.83e+03 0.00e+00  1.75e+03  1114s
+   1   1.05975713e+08 -8.77400158e+07  4.50e+03 2.89e+02  9.34e+02  1114s
+   2   3.63093863e+07 -5.63637209e+07  1.07e+03 7.81e+01  2.90e+02  1114s
+   3   1.42549285e+07 -1.30517505e+07  2.54e+02 9.09e-13  6.59e+01  1114s
+   4   8.90357222e+06 -2.96766755e+06  1.38e+02 9.09e-13  3.00e+01  1114s
+   5   3.42356407e+06 -1.10124604e+06  5.02e+01 9.09e-13  1.15e+01  1114s
+   6   1.99146655e+06 -3.72663352e+05  2.81e+01 1.14e-12  6.44e+00  1114s
+   7   8.68736753e+05 -1.88042894e+05  1.19e+01 1.14e-12  2.84e+00  1114s
+   8   3.69945900e+05 -9.95564401e+04  4.95e+00 9.09e-13  1.23e+00  1114s
+   9   1.47944310e+05 -6.78734525e+04  1.89e+00 9.09e-13  5.21e-01  1114s
+  10   7.56269171e+04 -4.65893208e+04  8.95e-01 9.09e-13  2.71e-01  1114s
+  11   4.01765321e+04 -2.89452597e+04  4.26e-01 9.09e-13  1.41e-01  1115s
+  12   2.87436177e+04 -2.34017330e+04  2.81e-01 9.09e-13  1.02e-01  1115s
+  13   2.37880106e+04 -1.88546381e+04  2.20e-01 1.14e-12  8.10e-02  1115s
+  14   1.60655695e+04 -1.15615356e+04  1.26e-01 1.59e-12  4.98e-02  1115s
+  15   1.16320726e+04 -5.80417609e+03  7.35e-02 2.05e-12  3.03e-02  1115s
+  16   8.55654975e+03 -2.36930448e+03  4.10e-02 1.82e-12  1.84e-02  1115s
+  17   6.30682592e+03 -3.10138012e+02  1.85e-02 1.82e-12  1.09e-02  1115s
+  18   5.21164329e+03  5.20026034e+02  9.33e-03 2.27e-12  7.59e-03  1116s
+  19   4.44411756e+03  1.29053503e+03  4.36e-03 1.59e-12  5.03e-03  1116s
+  20   3.86406562e+03  2.31571787e+03  1.41e-03 1.82e-12  2.44e-03  1116s
+  21   3.53503114e+03  3.02234847e+03  3.64e-04 1.70e-06  8.03e-04  1119s
+  22   3.36735790e+03  3.22649929e+03  2.24e-05 5.56e-07  2.16e-04  1123s
+  23   3.34003805e+03  3.30771191e+03  1.88e-06 1.31e-07  4.94e-05  1127s
+  24   3.33504865e+03  3.33136588e+03  7.42e-08 1.26e-08  5.62e-06  1131s
+  25   3.33438876e+03  3.33436358e+03  2.27e-09 1.35e-09  4.04e-08  1135s
+  26   3.33437502e+03  3.33437499e+03  2.39e-10 1.25e-10  4.04e-11  1139s
+
+Barrier solved model in 26 iterations and 1138.79 seconds (602.84 work units)
+Optimal objective 3.33437502e+03
+
+
+Root crossover log...
+
+   15372 DPushes remaining with DInf 0.0000000e+00              1139s
+     361 DPushes remaining with DInf 0.0000000e+00              1140s
+       0 DPushes remaining with DInf 0.0000000e+00              1142s
+
+    4112 PPushes remaining with PInf 0.0000000e+00              1142s
+       0 PPushes remaining with PInf 0.0000000e+00              1143s
+
+  Push phase complete: Pinf 0.0000000e+00, Dinf 7.6553306e-09   1143s
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   19420    3.3343750e+03   0.000000e+00   0.000000e+00   1143s
+Crossover time: 4.06 seconds (1.96 work units)
+Concurrent spin time: 0.04s
+
+Solved with barrier
+   19420    3.3343750e+03   0.000000e+00   0.000000e+00   1143s
+
+Use crossover to convert LP symmetric solution to basic solution...
+
+Root crossover log...
+
+   13205 DPushes remaining with DInf 0.0000000e+00              1144s
+     401 DPushes remaining with DInf 0.0000000e+00              1145s
+       0 DPushes remaining with DInf 0.0000000e+00              1149s
+
+     256 PPushes remaining with PInf 0.0000000e+00              1149s
+       0 PPushes remaining with PInf 0.0000000e+00              1149s
+
+  Push phase complete: Pinf 0.0000000e+00, Dinf 4.4649937e-09   1149s
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   32772    3.3343750e+03   0.000000e+00   0.000000e+00   1149s
+Crossover time: 6.30 seconds (4.29 work units)
+   32772    3.3343750e+03   0.000000e+00   0.000000e+00   1150s
+
+Root relaxation: objective 3.334375e+03, 32772 iterations, 63.64 seconds (42.75 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 3334.37500    0  497 4223.00000 3334.37500  21.0%     - 1525s
+     0     0          -    0      4223.00000 3334.37500  21.0%     - 3600s
+
+Cutting planes:
+  Implied bound: 12
+  Flow cover: 21
+  Zero half: 22
+  RLT: 19
+  BQP: 5
+
+Explored 1 nodes (243527 simplex iterations) in 3600.10 seconds (2894.99 work units)
+Thread count was 6 (of 24 available processors)
+
+Solution count 10: 4223 4288 4326 ... 4577
+
+Time limit reached
+Best objective 4.223000000000e+03, best bound 3.335000000000e+03, gap 21.0277%

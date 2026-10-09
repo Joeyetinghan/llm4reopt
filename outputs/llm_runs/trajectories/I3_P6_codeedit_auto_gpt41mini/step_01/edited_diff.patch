@@ -1,0 +1,46 @@
+--- solver.py
++++ solver.py
+@@ -137,6 +137,9 @@
+             name="frontload",
+         )
+ 
++    # P4: Remove triple_24_start slots from triple_day_start to avoid double counting
++    triple_day_start_filtered = [s for s in triple_day_start if s not in triple_24_start]
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -157,7 +160,7 @@
+             for i in blocks
+             for j in blocks
+             for k in blocks
+-            for s in triple_day_start
++            for s in triple_day_start_filtered
+         )
+         + gp.quicksum(
+             beta * float(triplet_penalties.get((i, j, k), 0.0)) * x[i, j, k, s]
+@@ -194,6 +197,15 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # P2: Increase alpha weight by 5, beta weight by 3, gamma1 by 2, gamma2 by 1, delta by 4
++    weights = dict(data["weights"])
++    weights["alpha"] = weights.get("alpha", 10.0) + 5.0
++    weights["beta"] = weights.get("beta", 10.0) + 3.0
++    weights["gamma1"] = weights.get("gamma1", 1.0) + 2.0
++    weights["gamma2"] = weights.get("gamma2", 1.0) + 1.0
++    weights["delta"] = weights.get("delta", 5.0) + 4.0
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -201,7 +213,7 @@
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
++        weights=weights,
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],

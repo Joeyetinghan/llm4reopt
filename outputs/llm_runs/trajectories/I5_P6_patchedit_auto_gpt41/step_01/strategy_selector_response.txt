@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structurally significant but expected reuse is high and heuristic warm start is available. Using 'heuristic+tuned' leverages heuristic-based reuse and tuned solving for reliable performance. This approach is faster and safer than a full scratch solve, and preferable to direct methods when reuse can be leveraged for structural changes.",
+  "confidence": 0.95
+}

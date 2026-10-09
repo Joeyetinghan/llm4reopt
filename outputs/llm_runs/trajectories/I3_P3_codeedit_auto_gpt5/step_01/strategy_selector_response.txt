@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The change is model-effective (adds/adjusts scheduling constraints) and the planner could not provide a reliable warm start. There is no prior result to reuse, and heuristic warm start is unavailable, making warm reuse fragile. The runtime supports tuned solving, which is likely to adapt faster to the new constraint than a plain direct run. Choosing tuned avoids the extra overhead of a direct+follow-up run while remaining safe and fast for this kind of edit.",
+  "confidence": 0.74
+}

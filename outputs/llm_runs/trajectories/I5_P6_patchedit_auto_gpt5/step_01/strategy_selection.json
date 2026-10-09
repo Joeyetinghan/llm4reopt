@@ -1,0 +1,47 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'reuse_expected': True}}\"",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 0,
+    "planner_edit_summary": "Cannot apply updates P4, P2, P1 because their specific contents were not provided; no executable patches can be constructed.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "note": "Provide the concrete changes for P4, P2, and P1 (e.g., weight adjustments, slot reservations, frontloading edits) to generate executable patches in the requested order.",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "requires_content": [
+        "P4",
+        "P2",
+        "P1"
+      ]
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [],
+    "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'reuse_expected': True}}\"",
+    "selector_model": "gpt-5",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

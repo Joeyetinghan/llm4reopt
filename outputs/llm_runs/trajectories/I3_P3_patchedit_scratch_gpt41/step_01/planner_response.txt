@@ -1,0 +1,32 @@
+{
+  "edit_summary": "Tighten front-loading so that exams with over 300 students (large_blocks) are only assigned to slots before the 17th slot (slots 1–16), ensuring TAs have time for grading.",
+  "affected_sets": {
+    "large_blocks": "blocks with enrollment > 300",
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  },
+  "relevant_components": [
+    "frontload",
+    "large_blocks",
+    "early_slots",
+    "block_enrollment"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "early_slots"},
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+          },
+          "notes": "Restricts front-loading for large blocks (enrollment > 300) to slots 1–16, i.e., before the 17th slot."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

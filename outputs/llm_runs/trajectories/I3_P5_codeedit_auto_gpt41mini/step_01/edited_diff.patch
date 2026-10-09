@@ -1,0 +1,58 @@
+--- solver.py
++++ solver.py
+@@ -27,6 +27,8 @@
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
+     time_limit: float | None = None,
++    block_enrollment: dict[int, int] | None = None,
++    day2_slots: list[int] | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+     del slots_per_day
+@@ -137,6 +139,17 @@
+             name="frontload",
+         )
+ 
++    # Add constraint to limit total students on Day 2 to max 4000
++    # Day 2 slots: slots_per_day=3, so slots 4,5,6 (1-based indexing)
++    day2_slots = [4, 5, 6]
++    block_enrollment = {int(k): v for k, v in m._block_enrollment.items()} if hasattr(m, "_block_enrollment") else {}
++    # We will add a constraint sum over i in blocks, s in day2_slots of block_enrollment[i] * x[i, *, *, s] <= 4000
++    # But x[i,j,k,s] has i as block in slot s, so sum over j,k for each i,s
++    # We need block_enrollment from runtime_data, so we will pass it as an attribute on the model before calling build_exam_gurobi_model
++    # Instead, we will add a parameter block_enrollment to the function and use it here.
++
++    # This requires changing the function signature and solve_exam_direct to pass block_enrollment
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,9 +207,18 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Compute day 2 slots from slots_per_day and slot_times
++    slots_per_day = int(data["slots_per_day"])
++    # Day 2 slots are slots_per_day * (day_index - 1) + 1 to slots_per_day * day_index, day_index=2
++    day2_slots = list(range(slots_per_day + 1, 2 * slots_per_day + 1))
++
++    # Extract block_enrollment from runtime_data
++    block_enrollment = {int(k): v for k, v in data.get("block_enrollment", {}).items()}
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -207,6 +229,8 @@
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
++        block_enrollment=block_enrollment,
++        day2_slots=day2_slots,
+     )
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)

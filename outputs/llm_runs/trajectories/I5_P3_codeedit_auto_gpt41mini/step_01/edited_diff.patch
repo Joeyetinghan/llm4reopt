@@ -1,0 +1,30 @@
+--- solver.py
++++ solver.py
+@@ -135,6 +135,27 @@
+                 for i in frontload_blocks
+             ),
+             name="frontload",
++        )
++
++    # New constraint: large exams with enrollment > 300 must be scheduled before slot 15
++    large_exam_cutoff = 300
++    cutoff_slot = 15
++    block_enrollment = {int(k): v for k, v in (weights.get("block_enrollment", {}) or {}).items()}
++    large_exams = [b for b in frontload_blocks if block_enrollment.get(b, 0) > large_exam_cutoff]
++    if large_exams:
++        early_slots_for_large = [s for s in slots if s < cutoff_slot]
++        m.addConstrs(
++            (
++                gp.quicksum(
++                    x[i, j, k, s]
++                    for j in blocks
++                    for k in blocks
++                    for s in early_slots_for_large
++                )
++                == 1
++                for i in large_exams
++            ),
++            name="large_exam_early_slot",
+         )
+ 
+     objective = (

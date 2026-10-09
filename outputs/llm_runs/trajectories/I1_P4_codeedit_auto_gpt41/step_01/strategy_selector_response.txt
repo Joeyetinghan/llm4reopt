@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit increases the penalty weight for a specific exam conflict scenario, a soft constraint/objective weight update. This is a non-structural and localized change, which is well-suited to warm start re-use. Both heuristic warm start and tuned solving are available. According to the runtime context, tuned solving is supported and can improve convergence and solution quality. Thus, heuristic+warmed startup followed by a tuned solve ('heuristic+tuned') is fastest and safest according to allowed strategies.",
+  "confidence": 0.98
+}

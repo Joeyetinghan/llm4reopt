@@ -1,0 +1,94 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": {
+    "steps": [
+      {
+        "action": "patch",
+        "details": {
+          "apply_delta_text": "Ensure all large exams with over 300 students are completed before the 19th time slot to allow teaching assistants sufficient grading time.",
+          "planner_summary": {
+            "edit_summary": "Front-load all large exams (>300 students) to slots 1–18 so they are completed before the 19th slot.",
+            "relevant_components": [
+              "frontload",
+              "early_slots",
+              "frontload_slot_cutoff",
+              "large_blocks"
+            ]
+          },
+          "param_updates": {
+            "frontload_slot_cutoff": 18,
+            "large_blocks_threshold": 300
+          }
+        }
+      },
+      {
+        "tool": "heuristic_warm_start",
+        "with": {
+          "seed_policy": "frontload_large_first",
+          "large_blocks_threshold": 300,
+          "early_slot_cutoff": 18,
+          "tie_breaking": "min_conflict_then_earliest_slot",
+          "respect_existing_assignments": true,
+          "max_runtime_s": 15
+        },
+        "export_as": "warm_start_seed"
+      },
+      {
+        "tool": "tuned_config",
+        "with": {
+          "profile": "reopt_local_frontload",
+          "mip_emphasis": "feasibility",
+          "cuts": "auto",
+          "heuristics": "aggressive",
+          "polishing": "on",
+          "time_limit_s": 180,
+          "gap_target": 0.0,
+          "use_warm_start": "warm_start_seed"
+        },
+        "export_as": "tuned_solver_profile"
+      },
+      {
+        "action": "solve",
+        "details": {
+          "use": "tuned_solver_profile",
+          "warm_start": "warm_start_seed",
+          "failover": {
+            "on_infeasible_or_no_improve": {
+              "retry": [
+                {
+                  "tool": "heuristic_warm_start",
+                  "with": {
+                    "seed_policy": "frontload_large_strict",
+                    "large_blocks_threshold": 300,
+                    "early_slot_cutoff": 18,
+                    "penalize_late_large_weight": 10.0,
+                    "max_runtime_s": 10
+                  },
+                  "export_as": "warm_start_seed_v2"
+                },
+                {
+                  "action": "solve",
+                  "details": {
+                    "use": "tuned_solver_profile",
+                    "warm_start": "warm_start_seed_v2"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "action": "validate",
+        "details": {
+          "checks": [
+            "no_exam_with_enrollment_gt_300_assigned_to_slot_ge_19"
+          ],
+          "on_failure": "report_and_abort"
+        }
+      }
+    ]
+  },
+  "rationale": "The change is a local, reuse-friendly constraint adjustment (front-loading large exams before slot 19). There is no prior base solution to reuse directly, but a heuristic warm start is available and the tuned solver is supported. Choosing heuristic+tuned provides a fast, safe reoptimization path: seed a high-quality schedule that respects the new front-load requirement and then use the tuned configuration to quickly converge to feasibility and optimality under the updated constraints. This avoids the extra overhead of an initial direct pass while leveraging tuned parameters for robustness.",
+  "confidence": 0.82
+}

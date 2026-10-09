@@ -1,0 +1,650 @@
+{
+  "base_objective": 5338.0,
+  "chosen_patch_op": "ADD_CONSTRAINT_FAMILY",
+  "cost_delta": 1038.0,
+  "error": "",
+  "execution_label": "scratch",
+  "failure_detail": null,
+  "failure_label": null,
+  "failure_stage": null,
+  "feasible": true,
+  "ground_truth": null,
+  "input": {
+    "case_id": "P1",
+    "config": {
+      "instance_dir": "benchmark/raw_instances/blockseq_n544_blocks20_slots24_seed42",
+      "log_dir": "outputs/solves/base",
+      "model_failure_retry_budget": 3,
+      "prompt_id": "P1",
+      "real_blocks": null,
+      "slot_times": [
+        "9am",
+        "2pm",
+        "7pm"
+      ],
+      "slots_per_day": 3,
+      "solution_dir": "outputs/solves/base",
+      "threads": 6,
+      "time_limit": 3600,
+      "tuned_param_dir": "outputs/solves/tune/params",
+      "weights": {}
+    },
+    "config_path": "problems/exam_block_seq/configs/default.yaml",
+    "delta_text": "Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.",
+    "examples_path": null,
+    "model": "gpt-4.1-mini",
+    "planner_mode": "patchedit",
+    "problem": "exam_block_seq",
+    "problem_root": null,
+    "prompt_id": "P1",
+    "strategy": "scratch",
+    "strategy_policy": "rule",
+    "strategy_selector_model": null,
+    "trace_root": "outputs/llm_runs/trajectories/I1_P1_patchedit_scratch_gpt41mini"
+  },
+  "instance_id": "I1",
+  "llm_trace": [],
+  "metadata": {
+    "campaign_id": "paper_full_gpt_3600s",
+    "campaign_stage": "full",
+    "instance_id": "I1",
+    "job_name": "I1_patchedit_auto_gpt41mini_prompts_P1",
+    "prompt_batch_count": 6,
+    "prompt_batch_index": 1,
+    "prompt_id": "P1",
+    "prompt_source": "catalog",
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+    "replay_source_run_id": "I1_P1_patchedit_auto_gpt41mini",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/step_01",
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+    "replayed_from_run_id": "I1_P1_patchedit_auto_gpt41mini",
+    "run_mode": "patchedit-scratch-replay"
+  },
+  "mip_gap": 0.37672521957340027,
+  "model": "gpt-4.1-mini",
+  "obj_bound": 3974.0,
+  "objective": 6376.0,
+  "planner_mode": "patchedit",
+  "problem": "exam_block_seq",
+  "problem_name": "Exam Block Sequencing",
+  "prompt_id": "P1",
+  "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+  "replay_source_run_id": "I1_P1_patchedit_auto_gpt41mini",
+  "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/step_01",
+  "result": {
+    "base_evaluation": {
+      "checks": {
+        "has_solution": true
+      },
+      "details": {
+        "log_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.log",
+        "mip_gap": 0.247846,
+        "obj_bound": 4015.0,
+        "phase": "base",
+        "runtime": 86400.09,
+        "solution_count": 10,
+        "solution_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.sol",
+        "source": "saved_base_artifacts",
+        "status": 9
+      },
+      "feasible": true,
+      "ground_truth_case_id": null,
+      "ground_truth_checks": {},
+      "ground_truth_details": {},
+      "matches_ground_truth": null,
+      "objective": 5338.0,
+      "runtime": 86400.09,
+      "status": 9
+    },
+    "base_objective": 5338.0,
+    "base_solution": {
+      "1": 2,
+      "10": 4,
+      "11": 3,
+      "12": 7,
+      "13": 19,
+      "14": 15,
+      "15": 17,
+      "16": 9,
+      "17": 1,
+      "18": 6,
+      "19": 13,
+      "2": 16,
+      "20": 21,
+      "21": 22,
+      "22": 5,
+      "23": 24,
+      "24": 14,
+      "3": 12,
+      "4": 20,
+      "5": 8,
+      "6": 10,
+      "7": 18,
+      "8": 23,
+      "9": 11
+    },
+    "base_solve_meta": {
+      "log_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.log",
+      "mip_gap": 0.247846,
+      "obj_bound": 4015.0,
+      "runtime": 86400.09,
+      "solution_count": 10,
+      "solution_path": "outputs/solves/base/blockseq_n544_blocks20_slots24_seed42.sol",
+      "source": "saved_base_artifacts",
+      "status": 9
+    },
+    "mode": "single",
+    "problem": {
+      "description": "Exam scheduling block sequencing problem packaged behind the generic interface.",
+      "name": "Exam Block Sequencing",
+      "package_root": "problems/exam_block_seq",
+      "problem_id": "exam_block_seq"
+    },
+    "steps": [
+      {
+        "action_kind": "patch",
+        "artifacts": {
+          "trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_scratch_gpt41mini/step_01"
+        },
+        "candidate_patches": [
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "reserved_virtual_slot"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                "index_set": [
+                  20
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "20": {
+                      "fixed_block": 21,
+                      "slots": [
+                        20
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "reserved_virtual_slot_family"
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": {
+                  "20": 1.0
+                },
+                "sense": "=",
+                "tags": [
+                  "availability",
+                  "block_seq"
+                ]
+              }
+            }
+          }
+        ],
+        "change_report": "Applied ADD_CONSTRAINT_FAMILY; objective 5338.0000 -> 6376.0000",
+        "chosen_patches": [
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "reserved_virtual_slot"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                "index_set": [
+                  20
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "20": {
+                      "fixed_block": 21,
+                      "slots": [
+                        20
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "reserved_virtual_slot_family"
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": {
+                  "20": 1.0
+                },
+                "sense": "=",
+                "tags": [
+                  "availability",
+                  "block_seq"
+                ]
+              }
+            }
+          }
+        ],
+        "delta_request": "Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.",
+        "evaluation": {
+          "checks": {
+            "has_solution": true
+          },
+          "details": {
+            "mip_gap": 0.37672521957340027,
+            "obj_bound": 3974.0,
+            "objective": 6376.0,
+            "objective_nonzero_coeffs": 439537,
+            "problem_id": "exam_block_seq",
+            "runtime": 3600.0930302143097,
+            "sol_count": 3,
+            "status": 9,
+            "strategy": "scratch",
+            "warm_start_applied": false,
+            "warm_start_mode": "none",
+            "warm_start_source": "none"
+          },
+          "feasible": true,
+          "ground_truth_case_id": null,
+          "ground_truth_checks": {},
+          "ground_truth_details": {},
+          "matches_ground_truth": null,
+          "objective": 6376.0,
+          "runtime": 3600.0930302143097,
+          "status": 9
+        },
+        "event": {
+          "affected_sets": {
+            "reserved_slots": [],
+            "virtual_blocks": [
+              21,
+              22,
+              23,
+              24
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "reserved_slots": [],
+              "virtual_blocks": [
+                21,
+                22,
+                23,
+                24
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Reserve slot 20 (the evening slot immediately before the final evening slot 21) by fixing virtual block 21 there.",
+                    "op": "ADD_CONSTRAINT_FAMILY",
+                    "scope": "local",
+                    "target": {},
+                    "update": {
+                      "constraint": {
+                        "index_set": [
+                          "reserve_slot_before_final_evening"
+                        ],
+                        "lhs_spec": {
+                          "kind": "reserved_virtual_slot",
+                          "slot": 20,
+                          "virtual_block": 21
+                        },
+                        "name": "reserved_virtual_slot",
+                        "rhs_spec": 1,
+                        "sense": "="
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "delta_metadata": {
+              "campaign_id": "paper_full_gpt_3600s",
+              "campaign_stage": "full",
+              "instance_id": "I1",
+              "job_name": "I1_patchedit_auto_gpt41mini_prompts_P1",
+              "prompt_batch_count": 6,
+              "prompt_batch_index": 1,
+              "prompt_id": "P1",
+              "prompt_source": "catalog",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/step_01",
+              "replayed_from_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+              "replayed_from_run_id": "I1_P1_patchedit_auto_gpt41mini",
+              "run_mode": "patchedit-scratch-replay"
+            },
+            "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planner_raw_response": "{\n  \"edit_summary\": \"Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.\",\n  \"affected_sets\": {\n    \"virtual_blocks\": [21, 22, 23, 24],\n    \"reserved_slots\": []\n  },\n  \"relevant_components\": [\n    \"reserved_virtual_slot\",\n    \"reserved_slots\",\n    \"virtual_blocks\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"local\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"reserved_virtual_slot\",\n              \"index_set\": [\"reserve_slot_before_final_evening\"],\n              \"lhs_spec\": {\n                \"kind\": \"reserved_virtual_slot\",\n                \"slot\": 20,\n                \"virtual_block\": 21\n              },\n              \"rhs_spec\": 1,\n              \"sense\": \"=\"\n            }\n          },\n          \"notes\": \"Reserve slot 20 (the evening slot immediately before the final evening slot 21) by fixing virtual block 21 there.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+            "planning_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "reserved_virtual_slot",
+              "reserved_slots",
+              "virtual_blocks"
+            ]
+          },
+          "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.",
+          "event_type": "unknown",
+          "intention": "update",
+          "raw_text": "Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events."
+        },
+        "model_summary": {
+          "artifacts": [
+            "lp_path"
+          ],
+          "extras": [
+            "base_parameters"
+          ],
+          "n_constraints": 8,
+          "n_objectives": 5,
+          "n_variables": 12,
+          "parameter_info": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ],
+          "parameters": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ]
+        },
+        "objective": 6376.0,
+        "planner_output": {
+          "action_kind": "patch",
+          "affected_sets": {
+            "reserved_slots": [],
+            "virtual_blocks": [
+              21,
+              22,
+              23,
+              24
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "reserved_slots": [],
+              "virtual_blocks": [
+                21,
+                22,
+                23,
+                24
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Reserve slot 20 (the evening slot immediately before the final evening slot 21) by fixing virtual block 21 there.",
+                    "op": "ADD_CONSTRAINT_FAMILY",
+                    "scope": "local",
+                    "target": {},
+                    "update": {
+                      "constraint": {
+                        "index_set": [
+                          "reserve_slot_before_final_evening"
+                        ],
+                        "lhs_spec": {
+                          "kind": "reserved_virtual_slot",
+                          "slot": 20,
+                          "virtual_block": 21
+                        },
+                        "name": "reserved_virtual_slot",
+                        "rhs_spec": 1,
+                        "sense": "="
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planning_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "reserved_virtual_slot",
+              "reserved_slots",
+              "virtual_blocks"
+            ],
+            "replayed_from_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+            "replayed_from_run_id": "I1_P1_patchedit_auto_gpt41mini"
+          },
+          "candidate_action_sets": [
+            {
+              "action_kind": "patch",
+              "actions": [
+                {
+                  "notes": "",
+                  "op": "ADD_CONSTRAINT_FAMILY",
+                  "scope": {},
+                  "target": {
+                    "constraint": "reserved_virtual_slot"
+                  },
+                  "update": {
+                    "constraint": {
+                      "aliases": [],
+                      "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                      "index_set": [
+                        20
+                      ],
+                      "lhs_spec": {
+                        "kind": "exam_x_aggregate",
+                        "rows": {
+                          "20": {
+                            "fixed_block": 21,
+                            "slots": [
+                              20
+                            ]
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "rule_kind": "reserved_virtual_slot_family"
+                      },
+                      "name": "reserved_virtual_slot",
+                      "rhs_spec": {
+                        "20": 1.0
+                      },
+                      "sense": "=",
+                      "tags": [
+                        "availability",
+                        "block_seq"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "label": "",
+              "metadata": {}
+            }
+          ],
+          "candidate_actions": [],
+          "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.",
+          "planning_hints": {
+            "edit_scope": "structural",
+            "expected_reuse": "high",
+            "model_attempt_count": 0,
+            "model_retry_count": 0,
+            "planner_failed_semantically": false,
+            "planner_output_executable": true,
+            "planner_parse_ok": true,
+            "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+            "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/step_01"
+          },
+          "raw_response": "{\n  \"edit_summary\": \"Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.\",\n  \"affected_sets\": {\n    \"virtual_blocks\": [21, 22, 23, 24],\n    \"reserved_slots\": []\n  },\n  \"relevant_components\": [\n    \"reserved_virtual_slot\",\n    \"reserved_slots\",\n    \"virtual_blocks\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"local\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"reserved_virtual_slot\",\n              \"index_set\": [\"reserve_slot_before_final_evening\"],\n              \"lhs_spec\": {\n                \"kind\": \"reserved_virtual_slot\",\n                \"slot\": 20,\n                \"virtual_block\": 21\n              },\n              \"rhs_spec\": 1,\n              \"sense\": \"=\"\n            }\n          },\n          \"notes\": \"Reserve slot 20 (the evening slot immediately before the final evening slot 21) by fixing virtual block 21 there.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+          "relevant_components": [
+            "reserved_virtual_slot",
+            "reserved_slots",
+            "virtual_blocks"
+          ]
+        },
+        "relevant_components": [
+          "reserved_virtual_slot",
+          "reserved_slots",
+          "virtual_blocks"
+        ],
+        "solution": {
+          "1": 1,
+          "10": 14,
+          "11": 2,
+          "12": 6,
+          "13": 12,
+          "14": 18,
+          "15": 3,
+          "16": 4,
+          "17": 16,
+          "18": 9,
+          "19": 21,
+          "2": 17,
+          "20": 19,
+          "21": 20,
+          "22": 8,
+          "23": 24,
+          "24": 22,
+          "3": 15,
+          "4": 10,
+          "5": 13,
+          "6": 5,
+          "7": 11,
+          "8": 23,
+          "9": 7
+        },
+        "solve_meta": {
+          "mip_gap": 0.37672521957340027,
+          "obj_bound": 3974.0,
+          "objective": 6376.0,
+          "objective_nonzero_coeffs": 439537,
+          "runtime": 3600.0930302143097,
+          "sol_count": 3,
+          "status": 9,
+          "warm_start_applied": false,
+          "warm_start_mode": "none",
+          "warm_start_source": "none"
+        },
+        "strategy": "scratch",
+        "strategy_selection": {
+          "execution_label": "scratch",
+          "fallback_reason": "",
+          "fallback_used": false,
+          "metadata": {
+            "has_base_warm_start": false,
+            "has_prior_result": false,
+            "heuristic_prompt_ids": [],
+            "heuristic_warm_start_available": true,
+            "heuristic_warm_start_reason": "",
+            "patch_count": 1,
+            "planner_edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup by assigning a virtual block to that slot.",
+            "planner_hints": {
+              "edit_scope": "structural",
+              "expected_reuse": "high",
+              "model_attempt_count": 0,
+              "model_retry_count": 0,
+              "planner_failed_semantically": false,
+              "planner_output_executable": true,
+              "planner_parse_ok": true,
+              "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/run.json",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_auto_gpt41mini/step_01"
+            },
+            "planner_mode": "patchedit",
+            "planner_relevant_components": [
+              "reserved_virtual_slot",
+              "reserved_slots",
+              "virtual_blocks"
+            ],
+            "structural_edit": true,
+            "supports_tuned_solver": true,
+            "supports_warm_start": true,
+            "toolbox_placeholders": [],
+            "toolbox_trace_only": false
+          },
+          "policy_name": "manual",
+          "prompt": [],
+          "rationale": "User-requested exam execution-label override.",
+          "raw_response": "",
+          "strategy": "scratch",
+          "toolbox_plan": []
+        }
+      }
+    ]
+  },
+  "run_id": "I1_P1_patchedit_scratch_gpt41mini",
+  "runtime": 3600.0930302143097,
+  "selection_fallback_used": false,
+  "status": "ok",
+  "strategy": "scratch",
+  "strategy_policy": "manual",
+  "trace_dir": "outputs/llm_runs/trajectories/I1_P1_patchedit_scratch_gpt41mini/step_01"
+}

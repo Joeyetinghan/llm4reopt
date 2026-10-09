@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local but structural (a new reserved slot is added), making reuse of most of the previous solution feasible but not trivial. Heuristic warm start is available and expected to provide a close-to-feasible starting point despite the structural edit. Tuned solving is supported and should ensure high-quality, robust convergence after the warm start. This approach balances reuse with solution quality and speed, and matches the fastest safe reoptimization strategy for the provided runtime context and toolbox."
+}

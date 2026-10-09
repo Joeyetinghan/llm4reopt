@@ -1,0 +1,105 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "Aligns triple-in-24hr penalty with 20\u00d7 the regular back-to-back (gamma2) weight; current gamma2=1.0.",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 9443.0,
+  "objective_before": 6009.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 17,
+    "10": 11,
+    "11": 13,
+    "12": 12,
+    "13": 19,
+    "14": 5,
+    "15": 3,
+    "16": 20,
+    "17": 15,
+    "18": 18,
+    "19": 8,
+    "2": 7,
+    "20": 23,
+    "21": 24,
+    "22": 4,
+    "23": 16,
+    "24": 22,
+    "3": 14,
+    "4": 2,
+    "5": 21,
+    "6": 1,
+    "7": 9,
+    "8": 6,
+    "9": 10
+  },
+  "solve_meta": {
+    "mip_gap": 0.5155141374563168,
+    "obj_bound": 4575.0,
+    "objective": 9443.0,
+    "objective_nonzero_coeffs": 395750,
+    "runtime": 3600.0943138599396,
+    "sol_count": 1,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Set the triple-in-24hr penalty weight (beta) to be 20\u00d7 the regular back-to-back (gamma2) baseline; with gamma2 currently 1.0, set beta from 10.0 to 20.0.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P4_patchedit_auto_gpt5/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P4_patchedit_auto_gpt5/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "beta",
+        "gamma2"
+      ],
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

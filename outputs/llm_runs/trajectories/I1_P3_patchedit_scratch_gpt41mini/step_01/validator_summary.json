@@ -1,0 +1,67 @@
+{
+  "chosen_patches": [],
+  "codeedit_attempt_count": null,
+  "codeedit_failure_kind": null,
+  "codeedit_failure_retryable": null,
+  "codeedit_repair_count": null,
+  "execution_ok": false,
+  "model_attempt_count": null,
+  "model_retry_count": null,
+  "objective_after": null,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "reopt_failure_kind": null,
+  "reopt_failure_retryable": null,
+  "reopt_failure_stage": null,
+  "solution": null,
+  "solve_meta": {
+    "error": "No incumbent solution available at status 9"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 6,
+      "planner_edit_summary": "Adjust frontload slots cutoff to 19th slot for large exams with over 300 students to complete before 20th slot",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P3_patchedit_auto_gpt41mini/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P3_patchedit_auto_gpt41mini/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "large_blocks",
+        "early_slots",
+        "frontload_block_size_cutoff",
+        "frontload_slot_cutoff",
+        "frontload"
+      ],
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

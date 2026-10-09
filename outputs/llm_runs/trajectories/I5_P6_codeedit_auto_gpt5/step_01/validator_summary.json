@@ -1,0 +1,24 @@
+{
+  "chosen_patches": [],
+  "codeedit_attempt_count": 3,
+  "codeedit_failure_kind": "no_edit",
+  "codeedit_failure_retryable": true,
+  "codeedit_repair_count": 2,
+  "execution_ok": false,
+  "model_attempt_count": 3,
+  "model_retry_count": 2,
+  "objective_after": null,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "reopt_failure_kind": "no_edit",
+  "reopt_failure_retryable": true,
+  "reopt_failure_stage": "Edit Generation",
+  "solution": null,
+  "solve_meta": {
+    "error": "Code-edit planner produced no material file edits"
+  },
+  "strategy": null,
+  "strategy_selection": null
+}

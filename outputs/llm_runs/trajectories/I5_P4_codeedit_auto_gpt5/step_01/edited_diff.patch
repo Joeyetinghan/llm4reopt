@@ -1,0 +1,16 @@
+--- solver.py
++++ solver.py
+@@ -40,10 +40,12 @@
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
+ 
++    # Objective weights
+     alpha = float(weights.get("alpha", 10.0))
+-    beta = float(weights.get("beta", 10.0))
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
++    # Per request: make the 24-hour triple penalty 20x the regular back-to-back (gamma2)
++    beta = 20.0 * gamma2
+     delta = float(weights.get("delta", 5.0))
+ 
+     m = gp.Model("BlockSequencing")

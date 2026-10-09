@@ -1,0 +1,13 @@
+--- solver.py
++++ solver.py
+@@ -45,6 +45,10 @@
+     gamma1 = float(weights.get("gamma1", 1.0))
+     gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))
++
++    # Policy update: make "three exams in 24 hours" 20x a regular back-to-back.
++    # Interpret "regular back-to-back" as non-overnight adjacent slots (gamma2).
++    beta = 20.0 * gamma2
+ 
+     m = gp.Model("BlockSequencing")
+     m.setParam("OutputFlag", 1 if _show_solver_log() else 0)

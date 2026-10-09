@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": ["heuristic_warm_start", "tuned_config"],
+  "rationale": "The edit is local with high expected reuse and supports warm start; thus, heuristic warm start combined with tuned solving is the fastest safe reoptimization. This leverages warm reuse with tuning for improved performance without a full scratch solve.",
+  "confidence": 0.95
+}

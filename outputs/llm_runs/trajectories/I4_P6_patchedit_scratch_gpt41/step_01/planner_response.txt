@@ -1,0 +1,10 @@
+{
+  "edit_summary": "Apply (1) a patch to reserved slots or virtual block reservation, (2) a patch to frontloading/early slots, then (3) a patch to block or slot assignments, following canonical sequence P4->P2->P1 as requested. However, without delta details for P4, P2, and P1, unable to emit executable patches.",
+  "affected_sets": {},
+  "relevant_components": [],
+  "candidate_action_sets": [],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

@@ -1,0 +1,15 @@
+--- solver.py
++++ solver.py
+@@ -39,6 +39,12 @@
+     triple_slots = sorted(list(triple_day_start) + list(triple_24_start))
+     pair_penalties = dict(p or {})
+     triplet_penalties = dict(t or {})
++
++    # Increase pairwise co-enrollment count between Block 4 and Block 9 by 120 students symmetrically
++    key_49 = (4, 9)
++    key_94 = (9, 4)
++    pair_penalties[key_49] = pair_penalties.get(key_49, 0.0) + 120.0
++    pair_penalties[key_94] = pair_penalties.get(key_94, 0.0) + 120.0
+ 
+     alpha = float(weights.get("alpha", 10.0))
+     beta = float(weights.get("beta", 10.0))

@@ -1,0 +1,97 @@
+{
+  "edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+  "affected_sets": {
+    "large_blocks": "large_blocks",
+    "early_slots": "early_slots",
+    "reserved_slots": "reserved_slots",
+    "pair_counts": "pair_counts",
+    "block_enrollment": "block_enrollment"
+  },
+  "relevant_components": [
+    "parameters",
+    "block_enrollment",
+    "pair_counts",
+    "p",
+    "large_blocks",
+    "early_slots",
+    "reserved_slots"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "large_blocks"
+          },
+          "update": {
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]
+          },
+          "notes": "Update large_blocks list for frontloading per P4"
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+          },
+          "notes": "Set early slots for frontloading per P4"
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "value": [23, 24]
+          },
+          "notes": "Reserve slots 23 and 24 per P2"
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "p"
+          },
+          "update": {
+            "key": [5, 9],
+            "value": 7.5
+          }
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "p"
+          },
+          "update": {
+            "key": [9, 5],
+            "value": 7.5
+          }
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "block_enrollment"
+          },
+          "update": {
+            "key": 5,
+            "delta": 15
+          }
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

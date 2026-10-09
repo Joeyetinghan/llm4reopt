@@ -1,0 +1,45 @@
+{
+  "edit_summary": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.",
+  "affected_sets": {
+    "blocks": [4, 9]
+  },
+  "relevant_components": [
+    "pair_counts"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "pair_counts"
+          },
+          "scope": {},
+          "update": {
+            "name": "pair_counts",
+            "key": [4, 9],
+            "delta": 120
+          },
+          "notes": "Increase co-enrollment count for (4, 9) by 120"
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "pair_counts"
+          },
+          "scope": {},
+          "update": {
+            "name": "pair_counts",
+            "key": [9, 4],
+            "delta": 120
+          },
+          "notes": "Increase co-enrollment count for (9, 4) by 120 to reflect undirected nature"
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

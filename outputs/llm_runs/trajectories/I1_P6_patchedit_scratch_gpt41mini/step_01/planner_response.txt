@@ -1,0 +1,110 @@
+{
+  "edit_summary": "Apply updates P4, P2, and P1 in sequence as requested.",
+  "affected_sets": {},
+  "relevant_components": [
+    "parameter",
+    "p",
+    "t",
+    "alpha",
+    "beta",
+    "gamma1",
+    "gamma2",
+    "delta",
+    "frontload",
+    "reserved_virtual_slot",
+    "slot_load_cap"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "p"},
+          "update": {"key": [4, 5], "value": 3}
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "p"},
+          "update": {"key": [5, 4], "value": 3}
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "t"},
+          "update": {"key": [1, 2, 3], "value": 5}
+        }
+      ],
+      "notes": "P4 update applied first, patching pairwise penalty overrides and a specific triplet override."
+    },
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "alpha"},
+          "update": {"value": 15}
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "frontload_block_size_cutoff"},
+          "update": {"value": 250}
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "early_slots"},
+          "update": {"value": [1, 2, 3]}
+        }
+      ],
+      "notes": "P2 update applied second, changing alpha penalty weight and frontloading policy parameters."
+    },
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [21],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot_id": 21,
+                "virtual_block_id": 21
+              },
+              "rhs_spec": 1,
+              "sense": "="
+            }
+          }
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "gamma1"},
+          "update": {"delta": -0.5}
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "delta"},
+          "update": {"value": 8}
+        },
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": [1],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slot_ids": [1],
+                "weights": [1.0]
+              },
+              "rhs_spec": 100,
+              "sense": "<="
+            }
+          }
+        }
+      ],
+      "notes": "P1 update applied last, reserving a virtual slot, adjusting penalties, and adding day load cap constraint."
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "Warm reuse is not viable: no prior result or base warm state and heuristic warm start is unavailable. The edit is non-structural but introduces new reserved-slot semantics that the planner could not ground (nonprojectable), making warm strategies fragile. A tuned solve is supported and typically outperforms a plain direct run under these conditions, providing the fastest safe reoptimization without relying on unavailable warm starts.",
+  "confidence": 0.74
+}

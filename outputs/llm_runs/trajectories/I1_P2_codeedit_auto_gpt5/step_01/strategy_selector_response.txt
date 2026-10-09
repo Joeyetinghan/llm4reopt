@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit is local and non-structural, but no reliable warm start is available (no prior result and heuristic warm start unavailable). Using the tuned solver is supported and provides a fast, safe reoptimization from scratch without relying on fragile warm reuse. Choosing direct+tuned would add unnecessary overhead given the lack of a usable warm start, and a pure direct plan cannot be explicitly configured with the available tools, while tuned_config is available and executable.",
+  "confidence": 0.72
+}

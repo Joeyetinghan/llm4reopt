@@ -1,0 +1,162 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "slot_load_cap"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Cap weighted enrollment across a selected slot set.",
+          "index_set": [
+            "day_2"
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "day_2": {
+                "block_weights": {
+                  "1": 2081.0,
+                  "10": 2312.0,
+                  "11": 2023.0,
+                  "12": 2012.0,
+                  "13": 1837.0,
+                  "14": 2232.0,
+                  "15": 2105.0,
+                  "16": 1841.0,
+                  "17": 2123.0,
+                  "18": 2468.0,
+                  "19": 2674.0,
+                  "2": 2027.0,
+                  "20": 2553.0,
+                  "3": 1803.0,
+                  "4": 1777.0,
+                  "5": 1989.0,
+                  "6": 2043.0,
+                  "7": 1955.0,
+                  "8": 1962.0,
+                  "9": 1770.0
+                },
+                "slots": [
+                  4,
+                  5,
+                  6
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "slot_load_cap_family"
+          },
+          "name": "slot_load_cap",
+          "rhs_spec": {
+            "day_2": 4000.0
+          },
+          "sense": "<=",
+          "tags": [
+            "block_seq",
+            "load_cap"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 8871.0,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 11,
+    "10": 7,
+    "11": 14,
+    "12": 15,
+    "13": 19,
+    "14": 8,
+    "15": 10,
+    "16": 18,
+    "17": 9,
+    "18": 3,
+    "19": 1,
+    "2": 13,
+    "20": 2,
+    "21": 5,
+    "22": 6,
+    "23": 23,
+    "24": 24,
+    "3": 20,
+    "4": 21,
+    "5": 16,
+    "6": 12,
+    "7": 17,
+    "8": 22,
+    "9": 4
+  },
+  "solve_meta": {
+    "mip_gap": 0.5549543456205613,
+    "obj_bound": 3948.0,
+    "objective": 8871.0,
+    "objective_nonzero_coeffs": 439537,
+    "runtime": 3600.076929807663,
+    "sol_count": 1,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'problem_id': 'exam_block_seq', 'delta_text': 'Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.', 'label': 'hs_day2_cap'}}\"",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Add a day-level student load cap of 4,00 for Day 2 by capping total enrollment across slots 4\u20136.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "slot_load_cap",
+        "block_enrollment",
+        "x",
+        "slots_per_day"
+      ],
+      "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'with': {'problem_id': 'exam_block_seq', 'delta_text': 'Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.', 'label': 'hs_day2_cap'}}\"",
+      "selector_model": "gpt-5",
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "Set beta to 20x the regular back-to-back (gamma2) weight; gamma2 is currently 1.0.",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 4233.0,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 10,
+    "10": 20,
+    "11": 5,
+    "12": 19,
+    "13": 21,
+    "14": 2,
+    "15": 6,
+    "16": 17,
+    "17": 1,
+    "18": 23,
+    "19": 18,
+    "2": 15,
+    "20": 3,
+    "21": 14,
+    "22": 22,
+    "23": 11,
+    "24": 7,
+    "25": 24,
+    "3": 4,
+    "4": 16,
+    "5": 8,
+    "6": 12,
+    "7": 25,
+    "8": 13,
+    "9": 9
+  },
+  "solve_meta": {
+    "mip_gap": 0.17623434916135128,
+    "obj_bound": 3487.0,
+    "objective": 4233.0,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.1235630512238,
+    "sol_count": 5,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'tuned_config', 'direct_warm_start']",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Increase the weight for the three-exams-in-24-hours penalty so it is 20x a regular back-to-back, setting beta to 20.0 (given gamma2=1.0).",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "beta",
+        "gamma2",
+        "triple_in_24hr"
+      ],
+      "selector_error": "Exam execution label 'direct+heuristic+tuned' requires toolbox plan ['direct_warm_start', 'heuristic_warm_start', 'tuned_config'], got ['heuristic_warm_start', 'tuned_config', 'direct_warm_start']",
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

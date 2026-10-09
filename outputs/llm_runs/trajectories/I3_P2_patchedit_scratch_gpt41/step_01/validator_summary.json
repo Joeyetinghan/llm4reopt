@@ -1,0 +1,136 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 386.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 386.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 23036688.0,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 5,
+    "10": 4,
+    "11": 2,
+    "12": 11,
+    "13": 9,
+    "14": 1,
+    "15": 16,
+    "16": 13,
+    "17": 8,
+    "18": 22,
+    "19": 25,
+    "2": 6,
+    "20": 24,
+    "21": 20,
+    "22": 15,
+    "23": 23,
+    "24": 19,
+    "25": 12,
+    "3": 3,
+    "4": 17,
+    "5": 21,
+    "6": 14,
+    "7": 10,
+    "8": 18,
+    "9": 7
+  },
+  "solve_meta": {
+    "mip_gap": 0.9998582695568043,
+    "obj_bound": 3265.0,
+    "objective": 23036688.0,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.349618911743,
+    "sol_count": 1,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 2,
+      "planner_edit_summary": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P2_patchedit_auto_gpt41/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P2_patchedit_auto_gpt41/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "pair_counts"
+      ],
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

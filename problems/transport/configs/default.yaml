@@ -1,0 +1,28 @@
+plants:
+  - P1
+  - P2
+customers:
+  - C1
+  - C2
+  - C3
+supply:
+  P1: 20
+  P2: 45
+demand:
+  C1: 12
+  C2: 15
+  C3: 18
+costs:
+  P1:
+    C1: 4
+    C2: 6
+    C3: 8
+  P2:
+    C1: 5
+    C2: 4
+    C3: 3
+example_deltas:
+  - "Plant 1 is going into maintenance for the next two days, so it cannot ship anything."
+  - "There is a shortage of trucks for deliveries from Plant 2 to Customer 2 this week. The maximum we can ship on this route is 5 units."
+  - "Customer 3 has placed an urgent order of 10 additional units on top of their normal demand."
+delta_text: "Set demand for customer C2 to 12"

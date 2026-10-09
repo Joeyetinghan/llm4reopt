@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is a local weight adjustment with high reuse potential. A heuristic warm start provides a strong incumbent without relying on prior direct results (none available), and combining it with the tuned solver yields faster, reliable reoptimization than warm alone while avoiding the extra overhead of an additional direct stage.",
+  "confidence": 0.78
+}

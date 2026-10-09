@@ -1,0 +1,42 @@
+{
+  "edit_summary": "Reserve the evening slot immediately before the final evening slot with a virtual block to block scheduling for setup before graduation.",
+  "affected_sets": {
+    "reserved_virtual_slot": "reserved_virtual_slot",
+    "virtual_blocks": [18,19,20,21,22,23,24,25],
+    "reserved_slots": []
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "virtual_blocks",
+    "reserved_slots"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "local",
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": ["slot_before_final_evening_22"],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 22,
+                "virtual_block": 18
+              },
+              "rhs_spec": 1.0,
+              "sense": "="
+            }
+          },
+          "notes": "Reserve evening slot 22 (immediately before final evening slot 24) by assigning permanent virtual block 18 for setup."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

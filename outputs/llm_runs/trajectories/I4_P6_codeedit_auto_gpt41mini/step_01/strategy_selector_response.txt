@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": ["tuned_config"],
+  "rationale": "The edit is model-effective but nonprojectable, and no heuristic warm start is available. The edit is non-structural but involves a specific ordered update sequence. Using the tuned solver config is the fastest safe strategy given support for tuned solving and absence of warm start for reuse. This avoids fragility of restart and leverages the available tuned solving capability.",
+  "confidence": 0.9
+}

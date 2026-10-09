@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "This is a small, local weight change (beta from 10 to 20 with gamma2=1), so the model structure is unchanged and reuse is high. A heuristic warm start is available and the tuned solver is supported. Combining heuristic warm start with tuned configuration is the fastest safe approach for rapid reoptimization on local edits, and avoids the overhead of an additional direct run.",
+  "confidence": 0.86
+}

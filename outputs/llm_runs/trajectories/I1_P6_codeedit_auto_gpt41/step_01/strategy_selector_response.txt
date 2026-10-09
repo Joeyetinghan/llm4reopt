@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The planned code edits correspond to adjustments of objective weights (UPDATE_OBJECTIVE_WEIGHT), which are local changes that generally allow for warm start. The runtime context confirms that heuristic warm start is available and justified for this edit. Since tuned solving is also supported and available, combining heuristic warm start with the tuned solver ('heuristic+tuned') is the fastest and safest reoptimization strategy. This approach leverages the problem's resemblance to previous solves while ensuring high solution quality via the tuned solver.",
+  "confidence": 1.0
+}

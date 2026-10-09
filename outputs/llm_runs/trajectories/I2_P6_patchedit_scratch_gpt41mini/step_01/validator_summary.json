@@ -1,0 +1,226 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "gamma1"
+      },
+      "update": {
+        "weight": 1.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          4,
+          9
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          4,
+          9
+        ],
+        "name": "p",
+        "value": 357.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {
+        "entity": [
+          9,
+          4
+        ]
+      },
+      "target": {
+        "name": "pair_counts"
+      },
+      "update": {
+        "key": [
+          9,
+          4
+        ],
+        "name": "p",
+        "value": 357.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "reserved_slots"
+      },
+      "update": {
+        "name": "reserved_slots",
+        "value": [
+          21
+        ]
+      }
+    },
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 19,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 9907.0,
+  "objective_before": 7330.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 5,
+    "10": 19,
+    "11": 12,
+    "12": 7,
+    "13": 1,
+    "14": 16,
+    "15": 20,
+    "16": 17,
+    "17": 13,
+    "18": 2,
+    "19": 21,
+    "2": 3,
+    "20": 22,
+    "21": 15,
+    "22": 9,
+    "23": 23,
+    "24": 24,
+    "3": 10,
+    "4": 6,
+    "5": 11,
+    "6": 8,
+    "7": 4,
+    "8": 18,
+    "9": 14
+  },
+  "solve_meta": {
+    "mip_gap": 0.38901786615524375,
+    "obj_bound": 6053.0,
+    "objective": 9907.0,
+    "objective_nonzero_coeffs": 351562,
+    "runtime": 3600.0845460891724,
+    "sol_count": 3,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 6,
+      "planner_edit_summary": "Apply updates P4, P2, then P1 in exact order as requested.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I2_P6_patchedit_auto_gpt41mini/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I2_P6_patchedit_auto_gpt41mini/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "block_enrollment",
+        "block_num_exams",
+        "pair_counts",
+        "triplet_counts",
+        "p",
+        "t",
+        "large_blocks",
+        "early_slots",
+        "reserved_slots",
+        "reserved_virtual_slot",
+        "frontload",
+        "alpha",
+        "beta",
+        "gamma1",
+        "gamma2",
+        "delta"
+      ],
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

@@ -1,0 +1,89 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,11 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Normalize pair and triplet penalties from runtime data.
++    p = _extract_pair_penalties(data)
++    t = _extract_triplet_penalties(data)
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,8 +207,8 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
+-        t=dict(data.get("triplet_counts") or {}),
++        p=p,
++        t=t,
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+@@ -268,3 +273,63 @@
+         except Exception:
+             pass
+     return meta
++
++
++def _ensure_tuple_key(key: Any, arity: int) -> tuple[int, ...] | None:
++    """Convert keys like '(1, 2)' or '1,2' or tuple[int,...] into a canonical tuple[int,...] of given arity."""
++    if isinstance(key, tuple) and len(key) == arity:
++        try:
++            return tuple(int(x) for x in key)
++        except Exception:
++            return None
++    if isinstance(key, str):
++        s = key.strip()
++        if s.startswith("(") and s.endswith(")"):
++            s = s[1:-1]
++        parts = [p.strip() for p in s.split(",") if p.strip() != ""]
++        if len(parts) != arity:
++            return None
++        try:
++            return tuple(int(p) for p in parts)
++        except Exception:
++            return None
++    return None
++
++
++def _extract_pair_penalties(data: Mapping[str, Any]) -> Dict[tuple[int, int], float]:
++    """Extract pairwise penalties from runtime_data['pair_counts'], handling preview shape and string tuple keys."""
++    src = data.get("pair_counts") or {}
++    if isinstance(src, dict) and "preview" in src and isinstance(src["preview"], dict):
++        src = src["preview"]
++    if not isinstance(src, dict):
++        return {}
++    out: Dict[tuple[int, int], float] = {}
++    for k, v in src.items():
++        key = _ensure_tuple_key(k, 2)
++        if key is None:
++            continue
++        try:
++            out[key] = float(v)
++        except Exception:
++            # Skip values that cannot be parsed to float
++            continue
++    return out
++
++
++def _extract_triplet_penalties(data: Mapping[str, Any]) -> Dict[tuple[int, int, int], float]:
++    """Extract triplet penalties from runtime_data['triplet_counts'], handling preview shape and string tuple keys."""
++    src = data.get("triplet_counts") or {}
++    if isinstance(src, dict) and "preview" in src and isinstance(src["preview"], dict):
++        src = src["preview"]
++    if not isinstance(src, dict):
++        return {}
++    out: Dict[tuple[int, int, int], float] = {}
++    for k, v in src.items():
++        key = _ensure_tuple_key(k, 3)
++        if key is None:
++            continue
++        try:
++            out[key] = float(v)
++        except Exception:
++            continue
++    return out

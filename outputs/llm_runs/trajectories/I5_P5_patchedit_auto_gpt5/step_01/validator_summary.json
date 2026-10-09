@@ -1,0 +1,158 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "slot_load_cap"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Cap weighted enrollment across a selected slot set.",
+          "index_set": [
+            "day_2"
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "day_2": {
+                "block_weights": {
+                  "1": 2353.0,
+                  "10": 2343.0,
+                  "11": 2709.0,
+                  "12": 2952.0,
+                  "13": 2791.0,
+                  "14": 2487.0,
+                  "15": 2980.0,
+                  "16": 3242.0,
+                  "2": 2350.0,
+                  "3": 2325.0,
+                  "4": 2335.0,
+                  "5": 2283.0,
+                  "6": 2431.0,
+                  "7": 2509.0,
+                  "8": 2298.0,
+                  "9": 2083.0
+                },
+                "slots": [
+                  4,
+                  5,
+                  6
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "slot_load_cap_family"
+          },
+          "name": "slot_load_cap",
+          "rhs_spec": {
+            "day_2": 4000.0
+          },
+          "sense": "<=",
+          "tags": [
+            "block_seq",
+            "load_cap"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 2570.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 3,
+    "10": 24,
+    "11": 14,
+    "12": 9,
+    "13": 7,
+    "14": 23,
+    "15": 11,
+    "16": 5,
+    "17": 16,
+    "18": 4,
+    "19": 22,
+    "2": 15,
+    "20": 13,
+    "21": 10,
+    "22": 8,
+    "23": 19,
+    "24": 6,
+    "3": 18,
+    "4": 12,
+    "5": 1,
+    "6": 20,
+    "7": 17,
+    "8": 21,
+    "9": 2
+  },
+  "solve_meta": {
+    "mip_gap": 0.19961089494163425,
+    "obj_bound": 2057.0,
+    "objective": 2570.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3621.92711687088,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'apply_delta': {'type': 'day_load_cap', 'day': 2, 'slots': [4, 5, 6], 'max_students': 4000}}}\"",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Add a day-level load cap to limit total student enrollment on Day 2 to 4,00 across slots 4\u20136 due to proctor shortage.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "slot_load_cap",
+        "slots_per_day",
+        "block_enrollment",
+        "x"
+      ],
+      "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'apply_delta': {'type': 'day_load_cap', 'day': 2, 'slots': [4, 5, 6], 'max_students': 4000}}}\"",
+      "selector_model": "gpt-5",
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

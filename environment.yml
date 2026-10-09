@@ -1,0 +1,18 @@
+name: reopt-llm
+channels:
+  - gurobi
+  - conda-forge
+dependencies:
+  - python=3.11
+  - gurobi=13.0.1
+  - numpy
+  - pandas
+  - pip
+  - pyyaml
+  - google-genai
+  - matplotlib
+  - openai
+  - seaborn
+  - python-dotenv
+  - pip:
+      - aider-chat==0.86.2

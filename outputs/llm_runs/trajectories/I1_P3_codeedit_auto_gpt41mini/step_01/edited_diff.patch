@@ -1,0 +1,51 @@
+--- solver.py
++++ solver.py
+@@ -137,6 +137,26 @@
+             name="frontload",
+         )
+ 
++    # New constraint: large exams with enrollment > 300 must be scheduled before slot 20
++    large_exam_cutoff_slot = 20
++    block_enrollment = {int(k): v for k, v in weights.get("block_enrollment", {}).items()} if "block_enrollment" in weights else {}
++    large_exams = [b for b in frontload_blocks if block_enrollment.get(b, 0) > 300]
++    if large_exams:
++        m.addConstrs(
++            (
++                gp.quicksum(
++                    x[i, j, k, s]
++                    for j in blocks
++                    for k in blocks
++                    for s in slots
++                    if s < large_exam_cutoff_slot
++                )
++                == 1
++                for i in large_exams
++            ),
++            name="large_exam_before_slot_20",
++        )
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,6 +214,12 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Inject block_enrollment into weights for build_exam_gurobi_model to access
++    weights = dict(data["weights"])
++    if "block_enrollment" not in weights and "block_enrollment" in data:
++        weights["block_enrollment"] = data["block_enrollment"]
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -201,7 +227,7 @@
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
++        weights=weights,
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],

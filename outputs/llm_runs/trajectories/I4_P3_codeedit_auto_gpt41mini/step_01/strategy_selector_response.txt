@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit involves slot load capacity changes which the planner identified as effective but nonprojectable and without grounding, indicating a need for a thorough retune solve rather than a warm start. Since the edit is non-structural and tuned solving is supported and available, selecting the tuned strategy with the tuned configuration plan maximizes the chance of a fast and correct solution.",
+  "confidence": 0.9
+}

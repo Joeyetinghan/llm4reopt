@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "No executable patches could be grounded (P4/P2/P1 contents missing), and there is no prior result or base warm start to reuse. A heuristic warm start is available and compatible with tuned solving. Using heuristic warm start followed by tuned configuration provides a fast and robust fresh solve without relying on non-existent warm reuse, and is safer and typically faster than direct alone or scratch in this context.",
+  "confidence": 0.74
+}

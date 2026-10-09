@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The change is a small, local scheduling tweak but no warm start is available (has_prior_result=false, heuristic_warm_start_available=false). Since warm reuse cannot be grounded and the runtime supports tuned solving, using the tuned solver directly is the fastest safe option. Running a direct+tuned sequence would add an unnecessary initial pass without reuse benefits, while tuned alone provides robust convergence for the new reserved-slot constraint. Scratch is unnecessary because the edit is not structural.",
+  "confidence": 0.76
+}

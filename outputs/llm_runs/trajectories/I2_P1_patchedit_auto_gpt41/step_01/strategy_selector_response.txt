@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit reserves a block within the existing sequence (penultimate evening slot) and is classified as a local but structural change. Warm reuse is likely, but since the edit is structural, warm-only may be fragile. Both heuristic warm start and tuned solving are available and supported, making 'heuristic+tuned' the fastest safe choice: it efficiently reuses a close solution and adapts robustly via tuning to handle the new reserved slot.",
+  "confidence": 0.98
+}

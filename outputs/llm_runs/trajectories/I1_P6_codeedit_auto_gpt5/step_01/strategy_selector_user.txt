@@ -1,0 +1,52 @@
+{
+  "allowed_strategies": [
+    "direct",
+    "tuned",
+    "direct+tuned",
+    "scratch"
+  ],
+  "delta_text": "Apply the following updates in this exact order: P4, then P2, then P1.",
+  "planner_summary": {
+    "edit_summary": "Apply the following updates in this exact order: P4, then P2, then P1.",
+    "planning_hints": {
+      "changed_file_count": 1,
+      "codeedit_noop": false,
+      "editable_file_count": 1,
+      "heuristic_warm_start_available": false,
+      "heuristic_warm_start_reason": "Recognized a real exam code edit, but could not fairly project it into structured heuristic semantics.",
+      "model_effective_edit": true,
+      "model_effective_edit_reason": "Recognized a real exam code edit, but could not fairly project it into structured heuristic semantics.",
+      "planner_failed_semantically": false,
+      "planner_mode": "codeedit",
+      "planner_model": "gpt-5",
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "planner_warning_count": 0,
+      "planner_warnings": [],
+      "projected_patch_ops": [],
+      "projected_semantics": [],
+      "projection_reason": "Recognized a real exam code edit, but could not fairly project it into structured heuristic semantics.",
+      "projection_state": "nonprojectable"
+    },
+    "relevant_components": []
+  },
+  "problem_id": "exam_block_seq",
+  "runtime_context": {
+    "default_execution_label": "direct+tuned",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_warm_start_available": false,
+    "patch_count": 0,
+    "planner_mode": "codeedit",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_execution_mode": "executable",
+    "warm_start_available": true
+  },
+  "toolbox_inventory": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "toolbox_placeholders": []
+}

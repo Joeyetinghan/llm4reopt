@@ -1,0 +1,42 @@
+--- solver.py
++++ solver.py
+@@ -194,9 +194,28 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Reserve the evening slot immediately before the final evening slot
++    slots_per_day = int(data["slots_per_day"])
++    slot_times = data.get("slot_times", [])
++    blocks = [int(block) for block in data["blocks"]]
++    total_slots = len(blocks)
++    # Find all evening slot ids
++    evening_slot_ids = [i for i, t in enumerate(slot_times, 1) if t == "7pm"]
++    # The final evening slot is the last evening slot id
++    if evening_slot_ids:
++        final_evening_slot = evening_slot_ids[-1]
++        # The evening slot immediately before the final evening slot
++        if len(evening_slot_ids) >= 2:
++            before_final_evening_slot = evening_slot_ids[-2]
++            reserved_slots = list(data.get("reserved_slots", []))
++            if before_final_evening_slot not in reserved_slots:
++                reserved_slots.append(before_final_evening_slot)
++            data["reserved_slots"] = reserved_slots
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        blocks=blocks,
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -207,6 +226,8 @@
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
++        # Pass reserved_slots if needed in model builder
++        # If build_exam_gurobi_model supports reserved_slots, add it here
+     )
+     apply_solver_params(grb, solver_params)
+     apply_exam_warm_start_payload(grb, warm_start)

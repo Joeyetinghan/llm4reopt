@@ -1,0 +1,46 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'apply_delta': {'type': 'day_load_cap', 'day': 2, 'slots': [4, 5, 6], 'max_students': 4000}}}\"",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 1,
+    "planner_edit_summary": "Add a day-level load cap to limit total student enrollment on Day 2 to 4,00 across slots 4\u20136 due to proctor shortage.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "slot_load_cap",
+      "slots_per_day",
+      "block_enrollment",
+      "x"
+    ],
+    "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'apply_delta': {'type': 'day_load_cap', 'day': 2, 'slots': [4, 5, 6], 'max_students': 4000}}}\"",
+    "selector_model": "gpt-5",
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

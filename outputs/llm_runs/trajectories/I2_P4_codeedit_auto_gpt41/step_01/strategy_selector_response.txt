@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local change to objective weights (increasing penalty for the 'three exams in 24 hours' case), which is very compatible with heuristic warm start reuse. Tuned solving is supported and available, and combining heuristic reuse with tuned makes the most efficient, safe choice for fast reoptimization. There's no sign that a structural edit requiring a fresh scratch solve is needed, and this plan matches toolbox capabilities.",
+  "confidence": 0.98
+}

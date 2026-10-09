@@ -1,0 +1,71 @@
+--- solver.py
++++ solver.py
+@@ -192,10 +192,55 @@
+     solver_params: dict[str, Any] | None = None,
+     time_limit: int | float | None = None,
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+-    """Solve the direct solver model used by the codeedit pipeline."""
++    """Solve the direct solver model used by the codeedit pipeline.
++
++    Change: Enforce that all large exams (enrollment > 300) are scheduled before slot 19
++    by reusing the existing large_blocks and early_slots frontload mechanism.
++    """
+     data = dict(runtime_data)
++
++    # Base slot/block lists
++    block_ids: list[int] = [int(block) for block in data["blocks"]]
++
++    # Determine which blocks are considered "large" using the >300 threshold.
++    # Prefer explicit block_enrollment if available; otherwise fall back to any provided large_blocks.
++    enrollment_map_raw = data.get("block_enrollment") or {}
++    large_cutoff = 300  # strict 'over 300' per request
++    try:
++        # If a cutoff exists in weights and aligns with the request, use it (still strict > cutoff).
++        weights_map = data.get("weights") or {}
++        if "frontload_block_size_cutoff" in weights_map:
++            # Only use if it equals 300 to remain faithful to the request wording; otherwise keep 300.
++            if int(weights_map["frontload_block_size_cutoff"]) == 300:
++                large_cutoff = int(weights_map["frontload_block_size_cutoff"])
++    except Exception:
++        pass
++
++    # Compute large blocks from enrollments
++    computed_large_blocks: set[int] = set()
++    try:
++        for k, v in enrollment_map_raw.items():
++            try:
++                b = int(k)
++                enroll = int(v)
++            except Exception:
++                continue
++            if enroll > large_cutoff and b in block_ids:
++                computed_large_blocks.add(b)
++    except Exception:
++        computed_large_blocks = set()
++
++    # Union with any provided large_blocks to preserve upstream designations.
++    provided_large_blocks = {int(b) for b in (data.get("large_blocks") or []) if isinstance(b, (int, float))}
++    frontload_blocks: list[int] = sorted((computed_large_blocks | provided_large_blocks) & set(block_ids))
++
++    # Build the early slot set as all slots strictly before 19.
++    # This encodes "completed before the 19th time slot".
++    early_slot_cutoff = 19  # strict 'before 19th' -> slots 1..18
++    early_slots: list[int] = sorted([s for s in block_ids if int(s) < early_slot_cutoff])
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
++        blocks=block_ids,
+         slots_per_day=int(data["slots_per_day"]),
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+@@ -204,8 +249,8 @@
+         weights=dict(data["weights"]),
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=frontload_blocks,
++        early_slots=early_slots,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

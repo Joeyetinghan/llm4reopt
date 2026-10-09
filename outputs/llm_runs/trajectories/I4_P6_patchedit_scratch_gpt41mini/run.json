@@ -1,0 +1,1107 @@
+{
+  "base_objective": 6009.0,
+  "chosen_patch_op": "UPDATE_OBJECTIVE_WEIGHT",
+  "cost_delta": 2491.0,
+  "error": "",
+  "execution_label": "scratch",
+  "failure_detail": null,
+  "failure_label": null,
+  "failure_stage": null,
+  "feasible": true,
+  "ground_truth": null,
+  "input": {
+    "case_id": "P6",
+    "config": {
+      "instance_dir": "benchmark/raw_instances/blockseq_n588_blocks19_slots24_seed42",
+      "log_dir": "outputs/solves/base",
+      "model_failure_retry_budget": 3,
+      "prompt_id": "P1",
+      "real_blocks": null,
+      "slot_times": [
+        "9am",
+        "2pm",
+        "7pm"
+      ],
+      "slots_per_day": 3,
+      "solution_dir": "outputs/solves/base",
+      "threads": 6,
+      "time_limit": 3600,
+      "tuned_param_dir": "outputs/solves/tune/params",
+      "weights": {}
+    },
+    "config_path": "problems/exam_block_seq/configs/default.yaml",
+    "delta_text": "Apply the following updates in this exact order: P4, then P2, then P1.",
+    "examples_path": null,
+    "model": "gpt-4.1-mini",
+    "planner_mode": "patchedit",
+    "problem": "exam_block_seq",
+    "problem_root": null,
+    "prompt_id": "P6",
+    "strategy": "scratch",
+    "strategy_policy": "rule",
+    "strategy_selector_model": null,
+    "trace_root": "outputs/llm_runs/trajectories/I4_P6_patchedit_scratch_gpt41mini"
+  },
+  "instance_id": "I4",
+  "llm_trace": [],
+  "metadata": {
+    "campaign_id": "paper_full_gpt_3600s",
+    "campaign_stage": "full",
+    "composed_prompt_ids": [
+      "P4",
+      "P2",
+      "P1"
+    ],
+    "instance_id": "I4",
+    "job_name": "I4_patchedit_auto_gpt41mini_prompts_P6",
+    "prompt_batch_count": 6,
+    "prompt_batch_index": 6,
+    "prompt_id": "P6",
+    "prompt_source": "catalog",
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+    "replay_source_run_id": "I4_P6_patchedit_auto_gpt41mini",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/step_01",
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+    "replayed_from_run_id": "I4_P6_patchedit_auto_gpt41mini",
+    "run_mode": "patchedit-scratch-replay"
+  },
+  "mip_gap": 0.3804705882352941,
+  "model": "gpt-4.1-mini",
+  "obj_bound": 5266.0,
+  "objective": 8500.0,
+  "planner_mode": "patchedit",
+  "problem": "exam_block_seq",
+  "problem_name": "Exam Block Sequencing",
+  "prompt_id": "P6",
+  "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+  "replay_source_run_id": "I4_P6_patchedit_auto_gpt41mini",
+  "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/step_01",
+  "result": {
+    "base_evaluation": {
+      "checks": {
+        "has_solution": true
+      },
+      "details": {
+        "log_path": "outputs/solves/base/blockseq_n588_blocks19_slots24_seed42.log",
+        "mip_gap": 0.301714,
+        "obj_bound": 4196.0,
+        "phase": "base",
+        "runtime": 86400.07,
+        "solution_count": 10,
+        "solution_path": "outputs/solves/base/blockseq_n588_blocks19_slots24_seed42.sol",
+        "source": "saved_base_artifacts",
+        "status": 9
+      },
+      "feasible": true,
+      "ground_truth_case_id": null,
+      "ground_truth_checks": {},
+      "ground_truth_details": {},
+      "matches_ground_truth": null,
+      "objective": 6009.0,
+      "runtime": 86400.07,
+      "status": 9
+    },
+    "base_objective": 6009.0,
+    "base_solution": {
+      "1": 3,
+      "10": 5,
+      "11": 6,
+      "12": 7,
+      "13": 20,
+      "14": 17,
+      "15": 13,
+      "16": 2,
+      "17": 18,
+      "18": 23,
+      "19": 15,
+      "2": 10,
+      "20": 8,
+      "21": 19,
+      "22": 16,
+      "23": 22,
+      "24": 24,
+      "3": 21,
+      "4": 14,
+      "5": 1,
+      "6": 12,
+      "7": 4,
+      "8": 9,
+      "9": 11
+    },
+    "base_solve_meta": {
+      "log_path": "outputs/solves/base/blockseq_n588_blocks19_slots24_seed42.log",
+      "mip_gap": 0.301714,
+      "obj_bound": 4196.0,
+      "runtime": 86400.07,
+      "solution_count": 10,
+      "solution_path": "outputs/solves/base/blockseq_n588_blocks19_slots24_seed42.sol",
+      "source": "saved_base_artifacts",
+      "status": 9
+    },
+    "mode": "single",
+    "problem": {
+      "description": "Exam scheduling block sequencing problem packaged behind the generic interface.",
+      "name": "Exam Block Sequencing",
+      "package_root": "problems/exam_block_seq",
+      "problem_id": "exam_block_seq"
+    },
+    "steps": [
+      {
+        "action_kind": "patch",
+        "artifacts": {
+          "trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_scratch_gpt41mini/step_01"
+        },
+        "candidate_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "gamma1"
+            },
+            "update": {
+              "weight": 1.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 20.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                4,
+                9
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                4,
+                9
+              ],
+              "name": "p",
+              "value": 341.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                9,
+                4
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                9,
+                4
+              ],
+              "name": "p",
+              "value": 341.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {},
+            "target": {
+              "name": "reserved_slots"
+            },
+            "update": {
+              "name": "reserved_slots",
+              "value": [
+                21
+              ]
+            }
+          },
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "reserved_virtual_slot"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                "index_set": [
+                  21
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "21": {
+                      "fixed_block": 20,
+                      "slots": [
+                        21
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "reserved_virtual_slot_family"
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": {
+                  "21": 1.0
+                },
+                "sense": "=",
+                "tags": [
+                  "availability",
+                  "block_seq"
+                ]
+              }
+            }
+          }
+        ],
+        "change_report": "Applied UPDATE_OBJECTIVE_WEIGHT, UPDATE_OBJECTIVE_WEIGHT, UPDATE_PARAMETER, UPDATE_PARAMETER, UPDATE_PARAMETER, ADD_CONSTRAINT_FAMILY; objective 6009.0000 -> 8500.0000",
+        "chosen_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "gamma1"
+            },
+            "update": {
+              "weight": 1.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": {},
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 20.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                4,
+                9
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                4,
+                9
+              ],
+              "name": "p",
+              "value": 341.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                9,
+                4
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                9,
+                4
+              ],
+              "name": "p",
+              "value": 341.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {},
+            "target": {
+              "name": "reserved_slots"
+            },
+            "update": {
+              "name": "reserved_slots",
+              "value": [
+                21
+              ]
+            }
+          },
+          {
+            "notes": "",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": {},
+            "target": {
+              "constraint": "reserved_virtual_slot"
+            },
+            "update": {
+              "constraint": {
+                "aliases": [],
+                "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                "index_set": [
+                  21
+                ],
+                "lhs_spec": {
+                  "kind": "exam_x_aggregate",
+                  "rows": {
+                    "21": {
+                      "fixed_block": 20,
+                      "slots": [
+                        21
+                      ]
+                    }
+                  }
+                },
+                "metadata": {
+                  "rule_kind": "reserved_virtual_slot_family"
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": {
+                  "21": 1.0
+                },
+                "sense": "=",
+                "tags": [
+                  "availability",
+                  "block_seq"
+                ]
+              }
+            }
+          }
+        ],
+        "delta_request": "Apply the following updates in this exact order: P4, then P2, then P1.",
+        "evaluation": {
+          "checks": {
+            "has_solution": true
+          },
+          "details": {
+            "mip_gap": 0.3804705882352941,
+            "obj_bound": 5266.0,
+            "objective": 8500.0,
+            "objective_nonzero_coeffs": 395750,
+            "problem_id": "exam_block_seq",
+            "runtime": 3600.07679605484,
+            "sol_count": 3,
+            "status": 9,
+            "strategy": "scratch",
+            "warm_start_applied": false,
+            "warm_start_mode": "none",
+            "warm_start_source": "none"
+          },
+          "feasible": true,
+          "ground_truth_case_id": null,
+          "ground_truth_checks": {},
+          "ground_truth_details": {},
+          "matches_ground_truth": null,
+          "objective": 8500.0,
+          "runtime": 3600.07679605484,
+          "status": 9
+        },
+        "event": {
+          "affected_sets": {
+            "block_enrollment": "block_enrollment",
+            "early_slots": "early_slots",
+            "large_blocks": "large_blocks",
+            "pair_counts": "pair_counts",
+            "reserved_slots": "reserved_slots"
+          },
+          "annotations": {
+            "affected_sets": {
+              "block_enrollment": "block_enrollment",
+              "early_slots": "early_slots",
+              "large_blocks": "large_blocks",
+              "pair_counts": "pair_counts",
+              "reserved_slots": "reserved_slots"
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Update large_blocks list for frontloading per P4",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "large_blocks"
+                    },
+                    "update": {
+                      "value": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        19
+                      ]
+                    }
+                  },
+                  {
+                    "notes": "Set early slots for frontloading per P4",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "early_slots"
+                    },
+                    "update": {
+                      "value": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20,
+                        21
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "actions": [
+                  {
+                    "notes": "Reserve slots 23 and 24 per P2",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "reserved_slots"
+                    },
+                    "update": {
+                      "value": [
+                        23,
+                        24
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "actions": [
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "p"
+                    },
+                    "update": {
+                      "key": [
+                        5,
+                        9
+                      ],
+                      "value": 7.5
+                    }
+                  },
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "p"
+                    },
+                    "update": {
+                      "key": [
+                        9,
+                        5
+                      ],
+                      "value": 7.5
+                    }
+                  },
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "block_enrollment"
+                    },
+                    "update": {
+                      "delta": 15,
+                      "key": 5
+                    }
+                  }
+                ]
+              }
+            ],
+            "delta_metadata": {
+              "campaign_id": "paper_full_gpt_3600s",
+              "campaign_stage": "full",
+              "composed_prompt_ids": [
+                "P4",
+                "P2",
+                "P1"
+              ],
+              "instance_id": "I4",
+              "job_name": "I4_patchedit_auto_gpt41mini_prompts_P6",
+              "prompt_batch_count": 6,
+              "prompt_batch_index": 6,
+              "prompt_id": "P6",
+              "prompt_source": "catalog",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/step_01",
+              "replayed_from_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+              "replayed_from_run_id": "I4_P6_patchedit_auto_gpt41mini",
+              "run_mode": "patchedit-scratch-replay"
+            },
+            "edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planner_raw_response": "{\n  \"edit_summary\": \"Apply edits from prompts P4, P2, then P1 in order\",\n  \"affected_sets\": {\n    \"large_blocks\": \"large_blocks\",\n    \"early_slots\": \"early_slots\",\n    \"reserved_slots\": \"reserved_slots\",\n    \"pair_counts\": \"pair_counts\",\n    \"block_enrollment\": \"block_enrollment\"\n  },\n  \"relevant_components\": [\n    \"parameters\",\n    \"block_enrollment\",\n    \"pair_counts\",\n    \"p\",\n    \"large_blocks\",\n    \"early_slots\",\n    \"reserved_slots\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"large_blocks\"\n          },\n          \"update\": {\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]\n          },\n          \"notes\": \"Update large_blocks list for frontloading per P4\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"early_slots\"\n          },\n          \"update\": {\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]\n          },\n          \"notes\": \"Set early slots for frontloading per P4\"\n        }\n      ]\n    },\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"reserved_slots\"\n          },\n          \"update\": {\n            \"value\": [23, 24]\n          },\n          \"notes\": \"Reserve slots 23 and 24 per P2\"\n        }\n      ]\n    },\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"p\"\n          },\n          \"update\": {\n            \"key\": [5, 9],\n            \"value\": 7.5\n          }\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"p\"\n          },\n          \"update\": {\n            \"key\": [9, 5],\n            \"value\": 7.5\n          }\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"block_enrollment\"\n          },\n          \"update\": {\n            \"key\": 5,\n            \"delta\": 15\n          }\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "parameters",
+              "block_enrollment",
+              "pair_counts",
+              "p",
+              "large_blocks",
+              "early_slots",
+              "reserved_slots"
+            ]
+          },
+          "edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+          "event_type": "unknown",
+          "intention": "update",
+          "raw_text": "Apply the following updates in this exact order: P4, then P2, then P1."
+        },
+        "model_summary": {
+          "artifacts": [
+            "lp_path"
+          ],
+          "extras": [
+            "base_parameters"
+          ],
+          "n_constraints": 8,
+          "n_objectives": 5,
+          "n_variables": 12,
+          "parameter_info": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ],
+          "parameters": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ]
+        },
+        "objective": 8500.0,
+        "planner_output": {
+          "action_kind": "patch",
+          "affected_sets": {
+            "block_enrollment": "block_enrollment",
+            "early_slots": "early_slots",
+            "large_blocks": "large_blocks",
+            "pair_counts": "pair_counts",
+            "reserved_slots": "reserved_slots"
+          },
+          "annotations": {
+            "affected_sets": {
+              "block_enrollment": "block_enrollment",
+              "early_slots": "early_slots",
+              "large_blocks": "large_blocks",
+              "pair_counts": "pair_counts",
+              "reserved_slots": "reserved_slots"
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Update large_blocks list for frontloading per P4",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "large_blocks"
+                    },
+                    "update": {
+                      "value": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        19
+                      ]
+                    }
+                  },
+                  {
+                    "notes": "Set early slots for frontloading per P4",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "early_slots"
+                    },
+                    "update": {
+                      "value": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20,
+                        21
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "actions": [
+                  {
+                    "notes": "Reserve slots 23 and 24 per P2",
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "reserved_slots"
+                    },
+                    "update": {
+                      "value": [
+                        23,
+                        24
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "actions": [
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "p"
+                    },
+                    "update": {
+                      "key": [
+                        5,
+                        9
+                      ],
+                      "value": 7.5
+                    }
+                  },
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "p"
+                    },
+                    "update": {
+                      "key": [
+                        9,
+                        5
+                      ],
+                      "value": 7.5
+                    }
+                  },
+                  {
+                    "op": "UPDATE_PARAMETER",
+                    "target": {
+                      "name": "block_enrollment"
+                    },
+                    "update": {
+                      "delta": 15,
+                      "key": 5
+                    }
+                  }
+                ]
+              }
+            ],
+            "edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "parameters",
+              "block_enrollment",
+              "pair_counts",
+              "p",
+              "large_blocks",
+              "early_slots",
+              "reserved_slots"
+            ],
+            "replayed_from_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+            "replayed_from_run_id": "I4_P6_patchedit_auto_gpt41mini"
+          },
+          "candidate_action_sets": [
+            {
+              "action_kind": "patch",
+              "actions": [
+                {
+                  "notes": "",
+                  "op": "UPDATE_OBJECTIVE_WEIGHT",
+                  "scope": {},
+                  "target": {
+                    "objective": "gamma1"
+                  },
+                  "update": {
+                    "weight": 1.0
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "UPDATE_OBJECTIVE_WEIGHT",
+                  "scope": {},
+                  "target": {
+                    "objective": "beta"
+                  },
+                  "update": {
+                    "weight": 20.0
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {
+                    "entity": [
+                      4,
+                      9
+                    ]
+                  },
+                  "target": {
+                    "name": "pair_counts"
+                  },
+                  "update": {
+                    "key": [
+                      4,
+                      9
+                    ],
+                    "name": "p",
+                    "value": 341.0
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {
+                    "entity": [
+                      9,
+                      4
+                    ]
+                  },
+                  "target": {
+                    "name": "pair_counts"
+                  },
+                  "update": {
+                    "key": [
+                      9,
+                      4
+                    ],
+                    "name": "p",
+                    "value": 341.0
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {},
+                  "target": {
+                    "name": "reserved_slots"
+                  },
+                  "update": {
+                    "name": "reserved_slots",
+                    "value": [
+                      21
+                    ]
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "ADD_CONSTRAINT_FAMILY",
+                  "scope": {},
+                  "target": {
+                    "constraint": "reserved_virtual_slot"
+                  },
+                  "update": {
+                    "constraint": {
+                      "aliases": [],
+                      "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+                      "index_set": [
+                        21
+                      ],
+                      "lhs_spec": {
+                        "kind": "exam_x_aggregate",
+                        "rows": {
+                          "21": {
+                            "fixed_block": 20,
+                            "slots": [
+                              21
+                            ]
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "rule_kind": "reserved_virtual_slot_family"
+                      },
+                      "name": "reserved_virtual_slot",
+                      "rhs_spec": {
+                        "21": 1.0
+                      },
+                      "sense": "=",
+                      "tags": [
+                        "availability",
+                        "block_seq"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "label": "P6",
+              "metadata": {
+                "composed_prompt_ids": [
+                  "P4",
+                  "P2",
+                  "P1"
+                ],
+                "deterministic_composition": true
+              }
+            }
+          ],
+          "candidate_actions": [],
+          "edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+          "planning_hints": {
+            "edit_scope": "local",
+            "expected_reuse": "high",
+            "model_attempt_count": 0,
+            "model_retry_count": 0,
+            "planner_failed_semantically": false,
+            "planner_output_executable": true,
+            "planner_parse_ok": true,
+            "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+            "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/step_01"
+          },
+          "raw_response": "{\n  \"edit_summary\": \"Apply edits from prompts P4, P2, then P1 in order\",\n  \"affected_sets\": {\n    \"large_blocks\": \"large_blocks\",\n    \"early_slots\": \"early_slots\",\n    \"reserved_slots\": \"reserved_slots\",\n    \"pair_counts\": \"pair_counts\",\n    \"block_enrollment\": \"block_enrollment\"\n  },\n  \"relevant_components\": [\n    \"parameters\",\n    \"block_enrollment\",\n    \"pair_counts\",\n    \"p\",\n    \"large_blocks\",\n    \"early_slots\",\n    \"reserved_slots\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"large_blocks\"\n          },\n          \"update\": {\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19]\n          },\n          \"notes\": \"Update large_blocks list for frontloading per P4\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"early_slots\"\n          },\n          \"update\": {\n            \"value\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]\n          },\n          \"notes\": \"Set early slots for frontloading per P4\"\n        }\n      ]\n    },\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"reserved_slots\"\n          },\n          \"update\": {\n            \"value\": [23, 24]\n          },\n          \"notes\": \"Reserve slots 23 and 24 per P2\"\n        }\n      ]\n    },\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"p\"\n          },\n          \"update\": {\n            \"key\": [5, 9],\n            \"value\": 7.5\n          }\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"p\"\n          },\n          \"update\": {\n            \"key\": [9, 5],\n            \"value\": 7.5\n          }\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"block_enrollment\"\n          },\n          \"update\": {\n            \"key\": 5,\n            \"delta\": 15\n          }\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+          "relevant_components": [
+            "parameters",
+            "block_enrollment",
+            "pair_counts",
+            "p",
+            "large_blocks",
+            "early_slots",
+            "reserved_slots"
+          ]
+        },
+        "relevant_components": [
+          "parameters",
+          "block_enrollment",
+          "pair_counts",
+          "p",
+          "large_blocks",
+          "early_slots",
+          "reserved_slots"
+        ],
+        "solution": {
+          "1": 5,
+          "10": 4,
+          "11": 9,
+          "12": 10,
+          "13": 17,
+          "14": 14,
+          "15": 12,
+          "16": 2,
+          "17": 20,
+          "18": 22,
+          "19": 11,
+          "2": 6,
+          "20": 21,
+          "21": 15,
+          "22": 18,
+          "23": 24,
+          "24": 23,
+          "3": 16,
+          "4": 13,
+          "5": 1,
+          "6": 8,
+          "7": 19,
+          "8": 3,
+          "9": 7
+        },
+        "solve_meta": {
+          "mip_gap": 0.3804705882352941,
+          "obj_bound": 5266.0,
+          "objective": 8500.0,
+          "objective_nonzero_coeffs": 395750,
+          "runtime": 3600.07679605484,
+          "sol_count": 3,
+          "status": 9,
+          "warm_start_applied": false,
+          "warm_start_mode": "none",
+          "warm_start_source": "none"
+        },
+        "strategy": "scratch",
+        "strategy_selection": {
+          "execution_label": "scratch",
+          "fallback_reason": "",
+          "fallback_used": false,
+          "metadata": {
+            "has_base_warm_start": false,
+            "has_prior_result": false,
+            "heuristic_prompt_ids": [],
+            "heuristic_warm_start_available": true,
+            "heuristic_warm_start_reason": "",
+            "patch_count": 6,
+            "planner_edit_summary": "Apply edits from prompts P4, P2, then P1 in order",
+            "planner_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high",
+              "model_attempt_count": 0,
+              "model_retry_count": 0,
+              "planner_failed_semantically": false,
+              "planner_output_executable": true,
+              "planner_parse_ok": true,
+              "replay_source_result_path": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/run.json",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_auto_gpt41mini/step_01"
+            },
+            "planner_mode": "patchedit",
+            "planner_relevant_components": [
+              "parameters",
+              "block_enrollment",
+              "pair_counts",
+              "p",
+              "large_blocks",
+              "early_slots",
+              "reserved_slots"
+            ],
+            "structural_edit": true,
+            "supports_tuned_solver": true,
+            "supports_warm_start": true,
+            "toolbox_placeholders": [],
+            "toolbox_trace_only": false
+          },
+          "policy_name": "manual",
+          "prompt": [],
+          "rationale": "User-requested exam execution-label override.",
+          "raw_response": "",
+          "strategy": "scratch",
+          "toolbox_plan": []
+        }
+      }
+    ]
+  },
+  "run_id": "I4_P6_patchedit_scratch_gpt41mini",
+  "runtime": 3600.07679605484,
+  "selection_fallback_used": false,
+  "status": "ok",
+  "strategy": "scratch",
+  "strategy_policy": "manual",
+  "trace_dir": "outputs/llm_runs/trajectories/I4_P6_patchedit_scratch_gpt41mini/step_01"
+}

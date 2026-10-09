@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "direct+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is a local, safe update to pairwise counts without structural changes. Although heuristic warm start was unavailable due to grounding issues, the runtime context indicates warm start support and availability of tuned solving. Direct warm start combined with tuned reoptimization provides the fastest, safest strategy for such local updates.",
+  "confidence": 0.9
+}

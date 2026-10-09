@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit affects only one file and is structurally a local parameter and objective update. Heuristic warm start is available based on projected heuristic semantics and is reliable for incremental updates in this context. Since tuned solving is supported and the edits are effectively model impactful, combining heuristic warm start with tuned solving yields the fastest safe reoptimization.",
+  "confidence": 0.95
+}

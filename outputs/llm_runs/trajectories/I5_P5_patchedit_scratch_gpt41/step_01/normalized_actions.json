@@ -1,0 +1,68 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "ADD_CONSTRAINT_FAMILY",
+        "scope": {},
+        "target": {
+          "constraint": "slot_load_cap"
+        },
+        "update": {
+          "constraint": {
+            "aliases": [],
+            "desc": "Cap weighted enrollment across a selected slot set.",
+            "index_set": [
+              "day_2"
+            ],
+            "lhs_spec": {
+              "kind": "exam_x_aggregate",
+              "rows": {
+                "day_2": {
+                  "block_weights": {
+                    "1": 2353.0,
+                    "10": 2343.0,
+                    "11": 2709.0,
+                    "12": 2952.0,
+                    "13": 2791.0,
+                    "14": 2487.0,
+                    "15": 2980.0,
+                    "16": 3242.0,
+                    "2": 2350.0,
+                    "3": 2325.0,
+                    "4": 2335.0,
+                    "5": 2283.0,
+                    "6": 2431.0,
+                    "7": 2509.0,
+                    "8": 2298.0,
+                    "9": 2083.0
+                  },
+                  "slots": [
+                    4,
+                    5,
+                    6
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "rule_kind": "slot_load_cap_family"
+            },
+            "name": "slot_load_cap",
+            "rhs_spec": {
+              "day_2": 4000.0
+            },
+            "sense": "<=",
+            "tags": [
+              "block_seq",
+              "load_cap"
+            ]
+          }
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

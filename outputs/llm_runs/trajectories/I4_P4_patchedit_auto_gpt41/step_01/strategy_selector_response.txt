@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit increases a penalty weight, which is a local adjustment and does not alter the solution structure. The edit scope is local and reuse is expected to be high. Both heuristic warm start and tuned solving are available, and this combination enables fast reoptimization while leveraging tuned configurations. This approach is preferred over scratch or direct strategies for speed and solution quality.",
+  "confidence": 0.98
+}

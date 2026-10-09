@@ -1,0 +1,117 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "delta"
+      },
+      "update": {
+        "name": "delta",
+        "value": 20.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 3977.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 17,
+    "10": 22,
+    "11": 14,
+    "12": 1,
+    "13": 11,
+    "14": 24,
+    "15": 6,
+    "16": 4,
+    "17": 10,
+    "18": 16,
+    "19": 20,
+    "2": 2,
+    "20": 3,
+    "21": 23,
+    "22": 7,
+    "23": 5,
+    "24": 13,
+    "3": 21,
+    "4": 12,
+    "5": 19,
+    "6": 8,
+    "7": 15,
+    "8": 9,
+    "9": 18
+  },
+  "solve_meta": {
+    "mip_gap": 0.4878048780487801,
+    "obj_bound": 2037.0000000000016,
+    "objective": 3977.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3600.1855750083923,
+    "sol_count": 2,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Increase the penalty weight for three exams in four slots to be 20 times that of a regular back-to-back penalty.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "objective_component delta",
+        "parameter delta"
+      ],
+      "selector_confidence": 0.95,
+      "selector_model": "gpt-4.1-mini",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"The Student Assembly raised concerns about extreme stress; increase the penalty for having \\\"three exams in 24 hours\\\" to be 20 times that of a regular back-to-back.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Increase the penalty weight for three exams in four slots to be 20 times that of a regular back-to-back penalty.\",\n    \"planning_hints\": {\n      \"edit_scope\": \"local\",\n      \"expected_reuse\": \"high\",\n      \"planner_failed_semantically\": false,\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true\n    },\n    \"relevant_components\": [\n      \"objective_component delta\",\n      \"parameter delta\"\n    ]\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+heuristic+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 1,\n    \"planner_mode\": \"patchedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The edit is a local change increasing a penalty weight, which has high expected reuse and the availability of heuristic and direct warm starts plus tuned solver support. Using direct+heuristic+tuned strategy leverages warm starts and the tuned solver for the fastest safe reoptimization solve.",
+    "raw_response": "{\n  \"solve_strategy\": \"direct+heuristic+tuned\",\n  \"toolbox_plan\": [\"direct_warm_start\", \"heuristic_warm_start\", \"tuned_config\"],\n  \"rationale\": \"The edit is a local change increasing a penalty weight, which has high expected reuse and the availability of heuristic and direct warm starts plus tuned solver support. Using direct+heuristic+tuned strategy leverages warm starts and the tuned solver for the fastest safe reoptimization solve.\",\n  \"confidence\": 0.95\n}",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

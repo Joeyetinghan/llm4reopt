@@ -1,0 +1,116 @@
+{
+  "chosen_patches": [],
+  "codeedit_attempt_count": 1,
+  "codeedit_repair_count": 0,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 8513.0,
+  "objective_before": 5338.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 1,
+    "10": 8,
+    "11": 9,
+    "12": 16,
+    "13": 2,
+    "14": 5,
+    "15": 11,
+    "16": 18,
+    "17": 19,
+    "18": 17,
+    "19": 6,
+    "2": 21,
+    "20": 14,
+    "21": 23,
+    "22": 7,
+    "23": 22,
+    "24": 20,
+    "3": 12,
+    "4": 4,
+    "5": 13,
+    "6": 15,
+    "7": 3,
+    "8": 24,
+    "9": 10
+  },
+  "solve_meta": {
+    "mip_gap": 0.4869023845882767,
+    "obj_bound": 4368.0,
+    "objective": 8513.0,
+    "runtime": 3600.0669419765472,
+    "sol_count": 5,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "heuristic",
+    "warm_start_source": "heuristic"
+  },
+  "strategy": "tuned",
+  "strategy_selection": {
+    "execution_label": "heuristic+tuned",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "Projected codeedit into structured heuristic semantics: objective_weight_update.",
+      "patch_count": 0,
+      "planner_edit_summary": "The Student Assembly raised concerns about extreme stress; increase the penalty for having \"three exams in 24 hours\" to be 20 times that of a regular back-to-back.",
+      "planner_hints": {
+        "changed_file_count": 1,
+        "codeedit_noop": false,
+        "editable_file_count": 1,
+        "heuristic_warm_start_available": true,
+        "heuristic_warm_start_reason": "Projected codeedit into structured heuristic semantics: objective_weight_update.",
+        "model_effective_edit": true,
+        "model_effective_edit_reason": "Projected codeedit into structured heuristic semantics: objective_weight_update.",
+        "planner_failed_semantically": false,
+        "planner_mode": "codeedit",
+        "planner_model": "gpt-5",
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "planner_warning_count": 0,
+        "planner_warnings": [],
+        "projected_patch_ops": [
+          "UPDATE_OBJECTIVE_WEIGHT"
+        ],
+        "projected_semantics": [
+          "objective_weight_update"
+        ],
+        "projection_reason": "Projected codeedit into structured heuristic semantics: objective_weight_update.",
+        "projection_state": "projectable"
+      },
+      "planner_mode": "codeedit",
+      "planner_relevant_components": [],
+      "selector_confidence": 0.82,
+      "selector_model": "gpt-5",
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [
+      {
+        "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+        "role": "system"
+      },
+      {
+        "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"The Student Assembly raised concerns about extreme stress; increase the penalty for having \\\"three exams in 24 hours\\\" to be 20 times that of a regular back-to-back.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"The Student Assembly raised concerns about extreme stress; increase the penalty for having \\\"three exams in 24 hours\\\" to be 20 times that of a regular back-to-back.\",\n    \"planning_hints\": {\n      \"changed_file_count\": 1,\n      \"codeedit_noop\": false,\n      \"editable_file_count\": 1,\n      \"heuristic_warm_start_available\": true,\n      \"heuristic_warm_start_reason\": \"Projected codeedit into structured heuristic semantics: objective_weight_update.\",\n      \"model_effective_edit\": true,\n      \"model_effective_edit_reason\": \"Projected codeedit into structured heuristic semantics: objective_weight_update.\",\n      \"planner_failed_semantically\": false,\n      \"planner_mode\": \"codeedit\",\n      \"planner_model\": \"gpt-5\",\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true,\n      \"planner_warning_count\": 0,\n      \"planner_warnings\": [],\n      \"projected_patch_ops\": [\n        \"UPDATE_OBJECTIVE_WEIGHT\"\n      ],\n      \"projected_semantics\": [\n        \"objective_weight_update\"\n      ],\n      \"projection_reason\": \"Projected codeedit into structured heuristic semantics: objective_weight_update.\",\n      \"projection_state\": \"projectable\"\n    },\n    \"relevant_components\": []\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 0,\n    \"planner_mode\": \"codeedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+        "role": "user"
+      }
+    ],
+    "rationale": "The change is a small, objective-weight update (non-structural). There is no prior solution for a direct warm start, but a heuristic warm start is available. Combining heuristic warm start with the tuned solver is the fastest safe approach for this reuse-friendly edit, per guidance to prefer warm+tuned when available.",
+    "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The change is a small, objective-weight update (non-structural). There is no prior solution for a direct warm start, but a heuristic warm start is available. Combining heuristic warm start with the tuned solver is the fastest safe approach for this reuse-friendly edit, per guidance to prefer warm+tuned when available.\",\n  \"confidence\": 0.82\n}",
+    "strategy": "tuned",
+    "toolbox_plan": [
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

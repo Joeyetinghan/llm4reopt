@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -194,6 +194,25 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # P4: Increase alpha weight by 2.0\n+    weights = dict(data[\"weights\"])\n+    weights[\"alpha\"] = float(weights.get(\"alpha\", 10.0)) + 2.0\n+\n+    # P2: Add a symmetric pair penalty of 50.0 between blocks 7 and 13\n+    p = dict(data.get(\"pair_counts\") or {})\n+    p[(7, 13)] = float(p.get((7, 13), 0.0)) + 50.0\n+    p[(13, 7)] = float(p.get((13, 7), 0.0)) + 50.0\n+\n+    # P1: Frontload block 11 by adding it to large_blocks and early_slots\n+    large_blocks = list(data.get(\"large_blocks\", []))\n+    early_slots = list(data.get(\"early_slots\", []))\n+    if 11 not in large_blocks:\n+        large_blocks.append(11)\n+    # Add block 11 to early_slots if not already present\n+    if 11 not in early_slots:\n+        early_slots.append(11)\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -201,11 +220,11 @@\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n-        weights=dict(data[\"weights\"]),\n-        p=dict(data.get(\"pair_counts\") or {}),\n+        weights=weights,\n+        p=p,\n         t=dict(data.get(\"triplet_counts\") or {}),\n-        large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n-        early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n+        large_blocks=[int(block) for block in large_blocks],\n+        early_slots=[int(slot) for slot in early_slots],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n     )\n     apply_solver_params(grb, solver_params)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I5_P6_codeedit_auto_gpt41/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

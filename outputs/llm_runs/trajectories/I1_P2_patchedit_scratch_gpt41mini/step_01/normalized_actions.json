@@ -1,0 +1,45 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {
+          "entity": "[4,9]"
+        },
+        "target": {
+          "name": "p"
+        },
+        "update": {
+          "key": [
+            "[4",
+            "9]"
+          ],
+          "name": "p",
+          "value": 120.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {
+          "entity": "[9,4]"
+        },
+        "target": {
+          "name": "p"
+        },
+        "update": {
+          "key": [
+            "[9",
+            "4]"
+          ],
+          "name": "p",
+          "value": 120.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "edit_summary": "Update front-loading policy so that large exams (over 300 students) are scheduled before the 15th slot to allow sufficient grading time.",
+  "affected_sets": {
+    "large_blocks": "all blocks with enrollment > 300",
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  },
+  "relevant_components": [
+    "frontload",
+    "early_slots",
+    "frontload_slot_cutoff",
+    "large_blocks",
+    "block_enrollment"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+          },
+          "notes": "Restrict early_slots to slots 1-14, which are before slot 15."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 14
+          },
+          "notes": "Set frontload slot cutoff at slot 14 for large exams."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

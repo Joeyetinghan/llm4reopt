@@ -1,0 +1,73 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Set beta to 20x the regular back-to-back (gamma2) weight; gamma2 is currently 1.0.",
+            "op": "UPDATE_OBJECTIVE_WEIGHT",
+            "scope": "global",
+            "target": {
+              "objective": "beta"
+            },
+            "update": {
+              "weight": 20.0
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Increase the weight for the three-exams-in-24-hours penalty so it is 20x a regular back-to-back, setting beta to 20.0 (given gamma2=1.0).",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "beta",
+      "gamma2",
+      "triple_in_24hr"
+    ]
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "Set beta to 20x the regular back-to-back (gamma2) weight; gamma2 is currently 1.0.",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 20.0
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Increase the weight for the three-exams-in-24-hours penalty so it is 20x a regular back-to-back, setting beta to 20.0 (given gamma2=1.0).",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Increase the weight for the three-exams-in-24-hours penalty so it is 20x a regular back-to-back, setting beta to 20.0 (given gamma2=1.0).\",\n  \"affected_sets\": {},\n  \"relevant_components\": [\n    \"beta\",\n    \"gamma2\",\n    \"triple_in_24hr\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_OBJECTIVE_WEIGHT\",\n          \"target\": {\n            \"objective\": \"beta\"\n          },\n          \"scope\": \"global\",\n          \"update\": {\n            \"weight\": 20.0\n          },\n          \"notes\": \"Set beta to 20x the regular back-to-back (gamma2) weight; gamma2 is currently 1.0.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "beta",
+    "gamma2",
+    "triple_in_24hr"
+  ]
+}

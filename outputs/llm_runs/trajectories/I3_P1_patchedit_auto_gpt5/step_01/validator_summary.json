@@ -1,0 +1,140 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "",
+      "op": "ADD_CONSTRAINT_FAMILY",
+      "scope": {},
+      "target": {
+        "constraint": "reserved_virtual_slot"
+      },
+      "update": {
+        "constraint": {
+          "aliases": [],
+          "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+          "index_set": [
+            21
+          ],
+          "lhs_spec": {
+            "kind": "exam_x_aggregate",
+            "rows": {
+              "21": {
+                "fixed_block": 18,
+                "slots": [
+                  21
+                ]
+              }
+            }
+          },
+          "metadata": {
+            "rule_kind": "reserved_virtual_slot_family"
+          },
+          "name": "reserved_virtual_slot",
+          "rhs_spec": {
+            "21": 1.0
+          },
+          "sense": "=",
+          "tags": [
+            "availability",
+            "block_seq"
+          ]
+        }
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 1,
+  "model_retry_count": 0,
+  "objective_after": 4915.0,
+  "objective_before": 4218.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 18,
+    "10": 9,
+    "11": 6,
+    "12": 10,
+    "13": 8,
+    "14": 2,
+    "15": 14,
+    "16": 16,
+    "17": 1,
+    "18": 21,
+    "19": 22,
+    "2": 5,
+    "20": 3,
+    "21": 24,
+    "22": 11,
+    "23": 23,
+    "24": 7,
+    "25": 15,
+    "3": 12,
+    "4": 17,
+    "5": 20,
+    "6": 13,
+    "7": 25,
+    "8": 4,
+    "9": 19
+  },
+  "solve_meta": {
+    "mip_gap": 0.2278738555442523,
+    "obj_bound": 3795.0,
+    "objective": 4915.0,
+    "objective_nonzero_coeffs": 333584,
+    "runtime": 3600.092299222946,
+    "sol_count": 10,
+    "status": 9,
+    "warm_start_applied": true,
+    "warm_start_mode": "base+heuristic",
+    "warm_start_source": "base+heuristic"
+  },
+  "strategy": "warm+tuned",
+  "strategy_selection": {
+    "execution_label": "direct+heuristic+tuned",
+    "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq', 'delta_text': 'Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.', 'planner_mode': 'patchedit'}}\"",
+    "fallback_used": true,
+    "metadata": {
+      "fallback_policy_name": "rule",
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 1,
+      "planner_edit_summary": "Reserve the penultimate evening slot (slot 21) by fixing virtual block 18 there to keep it empty for setup.",
+      "planner_hints": {
+        "edit_scope": "structural",
+        "expected_reuse": "high",
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "reserved_virtual_slot",
+        "virtual_blocks",
+        "slots_per_day",
+        "slot_times"
+      ],
+      "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq', 'delta_text': 'Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.', 'planner_mode': 'patchedit'}}\"",
+      "selector_model": "gpt-5",
+      "structural_edit": true,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "llm",
+    "prompt": [],
+    "rationale": "Deterministic exam execution-label selection.",
+    "raw_response": "",
+    "strategy": "warm+tuned",
+    "toolbox_plan": [
+      "direct_warm_start",
+      "heuristic_warm_start",
+      "tuned_config"
+    ]
+  }
+}

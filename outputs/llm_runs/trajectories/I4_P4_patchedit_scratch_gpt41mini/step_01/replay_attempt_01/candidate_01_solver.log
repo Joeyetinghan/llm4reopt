@@ -1,0 +1,165 @@
+
+Gurobi 13.0.1 (linux64) logging started Mon Apr 27 02:02:40 2026
+
+Set parameter LogFile to value "outputs/llm_runs/trajectories/I4_P4_patchedit_scratch_gpt41mini/step_01/replay_attempt_01/candidate_01_solver.log"
+Set parameter Threads to value 6
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Red Hat Enterprise Linux 9.6 (Plow)")
+
+CPU model: Intel(R) Xeon(R) Gold 6226 CPU @ 2.70GHz, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 24 physical cores, 24 logical processors, using up to 6 threads
+
+Non-default parameters:
+TimeLimit  3600
+LogToConsole  0
+Threads  6
+
+Optimize a model with 401010 rows, 677376 columns and 3563112 nonzeros (Min)
+Model fingerprint: 0x97171178
+Model has 395750 linear objective coefficients
+Variable types: 0 continuous, 677376 integer (677376 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [2e+01, 2e+03]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+
+Presolve removed 218211 rows and 216483 columns (presolve time = 5s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 10s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 15s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 20s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 25s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 30s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 35s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 40s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 45s)...
+Presolve removed 218211 rows and 216483 columns (presolve time = 50s)...
+Presolve removed 218211 rows and 220163 columns (presolve time = 55s)...
+Presolve removed 218211 rows and 220163 columns
+Presolve time: 55.86s
+Presolved: 182799 rows, 457213 columns, 1955643 nonzeros
+Variable types: 0 continuous, 457213 integer (457213 binary)
+Deterministic concurrent LP optimizer: primal simplex, dual simplex, and barrier
+Showing barrier log only...
+
+Root barrier log...
+
+Ordering time: 6.16s
+Elapsed ordering time = 6s
+Elapsed ordering time = 10s
+Elapsed ordering time = 12s
+Elapsed ordering time = 15s
+Elapsed ordering time = 15s
+Elapsed ordering time = 17s
+Ordering time: 19.08s
+
+Barrier statistics:
+ Dense cols : 3868
+ AA' NZ     : 2.466e+06
+ Factor NZ  : 2.203e+08 (roughly 2.0 GB of memory)
+ Factor Ops : 1.800e+12 (roughly 14 seconds per iteration)
+ Threads    : 3
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   7.50999317e+08 -3.65278594e+08  2.07e+04 7.55e+02  1.17e+04    82s
+   1   3.35108993e+08 -3.40395437e+08  9.74e+03 1.08e+02  4.27e+03    82s
+   2   1.50539751e+08 -2.50126890e+08  3.68e+03 2.73e-12  1.60e+03    82s
+   3   4.85597301e+07 -1.00470436e+08  5.10e+02 1.82e-12  3.31e+02    82s
+   4   2.05993721e+07 -1.59562464e+07  8.52e+01 1.36e-12  7.25e+01    82s
+   5   8.68043741e+06 -4.48361180e+06  2.87e+01 1.36e-12  2.72e+01    82s
+   6   1.78072835e+06 -1.07750621e+06  4.98e+00 1.36e-12  5.76e+00    83s
+   7   4.17251955e+05 -3.91526081e+05  1.09e+00 9.09e-13  1.51e+00    83s
+   8   1.42879884e+05 -3.12839987e+05  3.32e-01 9.09e-13  7.83e-01    83s
+   9   2.89540425e+04 -1.85680691e+05  5.40e-02 9.09e-13  3.41e-01    83s
+  10   2.55393455e+04 -1.73341272e+05  4.56e-02 9.09e-13  3.13e-01    83s
+  11   2.27944144e+04 -1.03178194e+05  3.83e-02 9.09e-13  2.02e-01    83s
+  12   1.71597841e+04 -8.93867450e+04  2.51e-02 9.09e-13  1.69e-01    83s
+  13   1.49396119e+04 -4.45544442e+04  1.92e-02 9.09e-13  9.61e-02    83s
+  14   9.36559457e+03 -3.01206034e+04  5.84e-03 9.09e-13  6.23e-02    84s
+  15   7.13484187e+03 -7.73381765e+03  2.51e-03 9.09e-13  2.34e-02    84s
+  16   5.97246288e+03 -3.22838906e+03  1.07e-03 1.36e-12  1.44e-02    84s
+  17   5.48028839e+03 -1.75468397e+03  5.68e-04 9.09e-13  1.12e-02    84s
+  18   5.08156972e+03  2.83775734e+02  2.80e-04 9.09e-13  7.43e-03    85s
+  19   4.64236494e+03  1.26880149e+03  9.58e-05 9.09e-13  5.20e-03    85s
+  20   4.40662431e+03  2.23577757e+03  3.55e-05 9.09e-13  3.35e-03    86s
+  21   4.26969121e+03  2.81851302e+03  1.28e-05 1.36e-12  2.23e-03    86s
+  22   4.21077211e+03  3.48512386e+03  5.44e-06 1.36e-12  1.12e-03    88s
+  23   4.15082068e+03  3.79654100e+03  5.79e-07 9.09e-13  5.45e-04   394s
+  24   4.13948913e+03  4.03282402e+03  9.32e-08 1.36e-12  1.64e-04   408s
+  25   4.13696518e+03  4.07910448e+03  3.17e-08 1.36e-12  8.90e-05   421s
+  26   4.13581591e+03  4.13205095e+03  1.89e-08 9.09e-13  5.80e-06   435s
+  27   4.13565608e+03  4.13440516e+03  1.20e-08 9.09e-13  1.93e-06   448s
+  28   4.13548087e+03  4.13532212e+03  2.24e-09 2.59e-11  2.47e-07   462s
+  29   4.13543286e+03  4.13543035e+03  2.55e-09 7.57e-10  3.97e-09   475s
+  30   4.13543228e+03  4.13543228e+03  2.17e-10 8.73e-10  3.97e-12   488s
+
+Barrier solved model in 30 iterations and 488.30 seconds (161.56 work units)
+Optimal objective 4.13543228e+03
+
+
+Root crossover log...
+
+   14834 DPushes remaining with DInf 0.0000000e+00               488s
+     407 DPushes remaining with DInf 0.0000000e+00               490s
+       0 DPushes remaining with DInf 0.0000000e+00               492s
+
+    1252 PPushes remaining with PInf 0.0000000e+00               492s
+       0 PPushes remaining with PInf 0.0000000e+00               492s
+
+  Push phase complete: Pinf 0.0000000e+00, Dinf 5.1247984e-09    492s
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   16024    4.1354323e+03   0.000000e+00   0.000000e+00    492s
+Crossover time: 3.80 seconds (2.21 work units)
+Concurrent spin time: 168.38s (can be avoided by choosing Method=3)
+
+Solved with barrier
+   16024    4.1354323e+03   0.000000e+00   0.000000e+00    492s
+
+Use crossover to convert LP symmetric solution to basic solution...
+
+Root crossover log...
+
+   12433 DPushes remaining with DInf 0.0000000e+00               493s
+     286 DPushes remaining with DInf 0.0000000e+00               495s
+       0 DPushes remaining with DInf 0.0000000e+00               498s
+
+     481 PPushes remaining with PInf 0.0000000e+00               498s
+       0 PPushes remaining with PInf 0.0000000e+00               498s
+
+  Push phase complete: Pinf 0.0000000e+00, Dinf 7.5323783e-09    498s
+
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   28868    4.1354323e+03   0.000000e+00   0.000000e+00    498s
+Crossover time: 6.10 seconds (3.98 work units)
+
+Root relaxation: objective 4.135432e+03, 28868 iterations, 440.61 seconds (140.59 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 4135.43228    0  419          - 4135.43228      -     - 1072s
+H    0     0                    13218.000000 4135.43228  68.7%     - 1075s
+H    0     0                    13123.000000 4135.43228  68.5%     - 1233s
+     0     0          -    0      13123.0000 4135.43228  68.5%     - 3600s
+
+Cutting planes:
+  Clique: 1
+  MIR: 22
+  Zero half: 39
+  RLT: 33
+  BQP: 10
+
+Explored 1 nodes (409331 simplex iterations) in 3600.11 seconds (2603.13 work units)
+Thread count was 6 (of 24 available processors)
+
+Solution count 2: 13123 13218 
+
+Time limit reached
+Best objective 1.312300000000e+04, best bound 4.136000000000e+03, gap 68.4828%

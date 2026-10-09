@@ -1,0 +1,147 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Add a day-level load cap constraint on slots 4,5,6 representing Day 2 with maximum enrollment 4000.",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": "model",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [
+                  "day_2"
+                ],
+                "lhs_spec": {
+                  "enrollment": {
+                    "keyed_by_block": true
+                  },
+                  "kind": "slot_load_cap",
+                  "slot_ids": [
+                    4,
+                    5,
+                    6
+                  ]
+                },
+                "name": "slot_load_cap",
+                "rhs_spec": {
+                  "day_2": 4000
+                },
+                "sense": "<="
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Limit total students taking exams on Day 2 to 4,00 by adding a slot_load_cap constraint on Day 2 slots.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "slot_load_cap",
+      "block_enrollment",
+      "x"
+    ],
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41mini/run.json",
+    "replayed_from_run_id": "I1_P5_patchedit_auto_gpt41mini"
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {
+            "constraint": "slot_load_cap"
+          },
+          "update": {
+            "constraint": {
+              "aliases": [],
+              "desc": "Cap weighted enrollment across a selected slot set.",
+              "index_set": [
+                "day_2"
+              ],
+              "lhs_spec": {
+                "kind": "exam_x_aggregate",
+                "rows": {
+                  "day_2": {
+                    "block_weights": {
+                      "1": 2081.0,
+                      "10": 2312.0,
+                      "11": 2023.0,
+                      "12": 2012.0,
+                      "13": 1837.0,
+                      "14": 2232.0,
+                      "15": 2105.0,
+                      "16": 1841.0,
+                      "17": 2123.0,
+                      "18": 2468.0,
+                      "19": 2674.0,
+                      "2": 2027.0,
+                      "20": 2553.0,
+                      "3": 1803.0,
+                      "4": 1777.0,
+                      "5": 1989.0,
+                      "6": 2043.0,
+                      "7": 1955.0,
+                      "8": 1962.0,
+                      "9": 1770.0
+                    },
+                    "slots": [
+                      4,
+                      5,
+                      6
+                    ]
+                  }
+                }
+              },
+              "metadata": {
+                "rule_kind": "slot_load_cap_family"
+              },
+              "name": "slot_load_cap",
+              "rhs_spec": {
+                "day_2": 4000.0
+              },
+              "sense": "<=",
+              "tags": [
+                "block_seq",
+                "load_cap"
+              ]
+            }
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Limit total students taking exams on Day 2 to 4,00 by adding a slot_load_cap constraint on Day 2 slots.",
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "model_attempt_count": 0,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41mini/run.json",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I1_P5_patchedit_auto_gpt41mini/step_01"
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Limit total students taking exams on Day 2 to 4,000 by adding a slot_load_cap constraint on Day 2 slots.\",\n  \"affected_sets\": {},\n  \"relevant_components\": [\n    \"slot_load_cap\",\n    \"block_enrollment\",\n    \"x\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"model\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"slot_load_cap\",\n              \"index_set\": [\n                \"day_2\"\n              ],\n              \"lhs_spec\": {\n                \"kind\": \"slot_load_cap\",\n                \"slot_ids\": [\n                  4,\n                  5,\n                  6\n                ],\n                \"enrollment\": {\n                  \"keyed_by_block\": true\n                }\n              },\n              \"rhs_spec\": {\n                \"day_2\": 4000\n              },\n              \"sense\": \"<=\"\n            }\n          },\n          \"notes\": \"Add a day-level load cap constraint on slots 4,5,6 representing Day 2 with maximum enrollment 4000.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x"
+  ]
+}

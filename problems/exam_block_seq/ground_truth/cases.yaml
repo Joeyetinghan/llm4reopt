@@ -1,0 +1,33 @@
+status: active
+# One case per instance x prompt: the prompt texts are in ../prompts/catalog.yaml, the gold edits in reference.py.
+cases:
+  - {case_id: I1_P1, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P1}}
+  - {case_id: I1_P2, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P2}}
+  - {case_id: I1_P3, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P3}}
+  - {case_id: I1_P4, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P4}}
+  - {case_id: I1_P5, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P5}}
+  - {case_id: I1_P6, reference_artifact: reference_solutions, metadata: {instance_id: I1, prompt_id: P6}}
+  - {case_id: I2_P1, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P1}}
+  - {case_id: I2_P2, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P2}}
+  - {case_id: I2_P3, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P3}}
+  - {case_id: I2_P4, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P4}}
+  - {case_id: I2_P5, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P5}}
+  - {case_id: I2_P6, reference_artifact: reference_solutions, metadata: {instance_id: I2, prompt_id: P6}}
+  - {case_id: I3_P1, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P1}}
+  - {case_id: I3_P2, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P2}}
+  - {case_id: I3_P3, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P3}}
+  - {case_id: I3_P4, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P4}}
+  - {case_id: I3_P5, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P5}}
+  - {case_id: I3_P6, reference_artifact: reference_solutions, metadata: {instance_id: I3, prompt_id: P6}}
+  - {case_id: I4_P1, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P1}}
+  - {case_id: I4_P2, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P2}}
+  - {case_id: I4_P3, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P3}}
+  - {case_id: I4_P4, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P4}}
+  - {case_id: I4_P5, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P5}}
+  - {case_id: I4_P6, reference_artifact: reference_solutions, metadata: {instance_id: I4, prompt_id: P6}}
+  - {case_id: I5_P1, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P1}}
+  - {case_id: I5_P2, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P2}}
+  - {case_id: I5_P3, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P3}}
+  - {case_id: I5_P4, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P4}}
+  - {case_id: I5_P5, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P5}}
+  - {case_id: I5_P6, reference_artifact: reference_solutions, metadata: {instance_id: I5, prompt_id: P6}}

@@ -1,0 +1,127 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {
+    "reserved_slots": "reserved_slots"
+  },
+  "annotations": {
+    "affected_sets": {
+      "reserved_slots": "reserved_slots"
+    },
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "Reserve slot 20 (the evening slot before the final evening slot, slot 21) with the smallest available virtual block (17) to ensure it's blocked for auditorium setup.",
+            "op": "ADD_CONSTRAINT_FAMILY",
+            "scope": "model",
+            "target": {},
+            "update": {
+              "constraint": {
+                "index_set": [],
+                "lhs_spec": {
+                  "kind": "reserved_virtual_slot",
+                  "slot": 20,
+                  "virtual_block": 17
+                },
+                "name": "reserved_virtual_slot",
+                "rhs_spec": 1,
+                "sense": "="
+              }
+            }
+          },
+          {
+            "notes": "Include slot 20 as a reserved slot along with existing reserved slots, including the final evening slot 21.",
+            "op": "UPDATE_PARAMETER",
+            "scope": "model",
+            "target": {
+              "name": "reserved_slots"
+            },
+            "update": {
+              "key": null,
+              "value": [
+                20,
+                21
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup.",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [
+      "reserved_virtual_slot",
+      "reserved_slots",
+      "virtual_blocks",
+      "slot_times",
+      "slots_per_day"
+    ]
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "Reserve slot 20 (the evening slot before the final evening slot, slot 21) with the smallest available virtual block (17) to ensure it's blocked for auditorium setup.",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {},
+          "update": {
+            "constraint": {
+              "index_set": [],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 20,
+                "virtual_block": 17
+              },
+              "name": "reserved_virtual_slot",
+              "rhs_spec": 1,
+              "sense": "="
+            }
+          }
+        },
+        {
+          "notes": "Include slot 20 as a reserved slot along with existing reserved slots, including the final evening slot 21.",
+          "op": "UPDATE_PARAMETER",
+          "scope": {},
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "name": "reserved_slots",
+            "value": [
+              20,
+              21
+            ]
+          }
+        }
+      ],
+      "label": "",
+      "metadata": {}
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Reserve the evening slot immediately before the final evening slot for auditorium setup.",
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true
+  },
+  "raw_response": "{\n  \"edit_summary\": \"Reserve the evening slot immediately before the final evening slot for auditorium setup.\",\n  \"affected_sets\": {\n    \"reserved_slots\": \"reserved_slots\"\n  },\n  \"relevant_components\": [\n    \"reserved_virtual_slot\",\n    \"reserved_slots\",\n    \"virtual_blocks\",\n    \"slot_times\",\n    \"slots_per_day\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"ADD_CONSTRAINT_FAMILY\",\n          \"target\": {},\n          \"scope\": \"model\",\n          \"update\": {\n            \"constraint\": {\n              \"name\": \"reserved_virtual_slot\",\n              \"index_set\": [],\n              \"lhs_spec\": {\n                \"kind\": \"reserved_virtual_slot\",\n                \"slot\": 20,\n                \"virtual_block\": 17\n              },\n              \"rhs_spec\": 1,\n              \"sense\": \"=\"\n            }\n          },\n          \"notes\": \"Reserve slot 20 (the evening slot before the final evening slot, slot 21) with the smallest available virtual block (17) to ensure it's blocked for auditorium setup.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"reserved_slots\"\n          },\n          \"scope\": \"model\",\n          \"update\": {\n            \"key\": null,\n            \"value\": [\n              20,\n              21\n            ]\n          },\n          \"notes\": \"Include slot 20 as a reserved slot along with existing reserved slots, including the final evening slot 21.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"structural\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "reserved_slots",
+    "virtual_blocks",
+    "slot_times",
+    "slots_per_day"
+  ]
+}

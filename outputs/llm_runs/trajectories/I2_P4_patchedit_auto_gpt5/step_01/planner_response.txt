@@ -1,0 +1,43 @@
+{
+  "edit_summary": "Set the triple-in-24hr penalty weight (beta) to be 20x a regular back-to-back (gamma2), updating beta from 10.0 to 20.0.",
+  "affected_sets": {},
+  "relevant_components": [
+    "beta",
+    "gamma2",
+    "triple_in_24hr",
+    "b2b_other"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "beta"
+          },
+          "scope": "global",
+          "update": {
+            "weight": 20.0
+          },
+          "notes": "Interpret 'regular back-to-back' as gamma2 (other adjacent-slot pairs). Current gamma2 weight is 1.0, so beta set to 20*1.0 = 20.0."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "beta"
+          },
+          "scope": "global",
+          "update": {
+            "name": "beta",
+            "value": 20.0
+          },
+          "notes": "Keep the exposed parameter in sync with the objective weight."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -27,9 +27,9 @@\n     large_blocks: list[int] | None = None,\n     early_slots: list[int] | None = None,\n     time_limit: float | None = None,\n+    block_enrollment: Dict[int, int] | None = None,\n ) -> \"gp.Model\":\n     \"\"\"Build the upstream block-sequencing model directly in gurobipy.\"\"\"\n-    del slots_per_day\n     slots = list(blocks)\n     block_sequence_trip = [(i, j, k) for i in blocks for j in blocks for k in blocks]\n     block_sequence_quad = [(i, j, k, l) for i in blocks for j in blocks for k in blocks for l in blocks]\n@@ -180,6 +180,20 @@\n         )\n     )\n     m.setObjective(objective, GRB.MINIMIZE)\n+\n+    # Add constraint: total students taking exams on Day 2 \u2264 4000\n+    # Day 2 slots are slots 4, 5, 6 (1-based), so slot ids at index 3, 4, 5 in slots\n+    if block_enrollment is not None:\n+        day2_slot_indices = [slots_per_day * 1 + i for i in range(slots_per_day)]  # Day 2: indices 3,4,5\n+        day2_slots = [blocks[idx] for idx in day2_slot_indices if idx < len(blocks)]\n+        m.addConstr(\n+            gp.quicksum(\n+                block_enrollment.get(i, 0) * gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks)\n+                for i in blocks\n+                for s in day2_slots\n+            ) <= 4000,\n+            name=\"day2_student_cap\"\n+        )\n \n     m.update()\n     return m\n@@ -207,6 +221,7 @@\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],\n         early_slots=[int(slot) for slot in data.get(\"early_slots\", [])],\n         time_limit=float(time_limit if time_limit is not None else data.get(\"time_limit\", 600)),\n+        block_enrollment=dict(data.get(\"block_enrollment\", {})),\n     )\n     apply_solver_params(grb, solver_params)\n     apply_exam_warm_start_payload(grb, warm_start)",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I3_P5_codeedit_auto_gpt41/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

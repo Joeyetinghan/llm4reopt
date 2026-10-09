@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit involves reserving a specific time slot, which is a code-edit but not a structural edit. Warm start is unavailable due to inability to ground a reserved virtual slot, but tuned solving is supported and preferred for faster, safe reoptimization. Using tuned solver directly is the best reliable choice here.",
+  "confidence": 0.9
+}

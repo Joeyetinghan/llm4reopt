@@ -1,0 +1,11 @@
+{
+  "edit_summary": "Requested to apply updates P4, then P2, then P1, but their concrete contents were not provided; cannot construct executable patches.",
+  "affected_sets": {},
+  "relevant_components": [],
+  "candidate_action_sets": [],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high",
+    "reason": "Composed prompt details for P4, P2, and P1 are missing; need explicit delta content to generate concrete patches."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local (pairwise count update between Block 4 and Block 9) and expected reuse is high. Warm start is available, with prioritized heuristic warm start and tuned solving present. 'heuristic+tuned' is therefore the fastest safe reoptimization method from the allowed list (using heuristic_warm_start and tuned_config). Warm+tuned is preferable to heuristic alone for performance and solution quality. No full scratch solve is necessary given the high similarity.",
+  "confidence": 0.98
+}

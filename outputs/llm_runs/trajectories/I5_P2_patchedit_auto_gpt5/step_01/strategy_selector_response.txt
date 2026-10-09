@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is a small, local edit to pair_counts with high expected reuse. There is no prior solution or base warm start to leverage, making direct warm start less useful. A heuristic warm start can quickly generate a high-quality seed after applying the local patch, and pairing it with the tuned solver configuration offers the fastest safe reoptimization path for a reuse-friendly update.",
+  "confidence": 0.82
+}

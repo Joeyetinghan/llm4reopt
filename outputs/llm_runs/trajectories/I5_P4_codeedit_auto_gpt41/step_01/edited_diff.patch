@@ -1,0 +1,15 @@
+--- solver.py
++++ solver.py
+@@ -41,9 +41,10 @@
+     triplet_penalties = dict(t or {})
+ 
+     alpha = float(weights.get("alpha", 10.0))
+-    beta = float(weights.get("beta", 10.0))
++    # Increase the penalty for "three exams in 24 hours" to be 20 times that of a regular back-to-back (gamma2)
++    gamma2 = float(weights.get("gamma2", 1.0))
++    beta = 20.0 * gamma2
+     gamma1 = float(weights.get("gamma1", 1.0))
+-    gamma2 = float(weights.get("gamma2", 1.0))
+     delta = float(weights.get("delta", 5.0))
+ 
+     m = gp.Model("BlockSequencing")

@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is a small, objective-weight update (non-structural). There is no prior solution for a direct warm start, but a heuristic warm start is available. Combining heuristic warm start with the tuned solver is the fastest safe approach for this reuse-friendly edit, per guidance to prefer warm+tuned when available.",
+  "confidence": 0.82
+}

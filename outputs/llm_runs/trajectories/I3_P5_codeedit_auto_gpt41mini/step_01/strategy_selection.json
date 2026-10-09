@@ -1,0 +1,69 @@
+{
+  "execution_label": "heuristic+tuned",
+  "fallback_reason": "",
+  "fallback_used": false,
+  "metadata": {
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+    "patch_count": 0,
+    "planner_edit_summary": "Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.",
+    "planner_hints": {
+      "changed_file_count": 1,
+      "codeedit_noop": false,
+      "editable_file_count": 1,
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "model_effective_edit": true,
+      "model_effective_edit_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "planner_failed_semantically": false,
+      "planner_mode": "codeedit",
+      "planner_model": "gpt-4.1-mini",
+      "planner_output_executable": true,
+      "planner_parse_ok": true,
+      "planner_warning_count": 3,
+      "planner_warnings": [
+        "The LLM did not conform to the edit format",
+        "SearchReplaceNoExactMatch",
+        "Only 3 reflections allowed"
+      ],
+      "projected_patch_ops": [
+        "ADD_CONSTRAINT_FAMILY"
+      ],
+      "projected_semantics": [
+        "slot_load_cap"
+      ],
+      "projection_reason": "Projected codeedit into structured heuristic semantics: slot_load_cap.",
+      "projection_state": "projectable"
+    },
+    "planner_mode": "codeedit",
+    "planner_relevant_components": [],
+    "selector_confidence": null,
+    "selector_model": "gpt-4.1-mini",
+    "structural_edit": false,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [
+    {
+      "content": "You choose the fastest safe reoptimization solve strategy.\nReturn JSON only.\nPick exactly one solve strategy from the allowed list.\nDo not invent toolbox items or unsupported strategies.\nToolbox plans are executable in this runtime and must match the chosen solve strategy.\nPrefer warm+tuned over warm alone when both warm reuse and tuned solving are available and the edit looks reuse-friendly.\nPrefer warm reuse for local edits when a reusable solution exists but tuned solving is unavailable or unnecessary.\nPrefer tuned or scratch for structural edits when warm reuse looks fragile.\nRequired JSON keys: \"solve_strategy\", \"toolbox_plan\", \"rationale\".\nOptional JSON key: \"confidence\" as a number in [0, 1].",
+      "role": "system"
+    },
+    {
+      "content": "{\n  \"allowed_strategies\": [\n    \"direct\",\n    \"heuristic\",\n    \"tuned\",\n    \"direct+heuristic\",\n    \"direct+tuned\",\n    \"heuristic+tuned\",\n    \"direct+heuristic+tuned\",\n    \"scratch\"\n  ],\n  \"delta_text\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n  \"planner_summary\": {\n    \"edit_summary\": \"Due to an unexpected shortage of available proctors, limit the total number of students taking exams on Day 2 to a maximum of 4,000.\",\n    \"planning_hints\": {\n      \"changed_file_count\": 1,\n      \"codeedit_noop\": false,\n      \"editable_file_count\": 1,\n      \"heuristic_warm_start_available\": true,\n      \"heuristic_warm_start_reason\": \"Projected codeedit into structured heuristic semantics: slot_load_cap.\",\n      \"model_effective_edit\": true,\n      \"model_effective_edit_reason\": \"Projected codeedit into structured heuristic semantics: slot_load_cap.\",\n      \"planner_failed_semantically\": false,\n      \"planner_mode\": \"codeedit\",\n      \"planner_model\": \"gpt-4.1-mini\",\n      \"planner_output_executable\": true,\n      \"planner_parse_ok\": true,\n      \"planner_warning_count\": 3,\n      \"planner_warnings\": [\n        \"The LLM did not conform to the edit format\",\n        \"SearchReplaceNoExactMatch\",\n        \"Only 3 reflections allowed\"\n      ],\n      \"projected_patch_ops\": [\n        \"ADD_CONSTRAINT_FAMILY\"\n      ],\n      \"projected_semantics\": [\n        \"slot_load_cap\"\n      ],\n      \"projection_reason\": \"Projected codeedit into structured heuristic semantics: slot_load_cap.\",\n      \"projection_state\": \"projectable\"\n    },\n    \"relevant_components\": []\n  },\n  \"problem_id\": \"exam_block_seq\",\n  \"runtime_context\": {\n    \"default_execution_label\": \"direct+tuned\",\n    \"has_base_warm_start\": false,\n    \"has_prior_result\": false,\n    \"heuristic_warm_start_available\": true,\n    \"patch_count\": 0,\n    \"planner_mode\": \"codeedit\",\n    \"structural_edit\": false,\n    \"supports_tuned_solver\": true,\n    \"supports_warm_start\": true,\n    \"toolbox_execution_mode\": \"executable\",\n    \"warm_start_available\": true\n  },\n  \"toolbox_inventory\": [\n    \"direct_warm_start\",\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"toolbox_placeholders\": []\n}",
+      "role": "user"
+    }
+  ],
+  "rationale": "The edit is a local constraint addition (slot_load_cap) projecting well to heuristic semantics and is supported by a heuristic warm start. Since tuned solving is available and beneficial for performance, the combination heuristic+tuned is chosen for fastest safe reoptimization solve.",
+  "raw_response": "{\n  \"solve_strategy\": \"heuristic+tuned\",\n  \"toolbox_plan\": [\n    \"heuristic_warm_start\",\n    \"tuned_config\"\n  ],\n  \"rationale\": \"The edit is a local constraint addition (slot_load_cap) projecting well to heuristic semantics and is supported by a heuristic warm start. Since tuned solving is available and beneficial for performance, the combination heuristic+tuned is chosen for fastest safe reoptimization solve.\"\n}",
+  "strategy": "tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

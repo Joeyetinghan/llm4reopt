@@ -1,0 +1,32 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,18 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Identify large exams with >300 students
++    block_enrollment = data.get("block_enrollment", {})
++    large_exam_blocks = [int(b) for b, n in block_enrollment.items() if n > 300]
++
++    # Merge with any existing large_blocks
++    existing_large_blocks = [int(block) for block in data.get("large_blocks", [])]
++    merged_large_blocks = sorted(set(existing_large_blocks + large_exam_blocks))
++
++    # Set early_slots cutoff to 19 for large exams
++    early_slots = list(range(1, 20))  # slots 1..19 inclusive
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -204,8 +216,8 @@
+         weights=dict(data["weights"]),
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=merged_large_blocks,
++        early_slots=early_slots,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

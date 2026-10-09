@@ -1,0 +1,61 @@
+--- solver.py
++++ solver.py
+@@ -137,6 +137,28 @@
+             name="frontload",
+         )
+ 
++    # Add constraint to limit total students on Day 2 to max 4000
++    # Day 2 slots are slots_per_day * 1 to slots_per_day * 2 - 1 (0-based indexing)
++    # But slots_per_day is deleted, so we use slots_per_day from weights or infer from triple_day_start
++    # Instead, we will infer day 2 slots from slots list and slots_per_day from runtime data in solve_exam_direct
++    # So here we add a placeholder for day2_slots to be passed in weights or as a parameter
++    # Instead, we will add a parameter day2_slots to the function signature to pass the slots for day 2
++    # But since we cannot change the signature, we will add a new parameter day2_slots in weights dict
++    # So we check weights for "day2_slots" key, else fallback to empty list
++    day2_slots = weights.get("day2_slots", [])
++    block_enrollment = weights.get("block_enrollment", {})
++
++    if day2_slots and block_enrollment:
++        m.addConstr(
++            gp.quicksum(
++                block_enrollment.get(i, 0) * gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks)
++                for i in blocks
++                for s in day2_slots
++            )
++            <= 4000,
++            name="day2_student_limit",
++        )
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,14 +216,27 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Compute day 2 slots from slots_per_day and slots list
++    slots_per_day = int(data["slots_per_day"])
++    slots = list(data["blocks"])
++    day2_start = slots_per_day  # 0-based index for day 2 start slot
++    day2_end = slots_per_day * 2  # exclusive end index for day 2 slots
++    day2_slots = slots[day2_start:day2_end]
++
++    # Add day2_slots and block_enrollment to weights for build_exam_gurobi_model
++    weights = dict(data["weights"])
++    weights["day2_slots"] = day2_slots
++    weights["block_enrollment"] = data.get("block_enrollment", {})
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
++        weights=weights,
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],

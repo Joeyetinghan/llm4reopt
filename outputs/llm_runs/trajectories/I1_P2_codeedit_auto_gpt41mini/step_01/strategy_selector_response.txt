@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": ["tuned_config"],
+  "rationale": "The edit is a non-structural, local update to pairwise co-enrollment counts but the heuristic warm start is unavailable due to inability to ground specific updates. Since the runtime supports tuned solving and no warm start baseline is effectively reusable, the tuned solving strategy is preferred for the fastest safe reoptimization solve.",
+  "confidence": 0.9
+}

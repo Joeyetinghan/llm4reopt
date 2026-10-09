@@ -1,0 +1,46 @@
+{
+  "execution_label": "direct+heuristic+tuned",
+  "fallback_reason": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq', 'delta_text': 'Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.', 'planner_mode': 'patchedit'}}\"",
+  "fallback_used": true,
+  "metadata": {
+    "fallback_policy_name": "rule",
+    "has_base_warm_start": false,
+    "has_prior_result": false,
+    "heuristic_prompt_ids": [],
+    "heuristic_warm_start_available": true,
+    "heuristic_warm_start_reason": "",
+    "patch_count": 1,
+    "planner_edit_summary": "Reserve the penultimate evening slot (slot 21) by fixing virtual block 18 there to keep it empty for setup.",
+    "planner_hints": {
+      "edit_scope": "structural",
+      "expected_reuse": "high",
+      "planner_failed_semantically": false,
+      "planner_output_executable": true,
+      "planner_parse_ok": true
+    },
+    "planner_mode": "patchedit",
+    "planner_relevant_components": [
+      "reserved_virtual_slot",
+      "virtual_blocks",
+      "slots_per_day",
+      "slot_times"
+    ],
+    "selector_error": "Unsupported toolbox item \"{'tool': 'heuristic_warm_start', 'args': {'problem_id': 'exam_block_seq', 'delta_text': 'Reserve the evening slot immediately before the final evening slot so the staff can begin arranging the auditorium for graduation events.', 'planner_mode': 'patchedit'}}\"",
+    "selector_model": "gpt-5",
+    "structural_edit": true,
+    "supports_tuned_solver": true,
+    "supports_warm_start": true,
+    "toolbox_placeholders": [],
+    "toolbox_trace_only": false
+  },
+  "policy_name": "llm",
+  "prompt": [],
+  "rationale": "Deterministic exam execution-label selection.",
+  "raw_response": "",
+  "strategy": "warm+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ]
+}

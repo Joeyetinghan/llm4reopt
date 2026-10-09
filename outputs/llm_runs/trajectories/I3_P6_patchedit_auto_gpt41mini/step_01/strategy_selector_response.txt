@@ -1,0 +1,10 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local with high expected reuse and no prior result but warm start is available via heuristics and tuning is supported; combining direct warm start, heuristic warm start, and tuned solving balances speed and quality for the patch sequence.",
+  "confidence": 0.95
+}

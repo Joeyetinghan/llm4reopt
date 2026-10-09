@@ -1,0 +1,656 @@
+{
+  "base_objective": 2577.0,
+  "chosen_patch_op": "UPDATE_PARAMETER",
+  "cost_delta": 21037146.0,
+  "error": "",
+  "execution_label": "scratch",
+  "failure_detail": null,
+  "failure_label": null,
+  "failure_stage": null,
+  "feasible": true,
+  "ground_truth": null,
+  "input": {
+    "case_id": "P2",
+    "config": {
+      "instance_dir": "benchmark/raw_instances/blockseq_n539_blocks16_slots24_seed42",
+      "log_dir": "outputs/solves/base",
+      "model_failure_retry_budget": 3,
+      "prompt_id": "P1",
+      "real_blocks": null,
+      "slot_times": [
+        "9am",
+        "2pm",
+        "7pm"
+      ],
+      "slots_per_day": 3,
+      "solution_dir": "outputs/solves/base",
+      "threads": 6,
+      "time_limit": 3600,
+      "tuned_param_dir": "outputs/solves/tune/params",
+      "weights": {}
+    },
+    "config_path": "problems/exam_block_seq/configs/default.yaml",
+    "delta_text": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.",
+    "examples_path": null,
+    "model": "gpt-5",
+    "planner_mode": "patchedit",
+    "problem": "exam_block_seq",
+    "problem_root": null,
+    "prompt_id": "P2",
+    "strategy": "scratch",
+    "strategy_policy": "rule",
+    "strategy_selector_model": null,
+    "trace_root": "outputs/llm_runs/trajectories/I5_P2_patchedit_scratch_gpt5"
+  },
+  "instance_id": "I5",
+  "llm_trace": [],
+  "metadata": {
+    "campaign_id": "paper_full_gpt_3600s",
+    "campaign_stage": "full",
+    "instance_id": "I5",
+    "job_name": "I5_patchedit_auto_gpt5_prompts_P2",
+    "prompt_batch_count": 6,
+    "prompt_batch_index": 2,
+    "prompt_id": "P2",
+    "prompt_source": "catalog",
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+    "replay_source_run_id": "I5_P2_patchedit_auto_gpt5",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/step_01",
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+    "replayed_from_run_id": "I5_P2_patchedit_auto_gpt5",
+    "run_mode": "patchedit-scratch-replay"
+  },
+  "mip_gap": 0.9999031831360137,
+  "model": "gpt-5",
+  "obj_bound": 2037.0,
+  "objective": 21039723.0,
+  "planner_mode": "patchedit",
+  "problem": "exam_block_seq",
+  "problem_name": "Exam Block Sequencing",
+  "prompt_id": "P2",
+  "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+  "replay_source_run_id": "I5_P2_patchedit_auto_gpt5",
+  "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/step_01",
+  "result": {
+    "base_evaluation": {
+      "checks": {
+        "has_solution": true
+      },
+      "details": {
+        "log_path": "outputs/solves/base/blockseq_n539_blocks16_slots24_seed42.log",
+        "mip_gap": 0.205277,
+        "obj_bound": 2048.0,
+        "phase": "base",
+        "runtime": 86400.27,
+        "solution_count": 6,
+        "solution_path": "outputs/solves/base/blockseq_n539_blocks16_slots24_seed42.sol",
+        "source": "saved_base_artifacts",
+        "status": 9
+      },
+      "feasible": true,
+      "ground_truth_case_id": null,
+      "ground_truth_checks": {},
+      "ground_truth_details": {},
+      "matches_ground_truth": null,
+      "objective": 2577.0,
+      "runtime": 86400.27,
+      "status": 9
+    },
+    "base_objective": 2577.0,
+    "base_solution": {
+      "1": 17,
+      "10": 22,
+      "11": 14,
+      "12": 11,
+      "13": 1,
+      "14": 24,
+      "15": 6,
+      "16": 4,
+      "17": 10,
+      "18": 16,
+      "19": 20,
+      "2": 2,
+      "20": 3,
+      "21": 23,
+      "22": 7,
+      "23": 5,
+      "24": 13,
+      "3": 21,
+      "4": 12,
+      "5": 19,
+      "6": 8,
+      "7": 15,
+      "8": 9,
+      "9": 18
+    },
+    "base_solve_meta": {
+      "log_path": "outputs/solves/base/blockseq_n539_blocks16_slots24_seed42.log",
+      "mip_gap": 0.205277,
+      "obj_bound": 2048.0,
+      "runtime": 86400.27,
+      "solution_count": 6,
+      "solution_path": "outputs/solves/base/blockseq_n539_blocks16_slots24_seed42.sol",
+      "source": "saved_base_artifacts",
+      "status": 9
+    },
+    "mode": "single",
+    "problem": {
+      "description": "Exam scheduling block sequencing problem packaged behind the generic interface.",
+      "name": "Exam Block Sequencing",
+      "package_root": "problems/exam_block_seq",
+      "problem_id": "exam_block_seq"
+    },
+    "steps": [
+      {
+        "action_kind": "patch",
+        "artifacts": {
+          "trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_scratch_gpt5/step_01"
+        },
+        "candidate_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                4,
+                9
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                4,
+                9
+              ],
+              "name": "p",
+              "value": 365.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                9,
+                4
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                9,
+                4
+              ],
+              "name": "p",
+              "value": 365.0
+            }
+          }
+        ],
+        "change_report": "Applied UPDATE_PARAMETER, UPDATE_PARAMETER; objective 2577.0000 -> 21039723.0000",
+        "chosen_patches": [
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                4,
+                9
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                4,
+                9
+              ],
+              "name": "p",
+              "value": 365.0
+            }
+          },
+          {
+            "notes": "",
+            "op": "UPDATE_PARAMETER",
+            "scope": {
+              "entity": [
+                9,
+                4
+              ]
+            },
+            "target": {
+              "name": "pair_counts"
+            },
+            "update": {
+              "key": [
+                9,
+                4
+              ],
+              "name": "p",
+              "value": 365.0
+            }
+          }
+        ],
+        "delta_request": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes.",
+        "evaluation": {
+          "checks": {
+            "has_solution": true
+          },
+          "details": {
+            "mip_gap": 0.9999031831360137,
+            "obj_bound": 2037.0,
+            "objective": 21039723.0,
+            "objective_nonzero_coeffs": 271709,
+            "problem_id": "exam_block_seq",
+            "runtime": 3600.1082649230957,
+            "sol_count": 1,
+            "status": 9,
+            "strategy": "scratch",
+            "warm_start_applied": false,
+            "warm_start_mode": "none",
+            "warm_start_source": "none"
+          },
+          "feasible": true,
+          "ground_truth_case_id": null,
+          "ground_truth_checks": {},
+          "ground_truth_details": {},
+          "matches_ground_truth": null,
+          "objective": 21039723.0,
+          "runtime": 3600.1082649230957,
+          "status": 9
+        },
+        "event": {
+          "affected_sets": {
+            "blocks": [
+              4,
+              9
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "blocks": [
+                4,
+                9
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Late add/drop increase for co-enrollment between Blocks 4 and 9.",
+                    "op": "UPDATE_PARAMETER",
+                    "scope": "parameter",
+                    "target": {
+                      "name": "pair_counts"
+                    },
+                    "update": {
+                      "delta": 120,
+                      "key": [
+                        4,
+                        9
+                      ],
+                      "name": "pair_counts"
+                    }
+                  },
+                  {
+                    "notes": "Symmetric update for unordered pair co-enrollment.",
+                    "op": "UPDATE_PARAMETER",
+                    "scope": "parameter",
+                    "target": {
+                      "name": "pair_counts"
+                    },
+                    "update": {
+                      "delta": 120,
+                      "key": [
+                        9,
+                        4
+                      ],
+                      "name": "pair_counts"
+                    }
+                  }
+                ]
+              }
+            ],
+            "delta_metadata": {
+              "campaign_id": "paper_full_gpt_3600s",
+              "campaign_stage": "full",
+              "instance_id": "I5",
+              "job_name": "I5_patchedit_auto_gpt5_prompts_P2",
+              "prompt_batch_count": 6,
+              "prompt_batch_index": 2,
+              "prompt_id": "P2",
+              "prompt_source": "catalog",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/step_01",
+              "replayed_from_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+              "replayed_from_run_id": "I5_P2_patchedit_auto_gpt5",
+              "run_mode": "patchedit-scratch-replay"
+            },
+            "edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planner_raw_response": "{\n  \"edit_summary\": \"Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).\",\n  \"affected_sets\": {\n    \"blocks\": [4, 9]\n  },\n  \"relevant_components\": [\n    \"pair_counts\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"parameter\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [4, 9],\n            \"delta\": 120\n          },\n          \"notes\": \"Late add/drop increase for co-enrollment between Blocks 4 and 9.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"parameter\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [9, 4],\n            \"delta\": 120\n          },\n          \"notes\": \"Symmetric update for unordered pair co-enrollment.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "pair_counts"
+            ]
+          },
+          "edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).",
+          "event_type": "unknown",
+          "intention": "update",
+          "raw_text": "Increase the pairwise co-enrollment count between Block 4 and Block 9 by 120 students due to late add/drop changes."
+        },
+        "model_summary": {
+          "artifacts": [
+            "lp_path"
+          ],
+          "extras": [
+            "base_parameters"
+          ],
+          "n_constraints": 8,
+          "n_objectives": 5,
+          "n_variables": 12,
+          "parameter_info": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ],
+          "parameters": [
+            "instance_id",
+            "lp_path",
+            "blocks",
+            "real_blocks",
+            "virtual_blocks",
+            "large_blocks",
+            "early_slots",
+            "slots_per_day",
+            "slot_times",
+            "triple_24_start",
+            "triple_day_start",
+            "eve_morn_start",
+            "other_b2b_start",
+            "alpha",
+            "beta",
+            "gamma1",
+            "gamma2",
+            "delta",
+            "vega",
+            "theta",
+            "lambda_large1",
+            "lambda_large2",
+            "lambda_big",
+            "frontload_block_size_cutoff",
+            "frontload_slot_cutoff",
+            "reserved_slots",
+            "block_enrollment",
+            "block_num_exams",
+            "pair_counts",
+            "triplet_counts",
+            "p",
+            "t"
+          ]
+        },
+        "objective": 21039723.0,
+        "planner_output": {
+          "action_kind": "patch",
+          "affected_sets": {
+            "blocks": [
+              4,
+              9
+            ]
+          },
+          "annotations": {
+            "affected_sets": {
+              "blocks": [
+                4,
+                9
+              ]
+            },
+            "candidate_action_sets": [
+              {
+                "actions": [
+                  {
+                    "notes": "Late add/drop increase for co-enrollment between Blocks 4 and 9.",
+                    "op": "UPDATE_PARAMETER",
+                    "scope": "parameter",
+                    "target": {
+                      "name": "pair_counts"
+                    },
+                    "update": {
+                      "delta": 120,
+                      "key": [
+                        4,
+                        9
+                      ],
+                      "name": "pair_counts"
+                    }
+                  },
+                  {
+                    "notes": "Symmetric update for unordered pair co-enrollment.",
+                    "op": "UPDATE_PARAMETER",
+                    "scope": "parameter",
+                    "target": {
+                      "name": "pair_counts"
+                    },
+                    "update": {
+                      "delta": 120,
+                      "key": [
+                        9,
+                        4
+                      ],
+                      "name": "pair_counts"
+                    }
+                  }
+                ]
+              }
+            ],
+            "edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).",
+            "model_attempt_count": 1,
+            "model_retry_count": 0,
+            "planning_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high"
+            },
+            "relevant_components": [
+              "pair_counts"
+            ],
+            "replayed_from_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+            "replayed_from_run_id": "I5_P2_patchedit_auto_gpt5"
+          },
+          "candidate_action_sets": [
+            {
+              "action_kind": "patch",
+              "actions": [
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {
+                    "entity": [
+                      4,
+                      9
+                    ]
+                  },
+                  "target": {
+                    "name": "pair_counts"
+                  },
+                  "update": {
+                    "key": [
+                      4,
+                      9
+                    ],
+                    "name": "p",
+                    "value": 365.0
+                  }
+                },
+                {
+                  "notes": "",
+                  "op": "UPDATE_PARAMETER",
+                  "scope": {
+                    "entity": [
+                      9,
+                      4
+                    ]
+                  },
+                  "target": {
+                    "name": "pair_counts"
+                  },
+                  "update": {
+                    "key": [
+                      9,
+                      4
+                    ],
+                    "name": "p",
+                    "value": 365.0
+                  }
+                }
+              ],
+              "label": "",
+              "metadata": {}
+            }
+          ],
+          "candidate_actions": [],
+          "edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).",
+          "planning_hints": {
+            "edit_scope": "local",
+            "expected_reuse": "high",
+            "model_attempt_count": 0,
+            "model_retry_count": 0,
+            "planner_failed_semantically": false,
+            "planner_output_executable": true,
+            "planner_parse_ok": true,
+            "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+            "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/step_01"
+          },
+          "raw_response": "{\n  \"edit_summary\": \"Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).\",\n  \"affected_sets\": {\n    \"blocks\": [4, 9]\n  },\n  \"relevant_components\": [\n    \"pair_counts\"\n  ],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"parameter\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [4, 9],\n            \"delta\": 120\n          },\n          \"notes\": \"Late add/drop increase for co-enrollment between Blocks 4 and 9.\"\n        },\n        {\n          \"op\": \"UPDATE_PARAMETER\",\n          \"target\": {\n            \"name\": \"pair_counts\"\n          },\n          \"scope\": \"parameter\",\n          \"update\": {\n            \"name\": \"pair_counts\",\n            \"key\": [9, 4],\n            \"delta\": 120\n          },\n          \"notes\": \"Symmetric update for unordered pair co-enrollment.\"\n        }\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}",
+          "relevant_components": [
+            "pair_counts"
+          ]
+        },
+        "relevant_components": [
+          "pair_counts"
+        ],
+        "solution": {
+          "1": 10,
+          "10": 22,
+          "11": 16,
+          "12": 4,
+          "13": 18,
+          "14": 13,
+          "15": 14,
+          "16": 11,
+          "17": 3,
+          "18": 24,
+          "19": 5,
+          "2": 21,
+          "20": 6,
+          "21": 8,
+          "22": 2,
+          "23": 9,
+          "24": 23,
+          "3": 12,
+          "4": 20,
+          "5": 7,
+          "6": 15,
+          "7": 17,
+          "8": 1,
+          "9": 19
+        },
+        "solve_meta": {
+          "mip_gap": 0.9999031831360137,
+          "obj_bound": 2037.0,
+          "objective": 21039723.0,
+          "objective_nonzero_coeffs": 271709,
+          "runtime": 3600.1082649230957,
+          "sol_count": 1,
+          "status": 9,
+          "warm_start_applied": false,
+          "warm_start_mode": "none",
+          "warm_start_source": "none"
+        },
+        "strategy": "scratch",
+        "strategy_selection": {
+          "execution_label": "scratch",
+          "fallback_reason": "",
+          "fallback_used": false,
+          "metadata": {
+            "has_base_warm_start": false,
+            "has_prior_result": false,
+            "heuristic_prompt_ids": [],
+            "heuristic_warm_start_available": true,
+            "heuristic_warm_start_reason": "",
+            "patch_count": 2,
+            "planner_edit_summary": "Increase pairwise co-enrollment between Blocks 4 and 9 by 120 students (apply to both ordered pair keys).",
+            "planner_hints": {
+              "edit_scope": "local",
+              "expected_reuse": "high",
+              "model_attempt_count": 0,
+              "model_retry_count": 0,
+              "planner_failed_semantically": false,
+              "planner_output_executable": true,
+              "planner_parse_ok": true,
+              "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/run.json",
+              "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_auto_gpt5/step_01"
+            },
+            "planner_mode": "patchedit",
+            "planner_relevant_components": [
+              "pair_counts"
+            ],
+            "structural_edit": false,
+            "supports_tuned_solver": true,
+            "supports_warm_start": true,
+            "toolbox_placeholders": [],
+            "toolbox_trace_only": false
+          },
+          "policy_name": "manual",
+          "prompt": [],
+          "rationale": "User-requested exam execution-label override.",
+          "raw_response": "",
+          "strategy": "scratch",
+          "toolbox_plan": []
+        }
+      }
+    ]
+  },
+  "run_id": "I5_P2_patchedit_scratch_gpt5",
+  "runtime": 3600.1082649230957,
+  "selection_fallback_used": false,
+  "status": "ok",
+  "strategy": "scratch",
+  "strategy_policy": "manual",
+  "trace_dir": "outputs/llm_runs/trajectories/I5_P2_patchedit_scratch_gpt5/step_01"
+}

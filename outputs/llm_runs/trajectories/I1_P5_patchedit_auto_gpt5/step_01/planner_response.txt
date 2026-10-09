@@ -1,0 +1,51 @@
+{
+  "edit_summary": "Add a day-level student load cap of 4,000 for Day 2 by capping total enrollment across slots 4–6.",
+  "affected_sets": {
+    "day": 2,
+    "slots": [4, 5, 6]
+  },
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x",
+    "slots_per_day"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {
+            "constraint": "slot_load_cap"
+          },
+          "scope": "global",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": [
+                "day_2"
+              ],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slot_ids": [
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Limit total students scheduled on Day 2 (slots 4, 5, 6) to at most 4,000 using enrollment-weighted slot load cap."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}

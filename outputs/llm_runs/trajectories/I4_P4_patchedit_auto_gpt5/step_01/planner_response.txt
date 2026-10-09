@@ -1,0 +1,29 @@
+{
+  "edit_summary": "Set the triple-in-24hr penalty weight (beta) to be 20× the regular back-to-back (gamma2) baseline; with gamma2 currently 1.0, set beta from 10.0 to 20.0.",
+  "affected_sets": {},
+  "relevant_components": [
+    "beta",
+    "gamma2"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "beta"
+          },
+          "scope": "global",
+          "update": {
+            "weight": 20.0
+          },
+          "notes": "Aligns triple-in-24hr penalty with 20× the regular back-to-back (gamma2) weight; current gamma2=1.0."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

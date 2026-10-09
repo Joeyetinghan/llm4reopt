@@ -1,0 +1,32 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "Set triple-in-24hr penalty weight to 20 times the regular back-to-back penalty (gamma1/gamma2 are both currently 1).",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "beta"
+        },
+        "update": {
+          "name": "beta",
+          "value": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

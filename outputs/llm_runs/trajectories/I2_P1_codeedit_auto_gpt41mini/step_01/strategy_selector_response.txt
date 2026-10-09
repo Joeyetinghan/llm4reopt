@@ -1,0 +1,5 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": ["heuristic_warm_start", "tuned_config"],
+  "rationale": "The edit is a non-structural local modification with an effective heuristic warm start available. Combining heuristic warm start with tuned solving leverages reuse-friendly warm initialization and solver tuning for the fastest reliable reoptimization."
+}

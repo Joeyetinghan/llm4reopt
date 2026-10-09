@@ -1,0 +1,66 @@
+{
+  "edit_summary": "Restrict large exams with enrollment > 300 to be scheduled only in slots before slot 19.",
+  "affected_sets": {
+    "large_blocks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+  },
+  "relevant_components": [
+    "frontload_block_size_cutoff",
+    "frontload_slot_cutoff",
+    "large_blocks",
+    "early_slots",
+    "block_enrollment"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_block_size_cutoff"
+          },
+          "update": {
+            "value": 300
+          },
+          "notes": "Set enrollment cutoff threshold for large exams requiring early scheduling."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "update": {
+            "value": 18
+          },
+          "notes": "Set slot cutoff index as the last early slot: slots 1 through 18 allowed for large exams."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+          },
+          "notes": "Define early slots explicitly as all with slot indices less than 19."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "large_blocks"
+          },
+          "update": {
+            "value": [
+              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
+            ]
+          },
+          "notes": "Ensure large_blocks parameter reflects all blocks with enrollment greater than 300."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

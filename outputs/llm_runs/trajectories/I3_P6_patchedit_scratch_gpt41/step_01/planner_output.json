@@ -1,0 +1,205 @@
+{
+  "action_kind": "patch",
+  "affected_sets": {},
+  "annotations": {
+    "affected_sets": {},
+    "candidate_action_sets": [
+      {
+        "actions": [
+          {
+            "notes": "P4: Set 'vega' tuning weight to 1.0 (instance explicit, preserving exam formulation weight).",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "vega"
+            },
+            "update": {
+              "name": "vega",
+              "value": 1.0
+            }
+          },
+          {
+            "notes": "P2: Set 'theta' tuning weight to 2.0 (instance explicit, preserving exam formulation weight).",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "theta"
+            },
+            "update": {
+              "name": "theta",
+              "value": 2.0
+            }
+          },
+          {
+            "notes": "P1: Set 'lambda_big' large constant to 1000.0 for block sequencing penalties (instance explicit, model default).",
+            "op": "UPDATE_PARAMETER",
+            "target": {
+              "name": "lambda_big"
+            },
+            "update": {
+              "name": "lambda_big",
+              "value": 1000.0
+            }
+          }
+        ]
+      }
+    ],
+    "edit_summary": "Apply P4, then P2, then P1 in sequence (exact order as required).",
+    "model_attempt_count": 1,
+    "model_retry_count": 0,
+    "planning_hints": {
+      "edit_scope": "local",
+      "expected_reuse": "high"
+    },
+    "relevant_components": [],
+    "replayed_from_result_path": "outputs/llm_runs/trajectories/I3_P6_patchedit_auto_gpt41/run.json",
+    "replayed_from_run_id": "I3_P6_patchedit_auto_gpt41"
+  },
+  "candidate_action_sets": [
+    {
+      "action_kind": "patch",
+      "actions": [
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "gamma1"
+          },
+          "update": {
+            "weight": 1.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "scope": {},
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 20.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              4,
+              9
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              4,
+              9
+            ],
+            "name": "p",
+            "value": 386.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {
+            "entity": [
+              9,
+              4
+            ]
+          },
+          "target": {
+            "name": "pair_counts"
+          },
+          "update": {
+            "key": [
+              9,
+              4
+            ],
+            "name": "p",
+            "value": 386.0
+          }
+        },
+        {
+          "notes": "",
+          "op": "UPDATE_PARAMETER",
+          "scope": {},
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "name": "reserved_slots",
+            "value": [
+              21
+            ]
+          }
+        },
+        {
+          "notes": "",
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "scope": {},
+          "target": {
+            "constraint": "reserved_virtual_slot"
+          },
+          "update": {
+            "constraint": {
+              "aliases": [],
+              "desc": "Reserve selected slots by assigning them to deterministic virtual blocks.",
+              "index_set": [
+                21
+              ],
+              "lhs_spec": {
+                "kind": "exam_x_aggregate",
+                "rows": {
+                  "21": {
+                    "fixed_block": 18,
+                    "slots": [
+                      21
+                    ]
+                  }
+                }
+              },
+              "metadata": {
+                "rule_kind": "reserved_virtual_slot_family"
+              },
+              "name": "reserved_virtual_slot",
+              "rhs_spec": {
+                "21": 1.0
+              },
+              "sense": "=",
+              "tags": [
+                "availability",
+                "block_seq"
+              ]
+            }
+          }
+        }
+      ],
+      "label": "P6",
+      "metadata": {
+        "composed_prompt_ids": [
+          "P4",
+          "P2",
+          "P1"
+        ],
+        "deterministic_composition": true
+      }
+    }
+  ],
+  "candidate_actions": [],
+  "edit_summary": "Apply P4, then P2, then P1 in sequence (exact order as required).",
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high",
+    "model_attempt_count": 0,
+    "model_retry_count": 0,
+    "planner_failed_semantically": false,
+    "planner_output_executable": true,
+    "planner_parse_ok": true,
+    "replay_source_result_path": "outputs/llm_runs/trajectories/I3_P6_patchedit_auto_gpt41/run.json",
+    "replay_source_trace_dir": "outputs/llm_runs/trajectories/I3_P6_patchedit_auto_gpt41/step_01"
+  },
+  "raw_response": "```json\n{\n  \"edit_summary\": \"Apply P4, then P2, then P1 in sequence (exact order as required).\",\n  \"affected_sets\": {},\n  \"relevant_components\": [],\n  \"candidate_action_sets\": [\n    {\n      \"actions\": [\n        {\"op\": \"UPDATE_PARAMETER\", \"target\": {\"name\": \"vega\"}, \"update\": {\"name\": \"vega\", \"value\": 1.0}, \"notes\": \"P4: Set 'vega' tuning weight to 1.0 (instance explicit, preserving exam formulation weight).\"},\n        {\"op\": \"UPDATE_PARAMETER\", \"target\": {\"name\": \"theta\"}, \"update\": {\"name\": \"theta\", \"value\": 2.0}, \"notes\": \"P2: Set 'theta' tuning weight to 2.0 (instance explicit, preserving exam formulation weight).\"},\n        {\"op\": \"UPDATE_PARAMETER\", \"target\": {\"name\": \"lambda_big\"}, \"update\": {\"name\": \"lambda_big\", \"value\": 1000.0}, \"notes\": \"P1: Set 'lambda_big' large constant to 1000.0 for block sequencing penalties (instance explicit, model default).\"}\n      ]\n    }\n  ],\n  \"planning_hints\": {\n    \"edit_scope\": \"local\",\n    \"expected_reuse\": \"high\"\n  }\n}\n```",
+  "relevant_components": []
+}

@@ -1,0 +1,58 @@
+{
+  "edit_summary": "Redefine early slots to be all slots before the 15th slot to front-load large exams with over 300 students in these early slots",
+  "affected_sets": {
+    "large_blocks": "range 1..16 as from parameter",
+    "early_slots": "range 1..14 explicitly"
+  },
+  "relevant_components": [
+    "early_slots",
+    "frontload",
+    "large_blocks",
+    "block_enrollment",
+    "frontload_block_size_cutoff",
+    "frontload_slot_cutoff"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "name": "early_slots",
+            "value": [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+          },
+          "notes": "Set early_slots to all slots strictly less than 15 to ensure large exams are assigned before 15th slot"
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_slot_cutoff"
+          },
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 14
+          },
+          "notes": "Set the frontload slot cutoff to 14 so the frontload constraint enforces large blocks before 15th slot"
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "frontload_block_size_cutoff"
+          },
+          "update": {
+            "name": "frontload_block_size_cutoff",
+            "value": 300.0
+          },
+          "notes": "Ensure large_blocks correspond to blocks with enrollment over 300 students"
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

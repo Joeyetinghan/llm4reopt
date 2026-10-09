@@ -1,0 +1,51 @@
+{
+  "edit_summary": "Reserve the evening slot immediately before the final evening slot using reserved_virtual_slot constraint",
+  "affected_sets": {},
+  "relevant_components": [
+    "reserved_slots",
+    "reserved_virtual_slot",
+    "virtual_blocks"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "model",
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [1],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slot": 20,
+                "virtual_block": 24
+              },
+              "rhs_spec": {
+                "1": 1
+              },
+              "sense": "="
+            }
+          },
+          "notes": "Reserve slot 20, the evening slot immediately before the final slot 21, by fixing virtual block 24 (highest virtual block id) assignment"
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "reserved_slots"
+          },
+          "update": {
+            "value": [20],
+            "key": null
+          },
+          "notes": "Add slot 20 to reserved_slots parameter for deterministic virtual block assignment"
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

@@ -1,0 +1,70 @@
+cff-version: 1.2.0
+message: "If you use this code or benchmark, please cite the paper below."
+title: "ReOpt-LLM: LLM-Guided Re-Optimization with Model Patches"
+type: software
+version: 1.0.0
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/Joeyetinghan/llm4reopt"
+authors:
+  - given-names: Tinghan
+    family-names: Ye
+  - given-names: Arnaud
+    family-names: Deza
+  - given-names: Ved
+    family-names: Mohan
+  - given-names: El Mehdi
+    family-names: Er Raqabi
+  - given-names: Pascal
+    family-names: Van Hentenryck
+preferred-citation:
+  type: article
+  title: "Democratizing Large-Scale Re-Optimization with LLM-Guided Model Patches"
+  year: 2026
+  journal: "arXiv preprint arXiv:2605.18692"
+  url: "https://arxiv.org/abs/2605.18692"
+  identifiers:
+    - type: other
+      value: "arXiv:2605.18692"
+      description: arXiv identifier
+  authors:
+    - given-names: Tinghan
+      family-names: Ye
+    - given-names: Arnaud
+      family-names: Deza
+    - given-names: Ved
+      family-names: Mohan
+    - given-names: El Mehdi
+      family-names: Er Raqabi
+    - given-names: Pascal
+      family-names: Van Hentenryck
+references:
+  - type: article
+    title: "Cornell University Uses Integer Programming to Optimize Final Exam Scheduling"
+    journal: "INFORMS Journal on Applied Analytics"
+    volume: 56
+    issue: 2
+    start: 159
+    end: 177
+    year: 2026
+    publisher:
+      name: INFORMS
+    authors:
+      - given-names: Tinghan
+        family-names: Ye
+      - given-names: Adam S.
+        family-names: Jovine
+      - given-names: Willem
+        family-names: Van Osselaer
+      - given-names: Qihan
+        family-names: Zhu
+      - given-names: David B.
+        family-names: Shmoys
+  - type: software
+    title: "exam-scheduling-mip-generator"
+    url: "https://github.com/Joeyetinghan/exam-scheduling-mip-generator"
+    commit: "9a834d1920e9bba2ff58d8b0c632368c75e69db9"
+    authors:
+      - given-names: Tinghan
+        family-names: Ye

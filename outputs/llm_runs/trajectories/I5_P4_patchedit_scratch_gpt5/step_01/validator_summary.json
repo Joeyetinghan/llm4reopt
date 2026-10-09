@@ -1,0 +1,118 @@
+{
+  "chosen_patches": [
+    {
+      "notes": "Set triple-in-24hr penalty weight to 20x the regular back-to-back baseline (gamma2 currently 1.0).",
+      "op": "UPDATE_OBJECTIVE_WEIGHT",
+      "scope": {},
+      "target": {
+        "objective": "beta"
+      },
+      "update": {
+        "weight": 20.0
+      }
+    },
+    {
+      "notes": "",
+      "op": "UPDATE_PARAMETER",
+      "scope": {},
+      "target": {
+        "name": "beta"
+      },
+      "update": {
+        "name": "beta",
+        "value": 20.0
+      }
+    }
+  ],
+  "codeedit_attempt_count": null,
+  "codeedit_repair_count": null,
+  "execution_ok": true,
+  "model_attempt_count": 0,
+  "model_retry_count": 0,
+  "objective_after": 2642.0,
+  "objective_before": 2577.0,
+  "planner_failed_semantically": false,
+  "planner_output_executable": true,
+  "planner_parse_ok": true,
+  "solution": {
+    "1": 3,
+    "10": 22,
+    "11": 18,
+    "12": 13,
+    "13": 5,
+    "14": 24,
+    "15": 15,
+    "16": 11,
+    "17": 20,
+    "18": 14,
+    "19": 4,
+    "2": 6,
+    "20": 10,
+    "21": 12,
+    "22": 7,
+    "23": 23,
+    "24": 17,
+    "3": 21,
+    "4": 16,
+    "5": 1,
+    "6": 9,
+    "7": 19,
+    "8": 8,
+    "9": 2
+  },
+  "solve_meta": {
+    "mip_gap": 0.22899318697956025,
+    "obj_bound": 2037.0000000000018,
+    "objective": 2642.0,
+    "objective_nonzero_coeffs": 271709,
+    "runtime": 3600.083302974701,
+    "sol_count": 1,
+    "status": 9,
+    "warm_start_applied": false,
+    "warm_start_mode": "none",
+    "warm_start_source": "none"
+  },
+  "strategy": "scratch",
+  "strategy_selection": {
+    "execution_label": "scratch",
+    "fallback_reason": "",
+    "fallback_used": false,
+    "metadata": {
+      "has_base_warm_start": false,
+      "has_prior_result": false,
+      "heuristic_prompt_ids": [],
+      "heuristic_warm_start_available": true,
+      "heuristic_warm_start_reason": "",
+      "patch_count": 2,
+      "planner_edit_summary": "Increase the triple-in-24hr penalty so its weight is 20x a regular back-to-back; set beta weight to 20.0.",
+      "planner_hints": {
+        "edit_scope": "local",
+        "expected_reuse": "high",
+        "model_attempt_count": 0,
+        "model_retry_count": 0,
+        "planner_failed_semantically": false,
+        "planner_output_executable": true,
+        "planner_parse_ok": true,
+        "replay_source_result_path": "outputs/llm_runs/trajectories/I5_P4_patchedit_auto_gpt5/run.json",
+        "replay_source_trace_dir": "outputs/llm_runs/trajectories/I5_P4_patchedit_auto_gpt5/step_01"
+      },
+      "planner_mode": "patchedit",
+      "planner_relevant_components": [
+        "beta",
+        "gamma2",
+        "triple_in_24hr"
+      ],
+      "structural_edit": false,
+      "supports_tuned_solver": true,
+      "supports_warm_start": true,
+      "toolbox_placeholders": [],
+      "toolbox_trace_only": false
+    },
+    "policy_name": "manual",
+    "prompt": [],
+    "rationale": "User-requested exam execution-label override.",
+    "raw_response": "",
+    "strategy": "scratch",
+    "toolbox_plan": []
+  }
+}

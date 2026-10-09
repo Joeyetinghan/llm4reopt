@@ -1,0 +1,123 @@
+{
+  "edit_summary": "Apply (1) slot reservation to the penultimate evening slot for virtual block, (2) modify frontload/large exam settings, then (3) adjust penalty weights, in this exact order.",
+  "affected_sets": {
+    "slots": [20],
+    "virtual_blocks": [21],
+    "early_slots": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+    "large_blocks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "weights": ["alpha", "beta", "gamma1", "gamma2", "delta"]
+  },
+  "relevant_components": [
+    "reserved_virtual_slot",
+    "early_slots",
+    "large_blocks",
+    "frontload",
+    "alpha",
+    "beta",
+    "gamma1",
+    "gamma2",
+    "delta"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": [[21, 20]],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "virtual_block": 21,
+                "slot": 20
+              },
+              "rhs_spec": {
+                "[21, 20]": 1
+              },
+              "sense": "="
+            }
+          },
+          "notes": "Reserve penultimate evening slot (20) for virtual block 21."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+          },
+          "notes": "Update early_slots parameter for front-loading large blocks."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "large_blocks"
+          },
+          "update": {
+            "name": "large_blocks",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+          },
+          "notes": "Update large_blocks parameter for front-loading."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "alpha"
+          },
+          "update": {
+            "weight": 12.0
+          },
+          "notes": "Set triple-in-day penalty weight alpha to 12.0."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "beta"
+          },
+          "update": {
+            "weight": 9.0
+          },
+          "notes": "Set triple-in-24hr penalty weight beta to 9.0."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "gamma1"
+          },
+          "update": {
+            "weight": 1.5
+          },
+          "notes": "Set evening-to-morning back-to-back penalty weight gamma1 to 1.5."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "gamma2"
+          },
+          "update": {
+            "weight": 1.2
+          },
+          "notes": "Set other back-to-back penalty weight gamma2 to 1.2."
+        },
+        {
+          "op": "UPDATE_OBJECTIVE_WEIGHT",
+          "target": {
+            "objective": "delta"
+          },
+          "update": {
+            "weight": 6.0
+          },
+          "notes": "Set three-in-four penalty weight delta to 6.0."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}

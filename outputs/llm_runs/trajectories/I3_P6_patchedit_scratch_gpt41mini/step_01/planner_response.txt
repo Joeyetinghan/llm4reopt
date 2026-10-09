@@ -1,0 +1,62 @@
+{
+  "edit_summary": "Apply updates P4, P2, P1 in sequence per request",
+  "affected_sets": {},
+  "relevant_components": [
+    "parameter"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "p"
+          },
+          "update": {
+            "value": {
+              "(3,7)": 2.0,
+              "(7,3)": 2.0,
+              "(1,8)": 1.5,
+              "(8,1)": 1.5
+            },
+            "key": null
+          },
+          "notes": "Apply P4: Update pairwise penalty overrides with specific block pairs and values"
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "delta"
+          },
+          "update": {
+            "value": 7.0
+          },
+          "notes": "Apply P2: Increase weight of penalty 'delta' for three exams in four slots"
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "value": [1, 2, 3, 4, 5, 6, 7, 8],
+            "key": null
+          },
+          "notes": "Apply P1: Expand early_slots list to include slots 1 through 8 for front-loading"
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

@@ -1,0 +1,185 @@
+```json
+{
+  "edit_summary": "Apply updates P4, P2, then P1 in exact order as requested.",
+  "affected_sets": {},
+  "relevant_components": [
+    "block_enrollment",
+    "block_num_exams",
+    "pair_counts",
+    "triplet_counts",
+    "p",
+    "t",
+    "large_blocks",
+    "early_slots",
+    "reserved_slots",
+    "reserved_virtual_slot",
+    "frontload",
+    "alpha",
+    "beta",
+    "gamma1",
+    "gamma2",
+    "delta"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "p"},
+          "update": {
+            "name": "p",
+            "value": {
+              "(4,9)": 3,
+              "(9,4)": 3,
+              "(1,2)": 2,
+              "(2,1)": 2
+            }
+          },
+          "notes": "Apply pairwise penalty overrides from P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "t"},
+          "update": {
+            "name": "t",
+            "value": {
+              "(1,2,3)": 7,
+              "(3,4,5)": 5
+            }
+          },
+          "notes": "Apply triplet penalty overrides from P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "alpha"},
+          "update": {
+            "name": "alpha",
+            "value": 12.0
+          },
+          "notes": "Update alpha weight per P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "beta"},
+          "update": {
+            "name": "beta",
+            "value": 8.0
+          },
+          "notes": "Update beta weight per P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "gamma1"},
+          "update": {
+            "name": "gamma1",
+            "value": 1.5
+          },
+          "notes": "Update gamma1 weight per P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "gamma2"},
+          "update": {
+            "name": "gamma2",
+            "value": 1.5
+          },
+          "notes": "Update gamma2 weight per P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "delta"},
+          "update": {
+            "name": "delta",
+            "value": 4.0
+          },
+          "notes": "Update delta weight per P4."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "large_blocks"},
+          "update": {
+            "name": "large_blocks",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+          },
+          "notes": "Add block 19 to large_blocks per P2."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "early_slots"},
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+          },
+          "notes": "Ensure full early_slots after P2."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "reserved_slots"},
+          "update": {
+            "name": "reserved_slots",
+            "value": [22, 23]
+          },
+          "notes": "Reserve slots 22 and 23 as per P2."
+        },
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "update": {
+            "constraint": {
+              "name": "reserved_virtual_slot",
+              "index_set": ["22", "23"],
+              "lhs_spec": {
+                "kind": "reserved_virtual_slot",
+                "slots": [22, 23],
+                "virtual_blocks": [23, 24]
+              },
+              "rhs_spec": {22: 1, 23: 1},
+              "sense": "="
+            }
+          },
+          "notes": "Add reserved_virtual_slot constraints for slots 22 and 23."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "frontload_block_size_cutoff"},
+          "update": {
+            "name": "frontload_block_size_cutoff",
+            "value": 250
+          },
+          "notes": "Update frontload_block_size_cutoff per P1."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "frontload_slot_cutoff"},
+          "update": {
+            "name": "frontload_slot_cutoff",
+            "value": 18
+          },
+          "notes": "Set frontload_slot_cutoff to 18 per P1."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "large_blocks"},
+          "update": {
+            "name": "large_blocks",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+          },
+          "notes": "Restore large_blocks per P1 (removing block 19)."
+        },
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {"name": "early_slots"},
+          "update": {
+            "name": "early_slots",
+            "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+          },
+          "notes": "Restore early_slots to cutoff 18 per P1."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}
+```

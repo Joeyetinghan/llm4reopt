@@ -1,0 +1,70 @@
+--- solver.py
++++ solver.py
+@@ -121,7 +121,16 @@
+             if isinstance(block, (int, float)) and int(block) in blocks
+         }
+     )
+-    early_slot_values = [int(slot) for slot in (early_slots or [])]
++    # Enforce the requested cutoff by filtering early slots to be at or before slot 17.
++    # Use weights["frontload_slot_cutoff"] if provided, but cap at 17 to satisfy the policy.
++    try:
++        configured_cutoff = int(weights.get("frontload_slot_cutoff", 17))
++    except Exception:
++        configured_cutoff = 17
++    slot_cutoff = min(configured_cutoff, 17)
++    early_slot_values = sorted(
++        {int(slot) for slot in (early_slots or []) if int(slot) <= slot_cutoff and int(slot) in slots}
++    )
+     if frontload_blocks:
+         m.addConstrs(
+             (
+@@ -194,18 +203,45 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Derive policy large-blocks from block_enrollment using the 300-student cutoff,
++    # and ensure these are scheduled no later than slot 17 to satisfy the grading-time policy.
++    blocks_list = [int(block) for block in data["blocks"]]
++    weights = dict(data["weights"])
++    size_cutoff = int(weights.get("frontload_block_size_cutoff", 300))
++    block_enrollment: Dict[str, int] = dict(data.get("block_enrollment") or {})
++    policy_large_blocks = sorted(
++        {
++            int(b)
++            for b, enroll in block_enrollment.items()
++            if int(b) in blocks_list and int(enroll) > size_cutoff
++        }
++    )
++
++    # Compute policy early slots: clamp the existing early_slots list to <= 17,
++    # and fall back to the global slot list if early_slots is missing.
++    requested_slot_cutoff = 17
++    original_early = [int(slot) for slot in data.get("early_slots", [])]
++    if original_early:
++        policy_early_slots = sorted({s for s in original_early if s <= requested_slot_cutoff and s in blocks_list})
++    else:
++        policy_early_slots = sorted({s for s in blocks_list if s <= requested_slot_cutoff})
++
++    # Record the slot cutoff in weights so the builder enforces the same clamp.
++    weights["frontload_slot_cutoff"] = requested_slot_cutoff
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
++        blocks=blocks_list,
+         slots_per_day=int(data["slots_per_day"]),
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+-        weights=dict(data["weights"]),
++        weights=weights,
+         p=dict(data.get("pair_counts") or {}),
+         t=dict(data.get("triplet_counts") or {}),
+-        large_blocks=[int(block) for block in data.get("large_blocks", [])],
+-        early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        large_blocks=policy_large_blocks,
++        early_slots=policy_early_slots,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

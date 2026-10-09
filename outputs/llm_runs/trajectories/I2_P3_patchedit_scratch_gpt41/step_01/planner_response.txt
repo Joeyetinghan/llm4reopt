@@ -1,0 +1,34 @@
+{
+  "edit_summary": "Require all large exams with over 300 students to be completed by the 18th slot for TA grading time (frontload large blocks into slots 1-18).",
+  "affected_sets": {
+    "blocks": "large_blocks (as defined by block_enrollment > 300)",
+    "slots": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+  },
+  "relevant_components": [
+    "parameter:early_slots",
+    "constraint_family:frontload",
+    "parameter:large_blocks",
+    "parameter:block_enrollment"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "UPDATE_PARAMETER",
+          "target": {
+            "name": "early_slots"
+          },
+          "update": {
+            "name": "early_slots",
+            "value": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+          },
+          "notes": "Frontloading: restrict early_slots to 1-18 so all large exams must be scheduled before slot 19."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "local",
+    "expected_reuse": "high"
+  }
+}

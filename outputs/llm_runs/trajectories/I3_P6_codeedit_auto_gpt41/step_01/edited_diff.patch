@@ -1,0 +1,29 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,26 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # P4: Increase 'alpha' penalty by 5
++    if "weights" in data and "alpha" in data["weights"]:
++        data["weights"]["alpha"] = float(data["weights"]["alpha"]) + 5
++
++    # P2: Increase co-enrollment penalty for blocks 3 and 7 by 10 (symmetric)
++    for pair in [(3, 7), (7, 3)]:
++        if "pair_counts" in data:
++            data["pair_counts"][pair] = float(data["pair_counts"].get(pair, 0)) + 10
++
++    # P1: Frontload block 14 to early slots (add block 14 to large_blocks if not present)
++    if "large_blocks" in data:
++        if 14 not in data["large_blocks"]:
++            data["large_blocks"].append(14)
++    else:
++        data["large_blocks"] = [14]
++    # Ensure early_slots is present and non-empty (use existing or default to first 5 slots)
++    if "early_slots" not in data or not data["early_slots"]:
++        data["early_slots"] = [slot for slot in data["blocks"][:5]]
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),

@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": "Run tuned solver to handle the complex, nonprojectable edits without warm start as warm start is unavailable and edits appear model-effective requiring robust solving.",
+  "rationale": "The edits involve complex reserved-slot and pair-count related changes that could not be projected for warm reuse, and warm start is unavailable. The problem is not a structural edit but requires a robust solver to properly handle semantic complexities. Since tuned solving is supported and warm start is not feasible, the tuned strategy is the fastest safe reoptimization approach.",
+  "confidence": 0.95
+}

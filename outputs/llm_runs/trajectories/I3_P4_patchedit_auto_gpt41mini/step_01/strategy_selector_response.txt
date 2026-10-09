@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": ["direct_warm_start", "heuristic_warm_start", "tuned_config"],
+  "rationale": "The edit is a local parameter weight change with high expected reuse and available warm start and tuned solver support. Combining direct, heuristic, and tuned solving with warm starts maximizes speed and solution quality.",
+  "confidence": 0.95
+}

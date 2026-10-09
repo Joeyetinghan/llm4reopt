@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The change is a local constraint tweak (restrict large exams >300 to slots 1–16) with high expected reuse. A heuristic warm start can quickly produce a near-feasible schedule honoring updated early slot/frontload settings, and the tuned solver will converge fast to a high-quality solution. This follows the preference for warm+tuned on reuse-friendly edits. Including a direct stage would add overhead without clear benefit, and scratch would be slower.",
+  "confidence": 0.82
+}

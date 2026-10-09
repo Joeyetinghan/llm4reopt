@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "No reusable warm start or prior result is available (has_base_warm_start=false, has_prior_result=false, heuristic_warm_start_available=false), so a warm+reuse path is not viable. The edit is parametric (pairwise count change) and non-structural, but the planner could not ground the exact pair updates, making a recompute necessary. Given tuned solving is supported, a single tuned run avoids the redundant first pass inherent in direct+tuned and is expected to be faster than a plain direct run on this reoptimization while remaining safe and robust.",
+  "confidence": 0.66
+}

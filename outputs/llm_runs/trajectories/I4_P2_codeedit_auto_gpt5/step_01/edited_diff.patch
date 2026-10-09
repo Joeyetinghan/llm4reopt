@@ -1,0 +1,146 @@
+--- solver.py
++++ solver.py
+@@ -194,6 +194,14 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Normalize and adjust pairwise co-enrollment counts before building the model.
++    p_raw = data.get("pair_counts") or {}
++    p_pairs = _normalize_pair_counts(p_raw)
++    # Increase the co-enrollment between Block 4 and Block 9 by 120 symmetrically.
++    for a, b in ((4, 9), (9, 4)):
++        p_pairs[(a, b)] = float(p_pairs.get((a, b), 0.0)) + 120.0
++
+     grb = build_exam_gurobi_model(
+         blocks=[int(block) for block in data["blocks"]],
+         slots_per_day=int(data["slots_per_day"]),
+@@ -202,8 +210,8 @@
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+         other_b2b_start=[int(slot) for slot in data["other_b2b_start"]],
+         weights=dict(data["weights"]),
+-        p=dict(data.get("pair_counts") or {}),
+-        t=dict(data.get("triplet_counts") or {}),
++        p=p_pairs,
++        t=_normalize_triplet_counts(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+@@ -268,3 +276,117 @@
+         except Exception:
+             pass
+     return meta
++
++
++def _normalize_pair_counts(raw: Any) -> Dict[tuple[int, int], float]:
++    """
++    Normalize various possible representations of pair_counts into a dict with tuple keys.
++    Accepts:
++      - {(i, j): v, ...}
++      - {"(i, j)": v, ...}
++      - {"i,j": v, ...}
++      - {"preview": {...}} or other wrapper keys (ignored unless they contain pair-like keys)
++    """
++    pairs: Dict[tuple[int, int], float] = {}
++
++    def maybe_parse_and_set(k: Any, v: Any) -> None:
++        key_tuple = None
++        if isinstance(k, tuple) and len(k) == 2:
++            try:
++                key_tuple = (int(k[0]), int(k[1]))
++            except Exception:
++                key_tuple = None
++        elif isinstance(k, str):
++            s = k.strip()
++            if s.startswith("(") and s.endswith(")"):
++                s = s[1:-1].strip()
++            # Now expecting "i, j" or "i,j"
++            if "," in s:
++                parts = s.split(",")
++                if len(parts) == 2:
++                    try:
++                        i = int(parts[0].strip())
++                        j = int(parts[1].strip())
++                        key_tuple = (i, j)
++                    except Exception:
++                        key_tuple = None
++        if key_tuple is not None:
++            try:
++                val = float(v)
++            except Exception:
++                try:
++                    val = float(int(v))
++                except Exception:
++                    return
++            pairs[key_tuple] = val
++
++    if isinstance(raw, dict):
++        # First, try direct keys
++        for k, v in raw.items():
++            if isinstance(k, (tuple, str)):
++                maybe_parse_and_set(k, v)
++        # Check for nested dicts under known wrapper keys
++        for wrapper_key in ("pairs", "preview", "data"):
++            inner = raw.get(wrapper_key)
++            if isinstance(inner, dict):
++                for k, v in inner.items():
++                    maybe_parse_and_set(k, v)
++
++    return pairs
++
++
++def _normalize_triplet_counts(raw: Any) -> Dict[tuple[int, int, int], float]:
++    """
++    Normalize various possible representations of triplet_counts into a dict with tuple keys.
++    Accepts:
++      - {(i, j, k): v, ...}
++      - {"(i, j, k)": v, ...}
++      - {"i,j,k": v, ...}
++      - {"preview": {...}} or other wrapper keys (ignored unless they contain triplet-like keys)
++    """
++    trips: Dict[tuple[int, int, int], float] = {}
++
++    def maybe_parse_and_set(k: Any, v: Any) -> None:
++        key_tuple = None
++        if isinstance(k, tuple) and len(k) == 3:
++            try:
++                key_tuple = (int(k[0]), int(k[1]), int(k[2]))
++            except Exception:
++                key_tuple = None
++        elif isinstance(k, str):
++            s = k.strip()
++            if s.startswith("(") and s.endswith(")"):
++                s = s[1:-1].strip()
++            if s.count(",") == 2:
++                parts = s.split(",")
++                if len(parts) == 3:
++                    try:
++                        i = int(parts[0].strip())
++                        j = int(parts[1].strip())
++                        k3 = int(parts[2].strip())
++                        key_tuple = (i, j, k3)
++                    except Exception:
++                        key_tuple = None
++        if key_tuple is not None:
++            try:
++                val = float(v)
++            except Exception:
++                try:
++                    val = float(int(v))
++                except Exception:
++                    return
++            trips[key_tuple] = val
++
++    if isinstance(raw, dict):
++        # First, try direct keys
++        for k, v in raw.items():
++            if isinstance(k, (tuple, str)):
++                maybe_parse_and_set(k, v)
++        # Check for nested dicts under known wrapper keys
++        for wrapper_key in ("triplets", "preview", "data"):
++            inner = raw.get(wrapper_key)
++            if isinstance(inner, dict):
++                for k, v in inner.items():
++                    maybe_parse_and_set(k, v)
++
++    return trips

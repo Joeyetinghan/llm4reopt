@@ -1,0 +1,92 @@
+--- solver.py
++++ solver.py
+@@ -26,6 +26,8 @@
+     t: Dict[tuple[int, int, int], float] | None = None,
+     large_blocks: list[int] | None = None,
+     early_slots: list[int] | None = None,
++    virtual_blocks: list[int] | None = None,
++    reserved_slots: list[int] | None = None,
+     time_limit: float | None = None,
+ ) -> "gp.Model":
+     """Build the upstream block-sequencing model directly in gurobipy."""
+@@ -137,6 +139,22 @@
+             name="frontload",
+         )
+ 
++    # Reserve specified slots via the virtual-block mechanism:
++    # force the slot's first index to be a virtual block so no real exam is scheduled there.
++    reserved_values = [int(s) for s in (reserved_slots or [])]
++    virtual_values = sorted(
++        {int(b) for b in (virtual_blocks or []) if isinstance(b, (int, float)) and int(b) in blocks}
++    )
++    if reserved_values and virtual_values:
++        m.addConstrs(
++            (
++                gp.quicksum(x[i, j, k, s] for i in virtual_values for j in blocks for k in blocks) == 1
++                for s in reserved_values
++                if s in slots
++            ),
++            name="reserved_virtual_slot",
++        )
++
+     objective = (
+         gp.quicksum(
+             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]
+@@ -194,9 +212,46 @@
+ ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:
+     """Solve the direct solver model used by the codeedit pipeline."""
+     data = dict(runtime_data)
++
++    # Derive the evening slot immediately before the final evening slot and reserve it.
++    blocks_list = [int(block) for block in data["blocks"]]
++    slots_per_day = int(data["slots_per_day"])
++    slot_times = list(data.get("slot_times") or [])
++    reserved_slots = [int(s) for s in (data.get("reserved_slots") or [])]
++
++    # Resolve the evening index within a day from slot_times; default to the last slot of the day.
++    def _evening_index(times: list[Any], day_width: int) -> int:
++        try:
++            labels = [str(t).strip().lower() for t in times]
++        except Exception:
++            labels = []
++        # Prefer explicit evening labels or 7pm if present
++        for idx, lbl in enumerate(labels):
++            if "evening" in lbl or lbl in {"7pm", "7 pm", "19:00", "1900"}:
++                return idx
++        # Fallback: use the last slot of the day
++        return max(0, day_width - 1)
++
++    evening_idx = _evening_index(slot_times, slots_per_day)
++
++    # Enumerate all evening slots that exist in the calendar
++    total_slots = len(blocks_list)
++    evening_slots = []
++    num_days = (total_slots + slots_per_day - 1) // slots_per_day
++    for day in range(1, num_days + 1):
++        slot_id = (day - 1) * slots_per_day + (evening_idx + 1)
++        if 1 <= slot_id <= total_slots:
++            evening_slots.append(slot_id)
++
++    # Reserve the evening slot immediately before the final evening slot, if available.
++    if len(evening_slots) >= 2:
++        reserve_slot = evening_slots[-2]
++        if reserve_slot not in reserved_slots:
++            reserved_slots.append(reserve_slot)
++
+     grb = build_exam_gurobi_model(
+-        blocks=[int(block) for block in data["blocks"]],
+-        slots_per_day=int(data["slots_per_day"]),
++        blocks=blocks_list,
++        slots_per_day=slots_per_day,
+         triple_24_start=[int(slot) for slot in data["triple_24_start"]],
+         triple_day_start=[int(slot) for slot in data["triple_day_start"]],
+         eve_morn_start=[int(slot) for slot in data["eve_morn_start"]],
+@@ -206,6 +261,8 @@
+         t=dict(data.get("triplet_counts") or {}),
+         large_blocks=[int(block) for block in data.get("large_blocks", [])],
+         early_slots=[int(slot) for slot in data.get("early_slots", [])],
++        virtual_blocks=[int(b) for b in data.get("virtual_blocks", [])],
++        reserved_slots=reserved_slots,
+         time_limit=float(time_limit if time_limit is not None else data.get("time_limit", 600)),
+     )
+     apply_solver_params(grb, solver_params)

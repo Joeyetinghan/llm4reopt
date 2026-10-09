@@ -1,0 +1,10 @@
+{
+  "solve_strategy": "direct+heuristic+tuned",
+  "toolbox_plan": [
+    "direct_warm_start",
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is structural, and there is no prior solution or base warm start to reuse. However, heuristic warm start and a tuned solver are available. A staged direct+heuristic+tuned run is the fastest safe choice: attempt a quick direct warm-started solve, backfill with a heuristic warm start to secure a strong incumbent if needed, then finish with the tuned configuration for robust convergence. This aligns with preferences to pair warm starts with tuned solving for structural edits when reuse is not available but expected reuse is high.",
+  "confidence": 0.72
+}

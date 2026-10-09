@@ -1,0 +1,6 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": ["tuned_config"],
+  "rationale": "The edit modifies slot-load-cap-related constraints in an exam scheduling problem, recognized as model-effective but not projectable for warm-start reuse. Since this is not a structural edit and warm-start is not viable due to grounding issues, using a tuned solver configuration is preferable for fastest safe reoptimization.",
+  "confidence": 0.9
+}

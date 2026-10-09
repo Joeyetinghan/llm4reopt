@@ -1,0 +1,32 @@
+[
+  {
+    "action_kind": "patch",
+    "actions": [
+      {
+        "notes": "Interpret 'regular back-to-back' as gamma2 (other adjacent-slot pairs). Current gamma2 weight is 1.0, so beta set to 20*1.0 = 20.0.",
+        "op": "UPDATE_OBJECTIVE_WEIGHT",
+        "scope": {},
+        "target": {
+          "objective": "beta"
+        },
+        "update": {
+          "weight": 20.0
+        }
+      },
+      {
+        "notes": "",
+        "op": "UPDATE_PARAMETER",
+        "scope": {},
+        "target": {
+          "name": "beta"
+        },
+        "update": {
+          "name": "beta",
+          "value": 20.0
+        }
+      }
+    ],
+    "label": "",
+    "metadata": {}
+  }
+]

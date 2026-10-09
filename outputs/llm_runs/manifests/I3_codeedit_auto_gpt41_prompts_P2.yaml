@@ -1,0 +1,27 @@
+defaults:
+  problem: exam_block_seq
+  model: gpt-4.1
+  output_dir: ../../../runs/exam/paper_full_gpt_3600s/results/I3_codeedit_auto_gpt41_prompts_P2
+  trace_root: ../../../runs/exam/paper_full_gpt_3600s/traces/I3_codeedit_auto_gpt41_prompts_P2
+  planner_mode: codeedit
+  strategy: auto
+  strategy_policy: llm
+  config:
+    instance_dir: ../../../benchmark/raw_instances/blockseq_n553_blocks17_slots25_seed42
+    solution_dir: ../../../outputs/solves/base
+    log_dir: ../../../outputs/solves/base
+    tuned_param_dir: ../../../outputs/solves/tune/params
+    time_limit: 3600
+    threads: 6
+    model_failure_retry_budget: 3
+  metadata:
+    campaign_id: paper_full_gpt_3600s
+    campaign_stage: full
+    instance_id: I3
+    job_name: I3_codeedit_auto_gpt41_prompts_P2
+    run_mode: codeedit-auto
+    prompt_batch_index: 2
+    prompt_batch_count: 6
+runs:
+- run_id: I3_P2_codeedit_auto_gpt41
+  prompt_id: P2

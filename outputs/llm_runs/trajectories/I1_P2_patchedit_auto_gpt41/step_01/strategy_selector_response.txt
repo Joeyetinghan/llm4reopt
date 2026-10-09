@@ -1,0 +1,9 @@
+{
+  "solve_strategy": "heuristic+tuned",
+  "toolbox_plan": [
+    "heuristic_warm_start",
+    "tuned_config"
+  ],
+  "rationale": "The edit is local (pairwise count increase), expected reuse is high, and both heuristic warm start and tuned solver are supported and available. Selecting 'heuristic+tuned' enables reusing solutions efficiently with fast convergence. This is faster and safer than scratch or tuned alone, and preferable over heuristic reuse alone since tuned configuration accelerates convergence.",
+  "confidence": 0.98
+}

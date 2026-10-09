@@ -1,0 +1,8 @@
+{
+  "solve_strategy": "tuned",
+  "toolbox_plan": [
+    "tuned_config"
+  ],
+  "rationale": "The edit increases a pairwise co-enrollment count but is not structural, and heuristic warm start is unavailable. Tuned solving is supported and available, making it the fastest safe option, as it provides improved solver configuration for this effective edit. Warm reuse is not sufficiently grounded, so tuned_clean is preferred over warm.",
+  "confidence": 0.98
+}

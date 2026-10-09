@@ -1,0 +1,29 @@
+[
+  {
+    "action_kind": "codeedit",
+    "actions": [
+      {
+        "artifact_paths": {},
+        "changed_files": [
+          "solver.py"
+        ],
+        "editable_files": [
+          "solver.py"
+        ],
+        "planner_warnings": [],
+        "read_only_files": [
+          "runtime_snapshot.json"
+        ],
+        "source_problem_root": "problems/exam_block_seq",
+        "unified_diff": "--- solver.py\n+++ solver.py\n@@ -137,6 +137,25 @@\n             name=\"frontload\",\n         )\n \n+    # Add constraint to limit total students on Day 2 to max 4000\n+    # Day 2 slots are slots 4,5,6 (since slots_per_day=3, Day 1=slots 1-3, Day 2=4-6)\n+    day2_slots = [4, 5, 6]\n+    block_enrollment = {int(k): v for k, v in (weights.get(\"block_enrollment\", {}) or {}).items()}\n+    # If block_enrollment not in weights, fallback to empty dict\n+    if not block_enrollment:\n+        block_enrollment = {}\n+\n+    # Sum over all blocks and day2 slots of block enrollment * assignment <= 4000\n+    m.addConstr(\n+        gp.quicksum(\n+            block_enrollment.get(i, 0) * gp.quicksum(x[i, j, k, s] for j in blocks for k in blocks)\n+            for i in blocks\n+            for s in day2_slots\n+        )\n+        <= 4000,\n+        name=\"day2_student_limit\",\n+    )\n+\n     objective = (\n         gp.quicksum(\n             gamma1 * float(pair_penalties.get((i, j), 0.0)) * x[i, j, k, s]\n@@ -194,6 +213,12 @@\n ) -> Tuple[float, Dict[int, int], Dict[str, float | int]]:\n     \"\"\"Solve the direct solver model used by the codeedit pipeline.\"\"\"\n     data = dict(runtime_data)\n+\n+    # Inject block_enrollment into weights for build_exam_gurobi_model to use\n+    weights = dict(data[\"weights\"])\n+    if \"block_enrollment\" not in weights and \"block_enrollment\" in data:\n+        weights[\"block_enrollment\"] = data[\"block_enrollment\"]\n+\n     grb = build_exam_gurobi_model(\n         blocks=[int(block) for block in data[\"blocks\"]],\n         slots_per_day=int(data[\"slots_per_day\"]),\n@@ -201,7 +226,7 @@\n         triple_day_start=[int(slot) for slot in data[\"triple_day_start\"]],\n         eve_morn_start=[int(slot) for slot in data[\"eve_morn_start\"]],\n         other_b2b_start=[int(slot) for slot in data[\"other_b2b_start\"]],\n-        weights=dict(data[\"weights\"]),\n+        weights=weights,\n         p=dict(data.get(\"pair_counts\") or {}),\n         t=dict(data.get(\"triplet_counts\") or {}),\n         large_blocks=[int(block) for block in data.get(\"large_blocks\", [])],",
+        "workspace_problem_root": "outputs/llm_runs/trajectories/I2_P5_codeedit_auto_gpt41mini/step_01/attempt_01/codeedit_workspace/problems/exam_block_seq"
+      }
+    ],
+    "label": "aider_edit",
+    "metadata": {
+      "changed_files": [
+        "solver.py"
+      ]
+    }
+  }
+]

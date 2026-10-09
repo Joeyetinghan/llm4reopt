@@ -1,0 +1,51 @@
+```json
+{
+  "edit_summary": "Add slot_load_cap constraint to limit total enrollment on Day 2 slots to 4000",
+  "affected_sets": {
+    "slots_per_day": 3,
+    "block_enrollment": 24,
+    "blocks": 24
+  },
+  "relevant_components": [
+    "slot_load_cap",
+    "block_enrollment",
+    "x",
+    "blocks",
+    "slots_per_day"
+  ],
+  "candidate_action_sets": [
+    {
+      "actions": [
+        {
+          "op": "ADD_CONSTRAINT_FAMILY",
+          "target": {},
+          "scope": "model",
+          "update": {
+            "constraint": {
+              "name": "slot_load_cap",
+              "index_set": [
+                "day_2"
+              ],
+              "lhs_spec": {
+                "kind": "slot_load_cap",
+                "slots": [4,5,6],
+                "coefficients": "block_enrollment",
+                "x_index_pos": 3
+              },
+              "rhs_spec": {
+                "day_2": 4000
+              },
+              "sense": "<="
+            }
+          },
+          "notes": "Add enrollment cap constraint with a limit of 4000 students over Day 2 slots (slots 4,5,6) summing enrollments of blocks assigned to those slots."
+        }
+      ]
+    }
+  ],
+  "planning_hints": {
+    "edit_scope": "structural",
+    "expected_reuse": "high"
+  }
+}
+```
