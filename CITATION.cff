@@ -3,6 +3,7 @@ message: "If you use this code or benchmark, please cite the paper below."
 title: "ReOpt-LLM: LLM-Guided Re-Optimization with Model Patches"
 type: software
 version: 1.0.0
+date-released: "2026-10-09"
 license:
   - MIT
   - CC-BY-4.0
